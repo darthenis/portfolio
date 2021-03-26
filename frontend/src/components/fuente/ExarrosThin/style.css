@@ -1,0 +1,9 @@
+@font-face {
+    font-family: 'Exarros';
+    src: local('Exarros Thin'), local('Exarros-Thin'),
+        url('ExarrosThin.woff2') format('woff2'),
+        url('ExarrosThin.woff') format('woff'),
+        url('ExarrosThin.ttf') format('truetype');
+    font-weight: 100;
+    font-style: normal;
+  }

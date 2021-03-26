@@ -1,0 +1,9 @@
+@font-face {
+    font-family: 'Exec Corners';
+    src: local('Exec Corners Regular'), local('Exec-Corners-Regular'),
+        url('Exec-Corners-Regular.woff2') format('woff2'),
+        url('Exec-Corners-Regular.woff') format('woff'),
+        url('Exec-Corners-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+  }
