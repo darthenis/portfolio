@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import './trivia.css'
 import Formulario from './formulario'
 import Dificultad from './dificultad'
-import Preguntas from './preguntas'
+import Preguntaspage from './preguntas'
 
 
 const Trivia = (): JSX.Element => {
@@ -13,6 +13,7 @@ const Trivia = (): JSX.Element => {
             page1: true,
             page2: false,
             page3: false,
+            page4: false,
   })
 
   const [user, setUser] = useState({
@@ -32,7 +33,7 @@ const Trivia = (): JSX.Element => {
 
                         {page.page1 && <Formulario user={user} setUser={setUser} page={page} setPage={setPage}></Formulario>}
                         {page.page2 && <Dificultad user={user} setUser={setUser} page={page} setPage={setPage}></Dificultad>}
-                        {page.page3 && <Preguntas></Preguntas>}
+                        {page.page3 && <Preguntaspage page={page}></Preguntaspage>}
 
 
                 </div>
