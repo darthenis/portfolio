@@ -1,11 +1,13 @@
 
-import React, {useState, useMemo} from 'react'
+import React, {useState, useMemo, Dispatch, SetStateAction} from 'react'
 import countryList from 'react-select-country-list'
 import Select from 'react-select'
+import {Pages, User} from './preginterf'
 
 
 
-const Formulario = ({page, setPage, user, setUser}:any) =>{
+const Formulario = (props:{page: Pages, setPage : Dispatch<SetStateAction<Pages>>,
+                           user : User, setUser : Dispatch<SetStateAction<User>>}) =>{
 
 
   const expresiones = {
@@ -34,9 +36,9 @@ const Formulario = ({page, setPage, user, setUser}:any) =>{
 
   const handleInputChange = (event: { target: { name: string; value: string; }; }): void =>{
 
-    setUser({
+    props.setUser({
 
-      ...user,
+      ...props.user,
 
       [event.target.name] : event.target.value
     })
@@ -45,8 +47,8 @@ const Formulario = ({page, setPage, user, setUser}:any) =>{
 
   const handleSelectChange = (value:any) => {
 
-    setUser({
-      ...user,
+    props.setUser({
+      ...props.user,
       ['pais'] : value.label
     })
 
@@ -56,13 +58,13 @@ const Formulario = ({page, setPage, user, setUser}:any) =>{
 
   const validationnombre = () => {
 
-          setUserState({...userState, nombre : expresiones.nombre.test(user.nombre)})
+          setUserState({...userState, nombre : expresiones.nombre.test(props.user.nombre)})
 
         }
 
   const validationedad = () => {
 
-          setUserState({...userState, edad : expresiones.edad.test(user.edad)})
+          setUserState({...userState, edad : expresiones.edad.test(props.user.edad)})
   }
 
 
@@ -75,7 +77,7 @@ const Formulario = ({page, setPage, user, setUser}:any) =>{
 
         setUserState({...userState, datos : true})
 
-        setPage({...page,
+        props.setPage({...props.page,
                             page1 : false,
                             page2 : true
 
@@ -114,21 +116,21 @@ const Formulario = ({page, setPage, user, setUser}:any) =>{
 
                <form onSubmit={submitEvent}>
                   <label htmlFor='name'>Nombre</label>
-                  <input style={{border:borderStatus(userState.nombre, user.nombre)}}
+                  <input style={{border:borderStatus(userState.nombre, props.user.nombre)}}
                          className="in"
                          type="text"
                          placeholder='Escriba su nombre'
                          name='nombre'
-                         value={user.nombre}
+                         value={props.user.nombre}
                          onChange={handleInputChange}
                          onKeyUp={validationnombre}
                         />
 
-                        {(userState.datos===false && user.nombre=='') && <p>*Campo obligatorio</p>}
-                        {(!userState.nombre && user.nombre!=='') && <p>De entre 2 a 40 caracteres solo letras y espacios</p>}
+                        {(userState.datos===false && props.user.nombre=='') && <p>*Campo obligatorio</p>}
+                        {(!userState.nombre && props.user.nombre!=='') && <p>De entre 2 a 40 caracteres solo letras y espacios</p>}
 
                   <label htmlFor='age'>Edad</label>
-                  <input style={{border:borderStatus(userState.edad, user.edad)}}
+                  <input style={{border:borderStatus(userState.edad, props.user.edad)}}
                          className="in"
                          type="text"
                          placeholder='Escriba su edad'
@@ -136,8 +138,8 @@ const Formulario = ({page, setPage, user, setUser}:any) =>{
                          onChange={handleInputChange}
                          onKeyUp={validationedad}
                         />
-                          {(userState.datos===false && user.edad=='') && <p>*Campo obligatorio</p>}
-                          {(!userState.edad && user.edad!=='') && <p>2 digitos de 01 al 99</p>}
+                          {(userState.datos===false && props.user.edad=='') && <p>*Campo obligatorio</p>}
+                          {(!userState.edad && props.user.edad!=='') && <p>2 digitos de 01 al 99</p>}
 
                   <label htmlFor="country">Pais</label>
                   <Select id='select'
@@ -145,7 +147,7 @@ const Formulario = ({page, setPage, user, setUser}:any) =>{
                           onChange={handleSelectChange}
                           placeholder='Seleccione un pais'
                           name='pais'/>
-                          {(userState.datos===false && user.pais=='') && <p>*Campo obligatorio</p>}
+                          {(userState.datos===false && props.user.pais=='') && <p>*Campo obligatorio</p>}
 
 
                   <input id='btn' type="submit" value="Enviar"/>

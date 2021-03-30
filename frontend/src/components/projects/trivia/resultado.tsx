@@ -1,12 +1,12 @@
 import React from 'react'
 
 
-const Resultado = (numero : any) => {
+const Resultado = (props:{registro:number}) => {
 
           return(
             <div id='resultado'>
 
-                Respuestas acertadas: {numero}
+                Respuestas acertadas: {props.registro}
 
             </div>
           )

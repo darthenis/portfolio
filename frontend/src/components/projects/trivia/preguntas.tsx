@@ -1,21 +1,20 @@
-import React, {useState, useEffect, MouseEventHandler} from 'react'
+import React, {useState, Dispatch, SetStateAction} from 'react'
 import {questions} from './preginterf'
 import preguntasFacil from './list-preguntas-facil'
 import {ButtonNext, Opciones} from './preguntas-style'
 import './preguntas.css'
+import {Pages} from './preginterf'
+
 
 let validar=false;
 
-const Preguntas = ({setDone, registros, setRegistros}:any) => {
+const Preguntas = (props: {page: Pages, setPage : Dispatch<SetStateAction<Pages>>, registro : number, setRegistro : Dispatch<SetStateAction<number>>}) => {
 
   const [preguntas, setPreguntas] = useState<questions[]>(preguntasFacil)
 
+  const [numpregunta, setNumpreguntas] = useState(0)
 
-    const [numpregunta, setNumpreguntas] = useState(0)
-
-     //guardar las respuestas correctas/incorrectas
-
-    const [eleccion, setEleccion] = useState<number | null>(null)
+  const [eleccion, setEleccion] = useState<number | null>(null)
 
 
     const nextquestion = (num:number) => {
@@ -26,23 +25,23 @@ const Preguntas = ({setDone, registros, setRegistros}:any) => {
 
           setEleccion(num)
 
-          //eleccion===preguntas[numpregunta].correcta && setRegistro(registro + 1)
-
-          console.log(registros)
+          
         }
 
-        else {
+        else if (numpregunta < 9){
 
           setEleccion(null)
 
-            if(numpregunta===9){
-
-              setDone(true)
-
-            } else {setNumpreguntas(numpregunta + 1)}
-
+          setNumpreguntas(numpregunta + 1)
 
           }
+
+          eleccion===preguntas[numpregunta].correcta && props.setRegistro(props.registro + 1)
+
+          if (numpregunta===9 && !validar) props.setPage({...props.page,
+                                                              page3 : false,
+                                                              page4 : true   })
+         
 
 
     }

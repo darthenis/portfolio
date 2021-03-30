@@ -16,3 +16,22 @@ export interface questions {
 
 
 }
+
+export type Pages = {
+  page1: boolean,
+  page2: boolean,
+  page3: boolean,
+  page4: boolean,
+  page5: boolean,
+
+}
+
+
+export type User = {
+  nombre: string,
+  edad: string,
+  pais: string,
+  dificultad: string,
+  aciertos: number
+}
+

@@ -19,7 +19,6 @@
     "react-select-country-list": "^2.2.3",
     "socket.io-client": "^4.0.0",
     "styled-components": "^5.2.1",
-    "typescript": "^4.2.3",
     "web-vitals": "^1.1.1"
   },
   "scripts": {
@@ -54,6 +53,7 @@
     "@types/react-select": "^4.0.13",
     "@types/react-select-country-list": "^2.2.0",
     "@types/styled-components": "^5.1.9",
-    "eslint-plugin-react-hooks": "^4.2.0"
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "typescript": "^4.2.3"
   }
 }
