@@ -37,7 +37,7 @@ const Trivia = (): JSX.Element => {
                         {page.page1 && <Formulario user={user} setUser={setUser} page={page} setPage={setPage}></Formulario>}
                         {page.page2 && <Dificultad user={user} setUser={setUser} page={page} setPage={setPage}></Dificultad>}
                         {page.page3 && <Preguntas page={page} setPage={setPage} registro={registro} setRegistro={setRegistro}></Preguntas>}
-                        {page.page4 && <Resultado registro={registro}></Resultado>}
+                        {page.page4 && <Resultado registro={registro} page={page} setPage={setPage}></Resultado>}
 
 
                 </div>

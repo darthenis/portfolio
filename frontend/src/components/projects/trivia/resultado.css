@@ -1,0 +1,18 @@
+
+#resultado{
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: space-between;
+
+}
+
+#buttonTablas{
+    margin-top: 10%;
+}
+
+i{
+    margin: 5%;
+    font-size: 4em;
+}

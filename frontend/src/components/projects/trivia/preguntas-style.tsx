@@ -49,4 +49,17 @@ const ButtonNext = styled.div<effectNext>`
 
 `
 
-export {Opciones, ButtonNext}
+const ButtonTablas = styled.div`
+                      color: black;
+                      background-color: rgb(126, 252, 250);
+                      
+
+                      &:hover{
+                      box-shadow: 0px 0px 25px rgb(126, 250, 250);
+                          -webkit-box-shadow: 0px 0px 25px rgb(126, 250, 250);
+                          -moz-box-shadow: 0px 0px 25px rgb(126, 250, 250);
+                      }
+
+`
+
+export {Opciones, ButtonNext, ButtonTablas}
