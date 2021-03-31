@@ -1,14 +1,15 @@
 import React, {useState, Dispatch, SetStateAction} from 'react'
-import {questions} from './preginterf'
+import {questions} from './interfandtypes'
 import preguntasFacil from './list-preguntas-facil'
-import {ButtonNext, Opciones} from './preguntas-style'
+import {ButtonNext, Opciones} from './trivia-style'
 import './preguntas.css'
-import {Pages} from './preginterf'
+import {Pages} from './interfandtypes'
 
 
 let validar=false;
 
-const Preguntas = (props: {page: Pages, setPage : Dispatch<SetStateAction<Pages>>, registro : number, setRegistro : Dispatch<SetStateAction<number>>}) => {
+const Preguntas = (props: {page: Pages, setPage : Dispatch<SetStateAction<Pages>>, 
+                          registro : number, setRegistro : Dispatch<SetStateAction<number>>}) => {
 
   const [preguntas, setPreguntas] = useState<questions[]>(preguntasFacil)
 
@@ -52,71 +53,71 @@ const Preguntas = (props: {page: Pages, setPage : Dispatch<SetStateAction<Pages>
 
       else if (preguntas[index].correcta===opcion && validar)  return 'rgb(124, 252, 0)';
 
-
       else if (preguntas[index].correcta!==opcion && validar && opcion!==eleccion) return 'gray'
 
-      else return 'rgb(126, 250, 250'
+      else return 'rgb(126, 250, 250)'
 
     }
 
     return (
 
       <div id='block-page-preguntas'>
-      <div id='block-la-pregunta'>{numpregunta+1}) {preguntas && preguntas[numpregunta].pregunta}</div>
+            <div id='block-la-pregunta'>{numpregunta+1}) {preguntas && preguntas[numpregunta].pregunta}</div>
 
-      <div id='block-respuestas'>
+            <div id='block-respuestas'>
 
-          <div id='block-carita'>
-                  <div className='text'>
-                    {!validar && <span><i className="fas fa-grimace"></i><br/> Tienes que elegir una respuesta!</span>}
-                    {(eleccion===preguntas[numpregunta].correcta && validar) && <span><i className="fas fa-grin-alt"></i><br/> Correcto!</span> }
-                    {(eleccion!==preguntas[numpregunta].correcta && validar) && <span><i className="fas fa-grin-squint"></i><br/> Incorrecto!</span>}
-                  </div>
+                <div id='block-carita'>
+                        <div className='text'>
+                          {!validar && <span><i id='emoji-jump' className="fas fa-grin-tongue-squint"></i><br/> Tienes que elegir una respuesta!</span>}
+                          {(eleccion===preguntas[numpregunta].correcta && validar) && <span><i className="fas fa-grin-alt"></i><br/> Correcto!</span> }
+                          {(eleccion!==preguntas[numpregunta].correcta && validar) && <span><i id='emoji-girar' className="fas fa-grin-squint"></i><br/> Incorrecto!</span>}
+                        </div>
+                      </div>
+
+                <div id='block-opciones'>
+
+                    <Opciones
+                        isactive={validar}
+                        onClick={() => (!validar && nextquestion(1))}
+                        style={{backgroundColor:statuscolor(numpregunta, 1, )}}
+                        >
+                        A: {preguntas && preguntas[numpregunta].opcion1}
+                    </Opciones>
+
+                    <Opciones
+                        isactive={validar}
+                        onClick={() => (!validar && nextquestion(2))}
+                        style={{backgroundColor:statuscolor(numpregunta, 2)}}
+                        >
+                        B: {preguntas && preguntas[numpregunta].opcion2}
+                    </Opciones>
+
+                    <Opciones
+                        isactive={validar}
+                        onClick={() => (!validar && nextquestion(3))}
+                        style={{backgroundColor:statuscolor(numpregunta, 3)}}
+                        >
+                        C: {preguntas && preguntas[numpregunta].opcion3}
+                    </Opciones>
+
+                    <Opciones
+                        isactive={validar}
+                        onClick={() => (!validar && nextquestion(4))}
+                        style={{backgroundColor:statuscolor(numpregunta, 4)}}
+                        >
+                        D: {preguntas && preguntas[numpregunta].opcion4}
+                    </Opciones>
                 </div>
 
-          <div id='block-opciones'>
+                <div id='container-boton-next'>
 
-              <Opciones
-                   isactive={validar}
-                   onClick={() => (!validar && nextquestion(1))}
-                   style={{backgroundColor:statuscolor(numpregunta, 1, )}}
-                   >
-                   A: {preguntas && preguntas[numpregunta].opcion1}
-              </Opciones>
+                      <ButtonNext isactive={validar}
+                                  onClick={() => (validar && nextquestion(0)) }
+                                  >Siguiente</ButtonNext>
 
-              <Opciones
-                   isactive={validar}
-                   onClick={() => (!validar && nextquestion(2))}
-                   style={{backgroundColor:statuscolor(numpregunta, 2)}}
-                   >
-                   B: {preguntas && preguntas[numpregunta].opcion2}
-              </Opciones>
+                </div>
 
-              <Opciones
-                   isactive={validar}
-                   onClick={() => (!validar && nextquestion(3))}
-                   style={{backgroundColor:statuscolor(numpregunta, 3)}}
-                   >
-                   C: {preguntas && preguntas[numpregunta].opcion3}
-              </Opciones>
-
-              <Opciones
-                   isactive={validar}
-                   onClick={() => (!validar && nextquestion(4))}
-                   style={{backgroundColor:statuscolor(numpregunta, 4)}}
-                   >
-                   D: {preguntas && preguntas[numpregunta].opcion4}
-              </Opciones>
-          </div>
-
-          <div id='container-boton-next'>
-
-        <ButtonNext isactive={validar}
-                    onClick={() => (validar && nextquestion(0)) }>Siguiente</ButtonNext>
-
-          </div>
-
-      </div>
+            </div>
 
       </div>
 

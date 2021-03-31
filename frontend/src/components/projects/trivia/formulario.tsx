@@ -2,7 +2,7 @@
 import React, {useState, useMemo, Dispatch, SetStateAction} from 'react'
 import countryList from 'react-select-country-list'
 import Select from 'react-select'
-import {Pages, User} from './preginterf'
+import {Pages, User} from './interfandtypes'
 
 
 
@@ -103,7 +103,7 @@ const Formulario = (props:{page: Pages, setPage : Dispatch<SetStateAction<Pages>
   <div id="trivia-block">
         <div id="trivia-talk">
 
-              <i className="fas fa-grin-alt"></i>
+              <i id='emoji-jump' className="fas fa-grin-alt"></i>
 
               <div>
                   Antes de jugar a esta trivia deberás<br/>
@@ -114,7 +114,7 @@ const Formulario = (props:{page: Pages, setPage : Dispatch<SetStateAction<Pages>
 
         </div>
 
-               <form onSubmit={submitEvent}>
+        <form onSubmit={submitEvent}>
                   <label htmlFor='name'>Nombre</label>
                   <input style={{border:borderStatus(userState.nombre, props.user.nombre)}}
                          className="in"
@@ -154,8 +154,8 @@ const Formulario = (props:{page: Pages, setPage : Dispatch<SetStateAction<Pages>
                   {(userState.datos===false) && <p>Los datos son de caracter obligatorio y han de estar completados de manera correcta</p>}
 
 
-               </form>
-             </div>)
+        </form>
+  </div>)
 }
 
 export default Formulario

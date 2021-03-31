@@ -52,6 +52,7 @@ const ButtonNext = styled.div<effectNext>`
 const ButtonTablas = styled.div`
                       color: black;
                       background-color: rgb(126, 252, 250);
+                      border-radius: 10px;
                       
 
                       &:hover{

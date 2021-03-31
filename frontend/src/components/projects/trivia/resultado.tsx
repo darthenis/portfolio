@@ -1,12 +1,22 @@
 import React, {Dispatch, SetStateAction} from 'react'
-import {ButtonTablas} from './preguntas-style'
-import {Pages} from './preginterf'
+import {ButtonTablas} from './trivia-style'
+import {Pages} from './interfandtypes'
 import './resultado.css'
 
 
 const Resultado = (props:{registro:number, page : Pages, setPage : Dispatch<SetStateAction<Pages>>}) => {
 
-          return(
+          
+  const changepage = () =>{
+
+    props.setPage({...props.page,
+                            page4 : false,
+                            page5 : true,})
+
+  }
+  
+  
+      return(
            
            <div id='resultado'>
 
@@ -19,7 +29,7 @@ const Resultado = (props:{registro:number, page : Pages, setPage : Dispatch<SetS
                { props.registro===0 && <div><i className="fas fa-sad-cry"></i><br/>Bueno, lo importante es tener salud (?)</div> }
 
 
-               <ButtonTablas id='buttonTablas'>Ir a la tabla!</ButtonTablas>
+               <ButtonTablas id='buttonTablas-resultado' onClick={changepage}>Ir a la tabla!</ButtonTablas>
 
             </div>
           )
