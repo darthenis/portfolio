@@ -1,9 +1,9 @@
 import React, {useState, Dispatch, SetStateAction} from 'react'
-import {questions} from './interfandtypes'
-import preguntasFacil from './list-preguntas-facil'
-import {ButtonNext, Opciones} from './trivia-style'
+import {questions} from '../trivia-interfaces-types'
+import {preguntasFacil} from './list-preguntas'
+import {ButtonNext, Opciones} from '../trivia-style'
 import './preguntas.css'
-import {Pages} from './interfandtypes'
+import {Pages} from '../trivia-interfaces-types'
 
 
 let validar=false;

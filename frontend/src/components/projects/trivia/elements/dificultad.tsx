@@ -1,15 +1,17 @@
-import React from 'react'
+import React, {Dispatch, SetStateAction} from 'react'
+import {Player, Pages} from '../trivia-interfaces-types'
 
 
 
 
-  const Dificultad = ({user, setUser, page, setPage}:any) => {
+  const Dificultad = (props: {player : Player, setPlayer : Dispatch<SetStateAction<Player>>, 
+                                page : Pages, setPage : Dispatch<SetStateAction<Pages>>}) => {
 
 
-  const handleSelectChange = (event: {target: {value:string | null}}) => {
+  const handleSelectChange = (event: {target: {value:string}}) => {
 
 
-          setUser({...user, dificultad : event.target.value});
+          props.setPlayer({...props.player, dificultad : event.target.value});
           console.log(event.target.value);
 
             }
@@ -17,7 +19,7 @@ import React from 'react'
   const enviar = (e: React.FormEvent) => {
 
         e.preventDefault();
-        if(user.dificultad !== '') setPage({...page,
+            if(props.player.dificultad !== '') props.setPage({...props.page,
                                               page2 : false,
                                               page3 : true,
                                             })
@@ -31,30 +33,30 @@ import React from 'react'
 
         <div id="trivia-talk">
 
-              {user.dificultad==='' && <i className="fas fa-laugh"></i>}
-              {user.dificultad==='facil' && <i className="fas fa-grin-squint"></i>}
-              {user.dificultad==='medio' && <i className="fas fa-grin-beam"></i>}
-              {user.dificultad==='dificil' && <i className="fas fa-flushed"></i>}
-              {user.dificultad==='' && <div>
+              {props.player.dificultad==='' && <i className="fas fa-laugh"></i>}
+              {props.player.dificultad==='facil' && <i className="fas fa-grin-squint"></i>}
+              {props.player.dificultad==='medio' && <i className="fas fa-grin-beam"></i>}
+              {props.player.dificultad==='dificil' && <i className="fas fa-flushed"></i>}
+              {props.player.dificultad==='' && <div>
                 Listo!!<br/><br/>
                 Tus datos fueron almacenados!
                 ahora solo tenés que elegir
                 el nivel de dificultad con el que
                 vas a jugar!!
               </div>}
-              {user.dificultad==='facil' && <div>
+              {props.player.dificultad==='facil' && <div>
                 0 a la izquierda:<br/><br/>
                 se te haran preguntas generales
                 que se supone debes saberlas
                 sino sos peor que un 0 a la izquierda
               </div>}
-              {user.dificultad==='medio' && <div>
+              {props.player.dificultad==='medio' && <div>
                 Saber un poco de todo:<br/><br/>
                 se te haran preguntas más especificas
                 que se supone debes saberlas
                 sino vivis en una burbuja
               </div>}
-              {user.dificultad==='dificil' && <div>
+              {props.player.dificultad==='dificil' && <div>
                 NEEEEEEEERD!:<br/><br/>
                 se te haran preguntas MUY especificas
                 que si las sabes vas a ROMPER EL JUEGO
@@ -63,7 +65,7 @@ import React from 'react'
         </div>
 
         <form onSubmit={enviar}>
-              <select value={user.dificultad} onChange={handleSelectChange} placeholder='Eliga la dificultad'>
+              <select value={props.player.dificultad} onChange={handleSelectChange} placeholder='Eliga la dificultad'>
                         <option hidden value=''>Elige tu dificultad</option>
                         <option value='facil'>0 a la izquierda</option>
                         <option value='medio'>Saber un poco de todo</option>

@@ -2,12 +2,12 @@
 import React, {useState, useMemo, Dispatch, SetStateAction} from 'react'
 import countryList from 'react-select-country-list'
 import Select from 'react-select'
-import {Pages, User} from './interfandtypes'
+import {Pages, Player} from '../trivia-interfaces-types'
 
 
 
 const Formulario = (props:{page: Pages, setPage : Dispatch<SetStateAction<Pages>>,
-                           user : User, setUser : Dispatch<SetStateAction<User>>}) =>{
+                           player : Player, setPlayer : Dispatch<SetStateAction<Player>>}) =>{
 
 
   const expresiones = {
@@ -23,13 +23,13 @@ const Formulario = (props:{page: Pages, setPage : Dispatch<SetStateAction<Pages>
 
 
 
-  type estados={
+  type states={
     nombre: boolean | null,
     edad: boolean | null,
     datos: boolean | null
   }
 
-  const [userState, setUserState] = useState<estados>({
+  const [playerState, setPlayerState] = useState<states>({
         nombre: null,
         edad: null,
         datos: null
@@ -39,9 +39,9 @@ const Formulario = (props:{page: Pages, setPage : Dispatch<SetStateAction<Pages>
 
   const handleInputChange = (event: { target: { name: string; value: string; }; }): void =>{
 
-    props.setUser({
+    props.setPlayer({
 
-      ...props.user,
+      ...props.player,
 
       [event.target.name] : event.target.value
     })
@@ -50,8 +50,8 @@ const Formulario = (props:{page: Pages, setPage : Dispatch<SetStateAction<Pages>
 
   const handleSelectChange = ( e : any ) => {
 
-    props.setUser({
-      ...props.user,
+    props.setPlayer({
+      ...props.player,
             pais : e.label
     })
 
@@ -61,13 +61,13 @@ const Formulario = (props:{page: Pages, setPage : Dispatch<SetStateAction<Pages>
 
   const validationnombre = () => {
 
-          setUserState({...userState, nombre : expresiones.nombre.test(props.user.nombre)})
+          setPlayerState({...playerState, nombre : expresiones.nombre.test(props.player.nombre)})
 
         }
 
   const validationedad = () => {
 
-          setUserState({...userState, edad : expresiones.edad.test(props.user.edad)})
+          setPlayerState({...playerState, edad : expresiones.edad.test(props.player.edad)})
   }
 
 
@@ -76,9 +76,9 @@ const Formulario = (props:{page: Pages, setPage : Dispatch<SetStateAction<Pages>
 
     e.preventDefault();
 
-    if (userState.edad===true && userState.nombre===true){
+    if (playerState.edad===true && playerState.nombre===true){
 
-        setUserState({...userState, datos : true})
+        setPlayerState({...playerState, datos : true})
 
         props.setPage({...props.page,
                             page1 : false,
@@ -86,18 +86,18 @@ const Formulario = (props:{page: Pages, setPage : Dispatch<SetStateAction<Pages>
 
         })
 
-    } else { setUserState({...userState, datos : false})}
+    } else { setPlayerState({...playerState, datos : false})}
 
     }
 
 
-  const borderStatus = (state:boolean | null, user:string ) => {
+  const borderStatus = (state:boolean | null, player:string ) => {
 
-      if (userState.datos===false && user==='') return 'solid 5px red'
+      if (playerState.datos===false && player==='') return 'solid 5px red'
 
-      else if(state || state===null || user==='' ) return 'solid 5px transparent'
+      else if(state || state===null || player==='' ) return 'solid 5px transparent'
 
-      else if (!state && user!=='') return 'solid 5px red'
+      else if (!state && player!=='') return 'solid 5px red'
 
     }
 
@@ -119,21 +119,21 @@ const Formulario = (props:{page: Pages, setPage : Dispatch<SetStateAction<Pages>
 
         <form onSubmit={submitEvent}>
                   <label htmlFor='name'>Nombre</label>
-                  <input style={{border:borderStatus(userState.nombre, props.user.nombre)}}
+                  <input style={{border:borderStatus(playerState.nombre, props.player.nombre)}}
                          className="in"
                          type="text"
                          placeholder='Escriba su nombre'
                          name='nombre'
-                         value={props.user.nombre}
+                         value={props.player.nombre}
                          onChange={handleInputChange}
                          onKeyUp={validationnombre}
                         />
 
-                        {(userState.datos===false && props.user.nombre==='') && <p>*Campo obligatorio</p>}
-                        {(!userState.nombre && props.user.nombre!=='') && <p>De entre 2 a 40 caracteres solo letras y espacios</p>}
+                        {(playerState.datos===false && props.player.nombre==='') && <p>*Campo obligatorio</p>}
+                        {(!playerState.nombre && props.player.nombre!=='') && <p>De entre 2 a 40 caracteres solo letras y espacios</p>}
 
                   <label htmlFor='age'>Edad</label>
-                  <input style={{border:borderStatus(userState.edad, props.user.edad)}}
+                  <input style={{border:borderStatus(playerState.edad, props.player.edad)}}
                          className="in"
                          type="text"
                          placeholder='Escriba su edad'
@@ -141,8 +141,8 @@ const Formulario = (props:{page: Pages, setPage : Dispatch<SetStateAction<Pages>
                          onChange={handleInputChange}
                          onKeyUp={validationedad}
                         />
-                          {(userState.datos===false && props.user.edad==='') && <p>*Campo obligatorio</p>}
-                          {(!userState.edad && props.user.edad!=='') && <p>2 digitos de 01 al 99</p>}
+                        {(playerState.datos===false && props.player.edad==='') && <p>*Campo obligatorio</p>}
+                          {(!playerState.edad && props.player.edad!=='') && <p>2 digitos de 01 al 99</p>}
 
                   <label htmlFor="country">Pais</label>
                   <Select id='select'
@@ -150,11 +150,11 @@ const Formulario = (props:{page: Pages, setPage : Dispatch<SetStateAction<Pages>
                           onChange={handleSelectChange}
                           placeholder='Seleccione un pais'
                           name='pais'/>
-                          {(userState.datos===false && props.user.pais==='') && <p>*Campo obligatorio</p>}
+                          {(playerState.datos===false && props.player.pais==='') && <p>*Campo obligatorio</p>}
 
 
                   <input id='btn' type="submit" value="Enviar"/>
-                  {(userState.datos===false) && <p>Los datos son de caracter obligatorio y han de estar completados de manera correcta</p>}
+                  {(playerState.datos===false) && <p>Los datos son de caracter obligatorio y han de estar completados de manera correcta</p>}
 
 
         </form>

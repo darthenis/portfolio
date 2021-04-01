@@ -1,11 +1,12 @@
 import React, {useState} from 'react';
 import './trivia.css'
-import Formulario from './formulario'
-import Dificultad from './dificultad'
-import Preguntas from './preguntas'
-import Resultado from './resultado'
-import {Tablas} from './tablas'
+import Formulario from './elements/formulario'
+import Dificultad from './elements/dificultad'
+import Preguntas from './elements/preguntas'
+import Resultado from './elements/resultado'
+import {Tablas} from './elements/tablas'
 import {Button} from './trivia-style'
+import {Player} from './trivia-interfaces-types'
 
 
 const Trivia = (): JSX.Element => {
@@ -21,12 +22,13 @@ const Trivia = (): JSX.Element => {
             page5: false
   })
 
-  const [user, setUser] = useState({
-        nombre: '',
-        edad: '',
-        pais: '',
-        dificultad: '',
-        aciertos: 0,
+  const [player, setPlayer] = useState<Player>({
+
+            nombre: '',
+            edad: '',
+            pais: '',
+            dificultad: '',
+            aciertos: ''
   })
 
   const changepage = (pageOn : string, pageOff:string) =>{
@@ -45,8 +47,8 @@ const Trivia = (): JSX.Element => {
 
                         <div id="trivia-title"><h1>Trivia</h1></div>
 
-                        {page.page1 && <Formulario user={user} setUser={setUser} page={page} setPage={setPage}></Formulario>}
-                        {page.page2 && <Dificultad user={user} setUser={setUser} page={page} setPage={setPage}></Dificultad>}
+                        {page.page1 && <Formulario player={player} setPlayer={setPlayer} page={page} setPage={setPage}></Formulario>}
+                        {page.page2 && <Dificultad player={player} setPlayer={setPlayer} page={page} setPage={setPage}></Dificultad>}
                         {page.page3 && <Preguntas page={page} setPage={setPage} registro={registro} setRegistro={setRegistro}></Preguntas>}
                         {page.page4 && <Resultado registro={registro} page={page} setPage={setPage}></Resultado>}
                         {page.page5 && <Tablas></Tablas> }

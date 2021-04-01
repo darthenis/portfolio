@@ -1,6 +1,6 @@
 import React, {Dispatch, SetStateAction} from 'react'
-import {Button} from './trivia-style'
-import {Pages} from './interfandtypes'
+import {Button} from '../trivia-style'
+import {Pages} from '../trivia-interfaces-types'
 import './resultado.css'
 
 

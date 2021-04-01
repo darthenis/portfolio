@@ -1,0 +1,58 @@
+table{  
+    
+     font-size: calc(.5em + .5vw);
+     color: black;
+     border-collapse: collapse; 
+     table-layout: fixed;
+     width: 90%;
+     margin: 0 auto;
+     text-align: center;
+    
+     
+}
+
+thead{
+    background-color: rgb(157, 231, 238); 
+
+}
+
+thead th:nth-child(1) {
+    width: 15%;
+  }
+  
+  thead th:nth-child(2) {
+    width: 10%;
+  }
+  
+  thead th:nth-child(3) {
+    width: 15%;
+  }
+  
+  thead th:nth-child(4) {
+    width: 15%;
+  }
+
+  thead th:nth-child(5) {
+      width: 15%;
+  }
+
+tbody{
+    background-color: black;
+    color: white;  
+  
+}
+
+
+th{
+    padding: 2.5%;
+    letter-spacing: 2px;
+    border: solid 2px rgba(11, 0, 167, 0.829);
+}
+
+td{ 
+    padding: 2%;
+    letter-spacing: 1px;
+    border-bottom: solid 2px white;
+
+}
+
