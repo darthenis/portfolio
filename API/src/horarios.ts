@@ -3,8 +3,6 @@ import moment from 'moment-timezone';
 import {restaurarmotos} from './routes/data.controller'
 
 
-
-
 export function horarios(){
 
   let horarios: string[]=[];
@@ -26,8 +24,6 @@ export function horarios(){
 }
 
 
-
-
 export default function reloj(){
 
       let localhour=moment();
@@ -45,8 +41,6 @@ export function revisarhora(){
       let horaactual = reloj()
 
       let i=1;
-
-      console.log(horaactual)
 
       horasmotos.map((hora) =>{
 

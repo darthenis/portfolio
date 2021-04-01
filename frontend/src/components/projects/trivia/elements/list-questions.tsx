@@ -1,6 +1,6 @@
 
 
-const preguntasFacil = [
+const questionsEasy = [
 
 {
 
@@ -157,7 +157,7 @@ const preguntasFacil = [
 ]
 
 
-const preguntasMedio = [
+const questionsNormal = [
 
   {
   
@@ -314,5 +314,5 @@ const preguntasMedio = [
   ]
   
   
-  export {preguntasFacil, preguntasMedio}
+  export {questionsEasy, questionsNormal}
   

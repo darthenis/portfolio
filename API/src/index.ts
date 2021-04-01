@@ -22,6 +22,8 @@ let prueba=true;
 
 httpServer.listen(config.PORT);
 
+console.log(config.MONGO_PASS)
+
 io.on("connection", (socket: Socket) => {
 
       socket.on('conectado', (arg) =>{

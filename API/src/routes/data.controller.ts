@@ -3,6 +3,9 @@ import {RequestHandler} from 'express';
 import * as Datas from './data.schema';
 
 
+
+//-----------------------------------MOTOS--------------------------------------------
+
 export const restarmotos : RequestHandler = async (req, res) => {
     const { id } =req.params;
     await Datas.Motos.findOneAndUpdate({ id: id}, {$inc:{motos: -1}}, {new:true})
@@ -31,7 +34,7 @@ export const insertmoto : RequestHandler = async (req, res) => {
         res.json(motosaved);
  }
 
- export const getmotos : RequestHandler = async (req, res) => {    //DEVOLVER TODOS LAS MOTOS PARA ACTUALIZAR
+ export const getmotos : RequestHandler = async (req, res) => { 
      try{
          const motos = await Datas.Motos.find()
          return res.json(motos);
@@ -44,9 +47,9 @@ export const insertmoto : RequestHandler = async (req, res) => {
  }
 
 
-//--------------------------------------------------------------
+//-----------------------------------PLAYERS--------------------------------------
 
-export const getplayers : RequestHandler = async (req, res) => {    //DEVOLVER TODOS LOS USUARIOS PARA ARMAR LA TABLA DE PUESTOS
+export const getplayers : RequestHandler = async (req, res) => { 
     try{
         const players = await Datas.Player.find();
         return res.json(players);
@@ -54,15 +57,13 @@ export const getplayers : RequestHandler = async (req, res) => {    //DEVOLVER T
         res.json(error);
     }
 
-    res.json('getting users');
+    res.json('getting players');
 }
 
-export const insertplayer : RequestHandler = async (req, res) => {
+export const addplayer : RequestHandler = async (req, res) => {
+
     const player= new Datas.Player(req.body);
     const playersaved = await player.save();
     res.json(playersaved);
-}
-
-export const getuser : RequestHandler = (req, res) => {
-    res.json('getting USER');
+    
 }

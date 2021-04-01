@@ -18,6 +18,18 @@ const playerSchema = new Schema({
             type: Number,
             required: true
 
+        },
+
+        "dificulty": {
+            type: String,
+            required: true
+
+        },
+
+        "corrects": {
+            type: String,
+            required: true
+
         }
 
     }, {

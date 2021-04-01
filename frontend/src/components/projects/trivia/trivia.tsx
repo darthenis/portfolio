@@ -9,6 +9,7 @@ import {Button} from './trivia-style'
 import {Player} from './trivia-interfaces-types'
 
 
+
 const Trivia = (): JSX.Element => {
 
   const [registro, setRegistro] = useState<number>(0)
@@ -41,22 +42,42 @@ const Trivia = (): JSX.Element => {
       } 
 
 
+
+
+
           return (
 
                 <div id='container-trivia'>
 
                         <div id="trivia-title"><h1>Trivia</h1></div>
 
-                        {page.page1 && <Formulario player={player} setPlayer={setPlayer} page={page} setPage={setPage}></Formulario>}
-                        {page.page2 && <Dificultad player={player} setPlayer={setPlayer} page={page} setPage={setPage}></Dificultad>}
-                        {page.page3 && <Preguntas page={page} setPage={setPage} registro={registro} setRegistro={setRegistro}></Preguntas>}
-                        {page.page4 && <Resultado registro={registro} page={page} setPage={setPage}></Resultado>}
+                        {page.page1 && <Formulario    player={player} 
+                                                      setPlayer={setPlayer} 
+                                                      page={page} 
+                                                      setPage={setPage}/>}
+
+                        {page.page2 && <Dificultad    player={player} 
+                                                      setPlayer={setPlayer} 
+                                                      page={page} 
+                                                      setPage={setPage}/>}
+
+                        {page.page3 && <Preguntas     player={player}
+                                                      setPlayer={setPlayer}
+                                                      page={page} 
+                                                      setPage={setPage} 
+                                                      registro={registro} 
+                                                      setRegistro={setRegistro}/>}
+
+                        {page.page4 && <Resultado     registro={registro} 
+                                                      page={page} 
+                                                      setPage={setPage}/>}
+
                         {page.page5 && <Tablas></Tablas> }
 
                         <div id='foot-pages'>
                         <Button id='buttonback' onClick={() => (window.location.href='/')}>Inicio</Button>
                         {page.page1 && <Button id='buttontablas' onClick={() => changepage('page5', 'page1')}>Tabla de posiciones</Button>}
-                        {page.page5 && <Button id='buttontablas' onClick={() => changepage('page1','page5')}>Volver al Formulario</Button>}
+                        {(page.page5 && player.nombre==='') && <Button id='buttontablas' onClick={() => changepage('page1','page5')}>Volver al Formulario</Button>}
                         </div>
 
                 </div>

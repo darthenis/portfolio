@@ -80,6 +80,8 @@ const Formulario = (props:{page: Pages, setPage : Dispatch<SetStateAction<Pages>
 
         setPlayerState({...playerState, datos : true})
 
+        setPlayerState({...playerState, nombre : null, edad : null, datos : null})
+
         props.setPage({...props.page,
                             page1 : false,
                             page2 : true

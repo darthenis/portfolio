@@ -4,11 +4,11 @@ const router= Router();
 
 import * as datactrl from './data.controller';
 
-router.get('/users', datactrl.getplayers);
+router.get('/players', datactrl.getplayers);
 
-router.post('/userstart', datactrl.insertplayer);
+router.post('/addplayer', datactrl.addplayer);
 
-router.get('/users/:id', datactrl.getuser);
+router.get('/players/:id', datactrl.getplayers);
 
 router.post('/motosrest/:id', datactrl.restarmotos);
 
