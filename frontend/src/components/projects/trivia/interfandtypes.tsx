@@ -17,6 +17,20 @@ export interface questions {
 
 }
 
+export interface players {
+
+  nombre: string,
+
+  edad: number,
+
+  pais: string,
+
+  dificultad: string,
+
+  aciertos: number
+
+}
+
 export type Pages = {
   page1: boolean,
   page2: boolean,

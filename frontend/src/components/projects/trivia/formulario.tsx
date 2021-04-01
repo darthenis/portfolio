@@ -16,7 +16,10 @@ const Formulario = (props:{page: Pages, setPage : Dispatch<SetStateAction<Pages>
 	       edad: /^\d{2}$/ // 2 numeros.
        }
 
+  
   const options = useMemo(()=>countryList().getData(), [])
+
+  
 
 
 
@@ -45,11 +48,11 @@ const Formulario = (props:{page: Pages, setPage : Dispatch<SetStateAction<Pages>
 
   }
 
-  const handleSelectChange = (value:any) => {
+  const handleSelectChange = ( e : any ) => {
 
     props.setUser({
       ...props.user,
-      ['pais'] : value.label
+            pais : e.label
     })
 
   }
@@ -69,7 +72,7 @@ const Formulario = (props:{page: Pages, setPage : Dispatch<SetStateAction<Pages>
 
 
 
-  const submitEvent = (e: React.FormEvent) => {
+  const submitEvent = (e: React.FormEvent<HTMLFormElement>) => {
 
     e.preventDefault();
 
@@ -126,7 +129,7 @@ const Formulario = (props:{page: Pages, setPage : Dispatch<SetStateAction<Pages>
                          onKeyUp={validationnombre}
                         />
 
-                        {(userState.datos===false && props.user.nombre=='') && <p>*Campo obligatorio</p>}
+                        {(userState.datos===false && props.user.nombre==='') && <p>*Campo obligatorio</p>}
                         {(!userState.nombre && props.user.nombre!=='') && <p>De entre 2 a 40 caracteres solo letras y espacios</p>}
 
                   <label htmlFor='age'>Edad</label>
@@ -138,7 +141,7 @@ const Formulario = (props:{page: Pages, setPage : Dispatch<SetStateAction<Pages>
                          onChange={handleInputChange}
                          onKeyUp={validationedad}
                         />
-                          {(userState.datos===false && props.user.edad=='') && <p>*Campo obligatorio</p>}
+                          {(userState.datos===false && props.user.edad==='') && <p>*Campo obligatorio</p>}
                           {(!userState.edad && props.user.edad!=='') && <p>2 digitos de 01 al 99</p>}
 
                   <label htmlFor="country">Pais</label>
@@ -147,7 +150,7 @@ const Formulario = (props:{page: Pages, setPage : Dispatch<SetStateAction<Pages>
                           onChange={handleSelectChange}
                           placeholder='Seleccione un pais'
                           name='pais'/>
-                          {(userState.datos===false && props.user.pais=='') && <p>*Campo obligatorio</p>}
+                          {(userState.datos===false && props.user.pais==='') && <p>*Campo obligatorio</p>}
 
 
                   <input id='btn' type="submit" value="Enviar"/>

@@ -161,6 +161,10 @@ option{
   text-align: center;
 }
 
+i{
+  color: rgb(255, 209, 65);
+}
+
 #emoji-jump{
   position:relative;
   left: -5%;
@@ -170,16 +174,16 @@ option{
 
 #emoji-girar{
   position:relative;
-  transform: translate(10% 10%);
+  transform: translate(0% 0%);
   animation: girar 1.6s infinite;
 }
 
 /*---------------------FRAMES---------------------------------*/
 
 @keyframes jump {
-  0% { transform: translate(10%, 10%) scale(1.25, 0.75); }
-  50% { transform: translate(10%, -120%) scale(1, 1); }
-  100% { transform: translate(10%, 10%) scale(1.25, 0.75); }
+  0% { transform: translate(0%, 0%) scale(1.25, 0.75); }
+  50% { transform: translate(0%, -90%) scale(1, 1); }
+  100% { transform: translate(0%, 0%) scale(1.25, 0.75); }
 }
 
 @keyframes girar {

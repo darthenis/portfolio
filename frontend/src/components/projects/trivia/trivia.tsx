@@ -5,7 +5,7 @@ import Dificultad from './dificultad'
 import Preguntas from './preguntas'
 import Resultado from './resultado'
 import {Tablas} from './tablas'
-import {ButtonTablas} from './trivia-style'
+import {Button} from './trivia-style'
 
 
 const Trivia = (): JSX.Element => {
@@ -29,11 +29,14 @@ const Trivia = (): JSX.Element => {
         aciertos: 0,
   })
 
-  const changepage = () =>{
+  const changepage = (pageOn : string, pageOff:string) =>{
         setPage({...page,
-                        page1:false,
-                        page5:true})
-  } 
+                        [pageOff] :false,
+                        [pageOn]  :true   
+                        
+                  })
+
+      } 
 
 
           return (
@@ -49,8 +52,9 @@ const Trivia = (): JSX.Element => {
                         {page.page5 && <Tablas></Tablas> }
 
                         <div id='foot-pages'>
-                        <ButtonTablas id='buttonback' onClick={() => (window.location.href='/')}>Inicio</ButtonTablas>
-                        {page.page1 && <ButtonTablas id='buttontablas' onClick={changepage}>Tabla de posiciones</ButtonTablas>}
+                        <Button id='buttonback' onClick={() => (window.location.href='/')}>Inicio</Button>
+                        {page.page1 && <Button id='buttontablas' onClick={() => changepage('page5', 'page1')}>Tabla de posiciones</Button>}
+                        {page.page5 && <Button id='buttontablas' onClick={() => changepage('page1','page5')}>Volver al Formulario</Button>}
                         </div>
 
                 </div>

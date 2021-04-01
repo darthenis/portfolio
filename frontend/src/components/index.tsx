@@ -25,9 +25,9 @@ import './index.css';
 
                                 <nav className="menu">
 
-                                        <div className="bottom1" onClick= {()=> changecomp(Project)}>Proyectos</div>
-                                        <div className="bottom2" onClick= {()=> changecomp(About)}>Sobre Mi</div>
-                                        <div className="bottom3" onClick= {()=> changecomp(Rrss)}>Contacto</div>
+                                        <button className="bottom1" onClick= {()=> changecomp(Project)}>Proyectos</button>
+                                        <button className="bottom2" onClick= {()=> changecomp(About)}>Sobre Mi</button>
+                                        <button className="bottom3" onClick= {()=> changecomp(Rrss)}>Contacto</button>
 
                                 </nav>
                         </div>

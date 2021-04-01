@@ -1,5 +1,5 @@
 import React, {Dispatch, SetStateAction} from 'react'
-import {ButtonTablas} from './trivia-style'
+import {Button} from './trivia-style'
 import {Pages} from './interfandtypes'
 import './resultado.css'
 
@@ -29,7 +29,7 @@ const Resultado = (props:{registro:number, page : Pages, setPage : Dispatch<SetS
                { props.registro===0 && <div><i className="fas fa-sad-cry"></i><br/>Bueno, lo importante es tener salud (?)</div> }
 
 
-               <ButtonTablas id='buttonTablas-resultado' onClick={changepage}>Ir a la tabla!</ButtonTablas>
+               <Button id='buttonTablas-resultado' onClick={changepage}>Ir a la tabla!</Button>
 
             </div>
           )

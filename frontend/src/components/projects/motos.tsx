@@ -95,7 +95,7 @@ import socket from './sockets'
 
   function status(num :number, index:number){
 
-    if (useractions[index]===true && motos[index].motos!=8) return 'Reservado'
+    if (useractions[index]===true && motos[index].motos!==8) return 'Reservado'
 
         else if(num === 0) return 'No Disponible'
 
@@ -173,7 +173,7 @@ import socket from './sockets'
                         <div><i className="far fa-check-circle"></i> Estado</div>
                 </div>
 
-
+                <>
                 {motos.map((motos) => {
 
                             return <div style={{backgroundColor:statuscolor(motos.motos, motos.id-1)}}
@@ -198,7 +198,7 @@ import socket from './sockets'
 
                             )
 
-                   }
+                   }</>
 
           </div>
     </div>
