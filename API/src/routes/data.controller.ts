@@ -51,8 +51,12 @@ export const insertmoto : RequestHandler = async (req, res) => {
 
 export const getplayers : RequestHandler = async (req, res) => { 
     try{
-        const players = await Datas.Player.find();
+        const players = await Datas.Players.find();
+        console.log(players);
         return res.json(players);
+
+        
+
     } catch (error) {
         res.json(error);
     }
@@ -62,7 +66,7 @@ export const getplayers : RequestHandler = async (req, res) => {
 
 export const addplayer : RequestHandler = async (req, res) => {
 
-    const player= new Datas.Player(req.body);
+    const player= new Datas.Players(req.body);
     const playersaved = await player.save();
     res.json(playersaved);
     

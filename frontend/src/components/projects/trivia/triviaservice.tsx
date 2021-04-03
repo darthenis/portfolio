@@ -4,8 +4,15 @@ import {Player} from './trivia-interfaces-types'
 
 export const addPlayer = async (data : Player) =>{
 
-    await axios.post('https://localhost:4000/addplayer', {data})
+    return await axios.post('http://localhost:4000/addplayer', data)
 
-    return true;
+}
+
+export const getPlayers = async () =>{
+
+   const data =  await axios.get('http://localhost:4000/getplayers');
+
+   return data;
+
 
 }

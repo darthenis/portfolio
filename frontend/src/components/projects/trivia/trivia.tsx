@@ -15,13 +15,12 @@ const Trivia = (): JSX.Element => {
   const [registro, setRegistro] = useState<number>(0)
 
   const [page, setPage] = useState({
-
-            page1: true,
-            page2: false,
-            page3: false,
-            page4: false,
-            page5: false
-  })
+    page1: true,
+    page2: false,
+    page3: false,
+    page4: false,
+    page5: false,
+  });
 
   const [player, setPlayer] = useState<Player>({
 
@@ -32,16 +31,9 @@ const Trivia = (): JSX.Element => {
             aciertos: ''
   })
 
-  const changepage = (pageOn : string, pageOff:string) =>{
-        setPage({...page,
-                        [pageOff] :false,
-                        [pageOn]  :true   
-                        
-                  })
-
-      } 
-
-
+  const changepage = (pageOn: string, pageOff: string) => {
+    setPage({ ...page, [pageOff]: false, [pageOn]: true });
+  }; 
 
 
 
@@ -68,9 +60,10 @@ const Trivia = (): JSX.Element => {
                                                       registro={registro} 
                                                       setRegistro={setRegistro}/>}
 
-                        {page.page4 && <Resultado     registro={registro} 
-                                                      page={page} 
-                                                      setPage={setPage}/>}
+                        {page.page4 && <Resultado     page={page} 
+                                                      setPage={setPage}
+                                                      player={player}/>}
+                                                     
 
                         {page.page5 && <Tablas></Tablas> }
 

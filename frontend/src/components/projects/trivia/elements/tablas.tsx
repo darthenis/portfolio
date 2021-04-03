@@ -1,7 +1,10 @@
 import React, {useState, useEffect} from 'react'
 import './tablas.css'
 import {players} from '../trivia-interfaces-types'
+import {getPlayers} from '../triviaservice'
 
+
+let contador=0;
 
 export const Tablas = () => {
 
@@ -43,13 +46,34 @@ export const Tablas = () => {
 const [list, setList] = useState<players[]>(data)
 
 
-useEffect(() =>{
+ const loadPlayers = async () =>{
 
-  setList(sort_lists('aciertos', list))
+  const res = await getPlayers()
 
-}, [])
+  console.log(res)
+
+  setList(res.data)
+ }
+
+
+ useEffect(() =>{
+
+   setList(sort_lists('aciertos', list))
+
+ }, [])
+
+
+ useEffect(()=>{
+
+   loadPlayers()
+
+ }, [])
+
+console.log(list)
 
 const ordertable = (column : string) => {
+
+  console.log('haz hecho click en ', column)
 
   let newsortlist = sort_lists(column, list)
 
@@ -79,7 +103,9 @@ const ordertable = (column : string) => {
                         <>
                         {list.map((player) =>{
 
-                                  return <tr>
+                                  contador++
+
+                                  return <tr id={'key'+contador}>
                                             <td>{player.nombre}</td>
                                             <td>{player.edad}</td>
                                             <td>{player.pais}</td>

@@ -2,31 +2,31 @@ import {Schema, model} from 'mongoose';
 
 const playerSchema = new Schema({
 
-        "name": {
+        "nombre": {
             type: String,
             required: true,
             trim: true
         },
 
-        "country": {
+        "edad": {
             type: String,
             required: true,
             trim: true
         },
 
-        "age": {
-            type: Number,
-            required: true
-
-        },
-
-        "dificulty": {
+        "pais": {
             type: String,
             required: true
 
         },
 
-        "corrects": {
+        "dificultad": {
+            type: String,
+            required: true
+
+        },
+
+        "aciertos": {
             type: String,
             required: true
 
@@ -57,6 +57,6 @@ const motosSchema = new Schema({
     }
 )
 
-export const Player = model('Player', playerSchema);
+export const Players = model('Player', playerSchema);
 
 export const Motos = model('Moto', motosSchema);

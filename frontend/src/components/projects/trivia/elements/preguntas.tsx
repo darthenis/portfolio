@@ -1,10 +1,9 @@
-import React, {useState, Dispatch, SetStateAction} from 'react'
+import React, {useState, useEffect, Dispatch, SetStateAction} from 'react'
 import {Player, questions} from '../trivia-interfaces-types'
 import {questionsEasy} from './list-questions'
 import {ButtonNext, Opciones} from '../trivia-style'
 import './preguntas.css'
 import {Pages} from '../trivia-interfaces-types'
-import {addPlayer} from '../triviaservice'
 
 
 let selected=false;
@@ -22,6 +21,11 @@ const Preguntas = (props: {page: Pages, setPage : Dispatch<SetStateAction<Pages>
 
   const [choice, setchoice] = useState<number | null>()
 
+  const [optionStatus, setOptionStatus] = useState<string[]>(['rgb(126, 250, 250)',
+                                                              'rgb(126, 250, 250)',
+                                                              'rgb(126, 250, 250)',
+                                                              'rgb(126, 250, 250)'])
+
 
     const selectQuestion = (selectedOption:number) => {
 
@@ -31,17 +35,12 @@ const Preguntas = (props: {page: Pages, setPage : Dispatch<SetStateAction<Pages>
 
         if (selectedOption===questions[actualQuestion].correcta) props.setRegistro(props.registro + 1)
 
-        console.log('Respuesta correcta: ', questions[actualQuestion].correcta)
-        console.log('Opcion seleccionada: ', selectedOption)
-        console.log('Respuestas acertadas: ',props.registro)
+       
         
-
         }
 
 
     const nextQuestion = () =>{
-      
-      console.log('boton siguiente apretado')
 
       selected=!selected
 
@@ -53,9 +52,7 @@ const Preguntas = (props: {page: Pages, setPage : Dispatch<SetStateAction<Pages>
 
             setchoice(null)
 
-            props.setPlayer({...props.player, dificultad : props.registro.toString()})
-
-            addPlayer(props.player)
+            props.setPlayer({...props.player, aciertos : props.registro.toString()})
 
             props.setPage({...props.page, page3 : false, page4 : true   })
           
@@ -71,11 +68,13 @@ const Preguntas = (props: {page: Pages, setPage : Dispatch<SetStateAction<Pages>
 
       else if (opcion===questions[actualQuestion].correcta && selected)  return 'rgb(124, 252, 0)';
 
-      else if (opcion!==questions[actualQuestion].correcta && selected && opcion!==choice) return 'gray'
+      else if (opcion!==questions[actualQuestion].correcta && selected && opcion!==choice) return 'gray';
 
-      else return 'rgb(126, 250, 250)'
+      else return 'rgb(126, 250, 250)';
 
     }
+
+   
 
     return (
 
