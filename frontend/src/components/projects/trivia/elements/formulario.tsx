@@ -19,10 +19,6 @@ const Formulario = (props:{page: Pages, setPage : Dispatch<SetStateAction<Pages>
   
   const options = useMemo(()=>countryList().getData(), [])
 
-  
-
-
-
   type states={
     nombre: boolean | null,
     edad: boolean | null,
@@ -37,7 +33,7 @@ const Formulario = (props:{page: Pages, setPage : Dispatch<SetStateAction<Pages>
 
 //--------------------------UPDATE----------------------------------------------
 
-  const handleInputChange = (event: { target: { name: string; value: string; }; }): void =>{
+  const handleInputChange = (event: { target: { name: string; value: string | number; }; }): void =>{
 
     props.setPlayer({
 
@@ -67,7 +63,7 @@ const Formulario = (props:{page: Pages, setPage : Dispatch<SetStateAction<Pages>
 
   const validationedad = () => {
 
-          setPlayerState({...playerState, edad : expresiones.edad.test(props.player.edad)})
+          setPlayerState({...playerState, edad : expresiones.edad.test(props.player.edad.toString())})
   }
 
 
@@ -93,9 +89,9 @@ const Formulario = (props:{page: Pages, setPage : Dispatch<SetStateAction<Pages>
     }
 
 
-  const borderStatus = (state:boolean | null, player:string ) => {
+  const borderStatus = (state:boolean | null, player:number | string ) => {
 
-      if (playerState.datos===false && player==='') return 'solid 5px red'
+      if (playerState.datos===false && player==='' ) return 'solid 5px red'
 
       else if(state || state===null || player==='' ) return 'solid 5px transparent'
 

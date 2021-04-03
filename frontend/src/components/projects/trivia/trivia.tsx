@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import './trivia.css'
 import Formulario from './elements/formulario'
 import Dificultad from './elements/dificultad'
@@ -11,8 +11,6 @@ import {Player} from './trivia-interfaces-types'
 
 
 const Trivia = (): JSX.Element => {
-
-  const [registro, setRegistro] = useState<number>(0)
 
   const [page, setPage] = useState({
     page1: true,
@@ -28,13 +26,12 @@ const Trivia = (): JSX.Element => {
             edad: '',
             pais: '',
             dificultad: '',
-            aciertos: ''
+            aciertos: 0
   })
 
   const changepage = (pageOn: string, pageOff: string) => {
     setPage({ ...page, [pageOff]: false, [pageOn]: true });
   }; 
-
 
 
           return (
@@ -56,9 +53,7 @@ const Trivia = (): JSX.Element => {
                         {page.page3 && <Preguntas     player={player}
                                                       setPlayer={setPlayer}
                                                       page={page} 
-                                                      setPage={setPage} 
-                                                      registro={registro} 
-                                                      setRegistro={setRegistro}/>}
+                                                      setPage={setPage}/>}
 
                         {page.page4 && <Resultado     page={page} 
                                                       setPage={setPage}

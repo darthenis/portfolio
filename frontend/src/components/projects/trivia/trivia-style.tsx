@@ -12,7 +12,6 @@ const Opciones = styled.div<effectNext>`
                 margin-bottom:1%;
                 text-align: center;
                 padding: 2%;
-                background-color: rgb(126, 250, 250);
                 border-radius: 10px;
                 border: solid 2px black;
 

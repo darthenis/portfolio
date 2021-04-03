@@ -6,11 +6,9 @@ import './preguntas.css'
 import {Pages} from '../trivia-interfaces-types'
 
 
-let selected=false;
+let selection=false; //verifica si el jugador ha hecho su elección
 
 const Preguntas = (props: {page: Pages, setPage : Dispatch<SetStateAction<Pages>>, 
-  
-                        registro : number, setRegistro : Dispatch<SetStateAction<number>>,
                       
                         player : Player, setPlayer : Dispatch<SetStateAction<Player>>}) => {
 
@@ -19,7 +17,7 @@ const Preguntas = (props: {page: Pages, setPage : Dispatch<SetStateAction<Pages>
 
   const [actualQuestion, setactualQuestions] = useState(0)
 
-  const [choice, setchoice] = useState<number | null>()
+  const [choice, setchoice] = useState<number | null>(null)
 
   const [optionStatus, setOptionStatus] = useState<string[]>(['rgb(126, 250, 250)',
                                                               'rgb(126, 250, 250)',
@@ -27,48 +25,47 @@ const Preguntas = (props: {page: Pages, setPage : Dispatch<SetStateAction<Pages>
                                                               'rgb(126, 250, 250)'])
 
 
-    const selectQuestion = (selectedOption:number) => {
+  const selectQuestion = (selectedOption:number) => {
 
-        selected=!selected;
+        console.log('click')
+
+        selection=!selection;
 
         setchoice(selectedOption)
 
-        if (selectedOption===questions[actualQuestion].correcta) props.setRegistro(props.registro + 1)
+        if (selectedOption===questions[actualQuestion].correcta) 
 
-       
+                                 props.setPlayer({...props.player, 
+                                                          aciertos : props.player.aciertos + 1}) 
         
         }
 
 
-    const nextQuestion = () =>{
+  const nextQuestion = () =>{
 
-      selected=!selected
+        selection=!selection
 
-      if (actualQuestion < 9){
+        if (actualQuestion < questions.length - 1){
 
-        setactualQuestions(actualQuestion + 1)
+            setactualQuestions(actualQuestion + 1)
 
-        } else {
+            } else {
 
-            setchoice(null)
-
-            props.setPlayer({...props.player, aciertos : props.registro.toString()})
-
-            props.setPage({...props.page, page3 : false, page4 : true   })
+                  props.setPage({...props.page, page3 : false, page4 : true   })
+                
+                  }
           
-            }
-          
-          }
+              }
 
       
 
     const colorstatus = (opcion:number) =>{
 
-      if (opcion===choice && choice!==questions[actualQuestion].correcta && selected) return 'red';
+      if (opcion===choice && choice!==questions[actualQuestion].correcta && selection) {return 'red';}
 
-      else if (opcion===questions[actualQuestion].correcta && selected)  return 'rgb(124, 252, 0)';
+      else if (opcion===questions[actualQuestion].correcta && selection)  return 'rgb(124, 252, 0)';
 
-      else if (opcion!==questions[actualQuestion].correcta && selected && opcion!==choice) return 'gray';
+      else if (opcion!==questions[actualQuestion].correcta && selection && opcion!==choice) return 'gray';
 
       else return 'rgb(126, 250, 250)';
 
@@ -79,49 +76,50 @@ const Preguntas = (props: {page: Pages, setPage : Dispatch<SetStateAction<Pages>
     return (
 
       <div id='block-page-preguntas'>
+
             <div id='block-la-pregunta'>{actualQuestion+1}) {questions && questions[actualQuestion].pregunta}</div>
 
             <div id='block-respuestas'>
 
                 <div id='block-carita'>
                         <div className='text'>
-                          {!selected && <span><i id='emoji-jump' className="fas fa-grin-tongue-squint"></i><br/> Tienes que elegir una respuesta!</span>}
+                          {!selection && <span><i id='emoji-jump' className="fas fa-grin-tongue-squint"></i><br/> Tienes que elegir una respuesta!</span>}
                           
-                          {(choice===questions[actualQuestion].correcta && selected) && <span><i className="fas fa-grin-alt"></i><br/> Correcto!</span> }
+                          {(choice===questions[actualQuestion].correcta && selection) && <span><i className="fas fa-grin-alt"></i><br/> Correcto!</span> }
                           
-                          {(choice!==questions[actualQuestion].correcta && selected) && <span><i id='emoji-girar' className="fas fa-grin-squint"></i><br/> Incorrecto!</span>}
+                          {(choice!==questions[actualQuestion].correcta && selection) && <span><i id='emoji-girar' className="fas fa-grin-squint"></i><br/> Incorrecto!</span>}
                         </div>
                       </div>
 
                 <div id='block-opciones'>
 
                     <Opciones
-                        isactive={selected}
-                        onClick={() => (!selected && selectQuestion(1))}
+                        isactive={selection}
+                        onClick={() => (!selection && selectQuestion(1))}
                         style={{backgroundColor:colorstatus(1)}}
                         >
                         A: {questions && questions[actualQuestion].opcion1}
                     </Opciones>
 
                     <Opciones
-                        isactive={selected}
-                        onClick={() => (!selected && selectQuestion(2))}
+                        isactive={selection}
+                        onClick={() => (!selection && selectQuestion(2))}
                         style={{backgroundColor:colorstatus(2)}}
                         >
                         B: {questions && questions[actualQuestion].opcion2}
                     </Opciones>
 
                     <Opciones
-                        isactive={selected}
-                        onClick={() => (!selected && selectQuestion(3))}
+                        isactive={selection}
+                        onClick={() => (!selection && selectQuestion(3))}
                         style={{backgroundColor:colorstatus(3)}}
                         >
                         C: {questions && questions[actualQuestion].opcion3}
                     </Opciones>
 
                     <Opciones
-                        isactive={selected}
-                        onClick={() => (!selected && selectQuestion(4))}
+                        isactive={selection}
+                        onClick={() => (!selection && selectQuestion(4))}
                         style={{backgroundColor:colorstatus(4)}}
                         >
                         D: {questions && questions[actualQuestion].opcion4}
@@ -130,8 +128,8 @@ const Preguntas = (props: {page: Pages, setPage : Dispatch<SetStateAction<Pages>
 
                 <div id='container-boton-next'>
 
-                      <ButtonNext isactive={selected}
-                                  onClick={() => (selected && nextQuestion()) }
+                      <ButtonNext isactive={selection}
+                                  onClick={() => (selection && nextQuestion()) }
                                   >Siguiente</ButtonNext>
 
                 </div>

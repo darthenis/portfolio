@@ -19,15 +19,15 @@ export interface questions {
 
 export interface players {
 
-  [nombre : string] : string,
+  [nombre : string] : string | number;
 
-  edad: string,
+  edad : string;
 
   pais: string,
 
   dificultad: string,
 
-  aciertos: string
+  aciertos: number
 
 }
 
@@ -46,6 +46,6 @@ export type Player = {
   edad: string,
   pais: string,
   dificultad: string,
-  aciertos: string
+  aciertos: number
 }
 

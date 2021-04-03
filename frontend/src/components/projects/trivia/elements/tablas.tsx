@@ -14,36 +14,9 @@ export const Tablas = () => {
    inverse
         ? [...list].sort((b, a) => (a[key] > b[key] ? 1 : a[key] < b[key] ? -1 : 0))
         : [...list].sort((a, b) => (a[key] > b[key] ? 1 : a[key] < b[key] ? -1 : 0))
- 
-    
-
-  let data : players[]=[
-
-    {
-      nombre: 'emiliano',
-      edad: '31',
-      pais: 'Argentina',
-      dificultad: 'facil',
-      aciertos: '5'
-    },
-  {
-    nombre: 'Janina',
-    edad: '25',
-    pais: 'Paraguay',
-    dificultad: 'dificil',
-    aciertos: '10'
-  },
-  {
-    nombre: 'Maria',
-    edad: '59',
-    pais: 'Peru',
-    dificultad: 'normal',
-    aciertos: '2'
-  }
-]
 
 
-const [list, setList] = useState<players[]>(data)
+const [list, setList] = useState<players[]>([])
 
 
  const loadPlayers = async () =>{
