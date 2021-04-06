@@ -23,8 +23,6 @@ const [list, setList] = useState<players[]>([])
 
   const res = await getPlayers()
 
-  console.log(res)
-
   setList(res.data)
  }
 
@@ -42,7 +40,6 @@ const [list, setList] = useState<players[]>([])
 
  }, [])
 
-console.log(list)
 
 const ordertable = (column : string) => {
 
@@ -78,7 +75,7 @@ const ordertable = (column : string) => {
 
                                   contador++
 
-                                  return <tr id={'key'+contador}>
+                                  return <tr id={'key-'+contador}>
                                             <td>{player.nombre}</td>
                                             <td>{player.edad}</td>
                                             <td>{player.pais}</td>

@@ -19,6 +19,8 @@ body{
         -moz-user-select: none;
         -webkit-user-select: none;
         -ms-user-select: none;
+
+    margin: 0;
 }
 
 
@@ -112,7 +114,7 @@ body{
     position: relative;
     padding: 2%;
     height: fit-content;
-    font-size: calc(.1rem + .7vw)    ;
+    font-size: calc(.1rem + .7vw);
     letter-spacing: 2px;
     border-radius: 20px;
     margin: 1%;
@@ -144,6 +146,7 @@ body{
     justify-content: space-evenly;
     flex-wrap: wrap;
     padding-bottom: 10%;
+    font-size: calc(.5em + 1vw);
 
 
 }
@@ -159,7 +162,6 @@ body{
 }
 
 .texto1{
-    font-size: calc(.5em + 1vw);
     margin: 1%;
     padding: 2%;
     animation-name: deslizartexto;
@@ -178,7 +180,6 @@ body{
 
 
 .texto2{
-    font-size: calc(.5em + 1vw);
     padding: 2%;
     background-color: black;
     color: white;
@@ -198,7 +199,6 @@ body{
 }
 
 .texto3{
-    font-size: calc(.5em + 1vw);
     padding: 2%;
     background-color: black;
     color: white;
@@ -256,39 +256,6 @@ body{
     -moz-box-shadow: 0px 0px 25px rgb(126, 250, 250);
     box-shadow: 0px 0px 25px rgb(126, 250, 250);
     border:solid 2px aqua;
-}
-
-
-/*-------------------------------------------------PROJECTS------------------------------------------*/
-
-
-
-#projects{
-    margin-top: 5%;
-    flex-wrap: wrap;
-    width: 75%;
-    height: 50%;
-    padding: 2em;
-    background-color: black;
-    justify-content: center;
-    opacity: 0;
-    animation-name: aparecer1;
-    animation-duration: .5s;
-    animation-fill-mode: forwards;
-    -webkit-box-shadow: 0px 0px 25px rgb(126, 250, 250);
-    -moz-box-shadow: 0px 0px 25px rgb(126, 250, 250);
-    box-shadow: 0px 0px 25px rgb(126, 250, 250);
-    border:solid 2px aqua;
-
-}
-
-#projects > div{
-    font-size: calc(.5em + 1vw);
-    margin: 1em;
-    width:15em;
-    height: 5em;
-    background-color: brown;
-
 }
 
 /*-------------------------------------------------ABOUT----------------------------------------------*/
@@ -355,7 +322,45 @@ footer{
 
 
 /*-------------------------------------------------RESPONSIVE------------------------------------------*/
-@media only screen and (min-width: 1400px){}
+@media only screen and (min-width: 1400px){
+
+    .title{
+        font-size: 30px;
+    }
+
+    .container2{
+        font-size: 20px;
+    }
+
+    footer{
+        font-size: 15px;
+    }
+
+    .menu > button{
+
+        font-size: 15px;
+
+    }
+
+    #projects > div{
+
+        font-size: 15px;
+    }
+
+    .redes{
+
+        font-size: 25px;
+
+    }
+
+    .aboutme{
+        
+        font-size: 25px;
+    }
+    
+
+    
+}
 
 @media only screen and (max-width: 930px){
 

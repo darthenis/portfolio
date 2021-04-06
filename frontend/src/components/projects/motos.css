@@ -88,6 +88,10 @@
 
 }
 
+#containertitulos > div > i {
+  color: white;
+}
+
 @media only screen and (max-width: 930px){
 
 #container {

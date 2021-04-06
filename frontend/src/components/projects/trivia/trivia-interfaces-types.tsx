@@ -55,3 +55,9 @@ export type optionstatus = {
   option3 : string,
   option4 : string
 }
+
+export type states={
+  nombre: boolean | null,
+  edad: boolean | null,
+  incomplete: boolean | null
+}

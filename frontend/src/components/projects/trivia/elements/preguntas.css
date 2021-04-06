@@ -43,6 +43,12 @@
   text-align:center;
 }
 
+.text > i {
+  color: rgb(234, 236, 97);
+  margin: 5%;
+  font-size: 4em;
+}
+
 .text > span > i{
   font-size: 3em;
   margin-bottom: 2%;

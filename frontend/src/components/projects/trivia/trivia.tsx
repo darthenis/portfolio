@@ -30,8 +30,10 @@ const Trivia = (): JSX.Element => {
   })
 
   const changepage = (pageOn: string, pageOff: string) => {
-    setPage({ ...page, [pageOff]: false, [pageOn]: true });
-  }; 
+
+      setPage({ ...page, [pageOff]: false, [pageOn]: true });
+  
+    }; 
 
 
           return (
@@ -60,7 +62,7 @@ const Trivia = (): JSX.Element => {
                                                       player={player}/>}
                                                      
 
-                        {page.page5 && <Tablas></Tablas> }
+                        {page.page5 && <Tablas/> }
 
                         <div id='foot-pages'>
                         <Button id='buttonback' onClick={() => (window.location.href='/')}>Inicio</Button>

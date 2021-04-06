@@ -54,6 +54,7 @@
 }
 
 #trivia-talk > i{
+  color: rgb(234, 236, 97);
   font-size: 5em;
   margin-right: 2%;
 }

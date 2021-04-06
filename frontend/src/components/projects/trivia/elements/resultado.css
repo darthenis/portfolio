@@ -12,7 +12,9 @@
     margin-top: 10%;
 }
 
-i{
+.resultado > div > i {
+    color: rgb(234, 236, 97);
     margin: 5%;
     font-size: 4em;
 }
+
