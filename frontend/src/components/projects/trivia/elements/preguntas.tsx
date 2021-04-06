@@ -1,5 +1,5 @@
 import React, {useState, useEffect, Dispatch, SetStateAction} from 'react'
-import {Player, questions} from '../trivia-interfaces-types'
+import {Player, questions, optionstatus} from '../trivia-interfaces-types'
 import {questionsEasy} from './list-questions'
 import {ButtonNext, Opciones} from '../trivia-style'
 import './preguntas.css'
@@ -8,35 +8,37 @@ import {Pages} from '../trivia-interfaces-types'
 
 let selection=false; //verifica si el jugador ha hecho su elección
 
+let correct=false;
+
 const Preguntas = (props: {page: Pages, setPage : Dispatch<SetStateAction<Pages>>, 
                       
                         player : Player, setPlayer : Dispatch<SetStateAction<Player>>}) => {
 
-
+  
+  
   const [questions, setquestions] = useState<questions[]>(questionsEasy)
 
   const [actualQuestion, setactualQuestions] = useState(0)
 
-  const [choice, setchoice] = useState<number | null>(null)
+  const [optionStatus, setOptionStatus] = useState<optionstatus>({  option1 : 'rgb(126, 250, 250)',
+                                                                    option2 : 'rgb(126, 250, 250)',
+                                                                    option3 : 'rgb(126, 250, 250)',
+                                                                    option4 : 'rgb(126, 250, 250)'})    
 
-  const [optionStatus, setOptionStatus] = useState<string[]>(['rgb(126, 250, 250)',
-                                                              'rgb(126, 250, 250)',
-                                                              'rgb(126, 250, 250)',
-                                                              'rgb(126, 250, 250)'])
-
-
-  const selectQuestion = (selectedOption:number) => {
-
-        console.log('click')
+  const selectOption = (selectedOption:number) => {
 
         selection=!selection;
 
-        setchoice(selectedOption)
+        colorstatus(selectedOption)
 
-        if (selectedOption===questions[actualQuestion].correcta) 
+        if (selectedOption===questions[actualQuestion].correcta){ 
+
+                                 correct=true;
 
                                  props.setPlayer({...props.player, 
                                                           aciertos : props.player.aciertos + 1}) 
+            
+            } else correct=false
         
         }
 
@@ -44,6 +46,8 @@ const Preguntas = (props: {page: Pages, setPage : Dispatch<SetStateAction<Pages>
   const nextQuestion = () =>{
 
         selection=!selection
+
+        colorstatus('reset')
 
         if (actualQuestion < questions.length - 1){
 
@@ -59,15 +63,37 @@ const Preguntas = (props: {page: Pages, setPage : Dispatch<SetStateAction<Pages>
 
       
 
-    const colorstatus = (opcion:number) =>{
+    const colorstatus = (optionSelected:number | string) =>{
 
-      if (opcion===choice && choice!==questions[actualQuestion].correcta && selection) {return 'red';}
+            
+            if (optionSelected==='reset') setOptionStatus({...optionStatus,
+                                                                    option1 : 'rgb(126, 250, 250)',
+                                                                    option2 : 'rgb(126, 250, 250)',
+                                                                    option3 : 'rgb(126, 250, 250)',
+                                                                    option4 : 'rgb(126, 250, 250)'})
+            else {
+            
+                    let array : string []=[]
 
-      else if (opcion===questions[actualQuestion].correcta && selection)  return 'rgb(124, 252, 0)';
+                    for(let i=1; i<=4; i++) { 
+            
+                            if (i===optionSelected && optionSelected!==questions[actualQuestion].correcta) array.push('red')
 
-      else if (opcion!==questions[actualQuestion].correcta && selection && opcion!==choice) return 'gray';
+                            else if (i===questions[actualQuestion].correcta) array.push('rgb(124, 252, 0)')
 
-      else return 'rgb(126, 250, 250)';
+                            else array.push('rgb(126, 250, 250)')
+
+                         }
+
+                    setOptionStatus({...optionStatus,
+                                                        option1 : array[0],
+                                                        option2 : array[1],
+                                                        option3 : array[2],
+                                                        option4 : array[3]
+                                    
+                                                     }
+                                                ) 
+                                            }
 
     }
 
@@ -85,9 +111,9 @@ const Preguntas = (props: {page: Pages, setPage : Dispatch<SetStateAction<Pages>
                         <div className='text'>
                           {!selection && <span><i id='emoji-jump' className="fas fa-grin-tongue-squint"></i><br/> Tienes que elegir una respuesta!</span>}
                           
-                          {(choice===questions[actualQuestion].correcta && selection) && <span><i className="fas fa-grin-alt"></i><br/> Correcto!</span> }
+                          {(correct && selection) && <span><i className="fas fa-grin-alt"></i><br/> Correcto!</span> }
                           
-                          {(choice!==questions[actualQuestion].correcta && selection) && <span><i id='emoji-girar' className="fas fa-grin-squint"></i><br/> Incorrecto!</span>}
+                          {(!correct && selection) && <span><i id='emoji-girar' className="fas fa-grin-squint"></i><br/> Incorrecto!</span>}
                         </div>
                       </div>
 
@@ -95,32 +121,32 @@ const Preguntas = (props: {page: Pages, setPage : Dispatch<SetStateAction<Pages>
 
                     <Opciones
                         isactive={selection}
-                        onClick={() => (!selection && selectQuestion(1))}
-                        style={{backgroundColor:colorstatus(1)}}
+                        onClick={() => (!selection && selectOption(1))}
+                        style={{backgroundColor:optionStatus.option1}}
                         >
                         A: {questions && questions[actualQuestion].opcion1}
                     </Opciones>
 
                     <Opciones
                         isactive={selection}
-                        onClick={() => (!selection && selectQuestion(2))}
-                        style={{backgroundColor:colorstatus(2)}}
+                        onClick={() => (!selection && selectOption(2))}
+                        style={{backgroundColor:optionStatus.option2}}
                         >
                         B: {questions && questions[actualQuestion].opcion2}
                     </Opciones>
 
                     <Opciones
                         isactive={selection}
-                        onClick={() => (!selection && selectQuestion(3))}
-                        style={{backgroundColor:colorstatus(3)}}
+                        onClick={() => (!selection && selectOption(3))}
+                        style={{backgroundColor:optionStatus.option3}}
                         >
                         C: {questions && questions[actualQuestion].opcion3}
                     </Opciones>
 
                     <Opciones
                         isactive={selection}
-                        onClick={() => (!selection && selectQuestion(4))}
-                        style={{backgroundColor:colorstatus(4)}}
+                        onClick={() => (!selection && selectOption(4))}
+                        style={{backgroundColor:optionStatus.option4}}
                         >
                         D: {questions && questions[actualQuestion].opcion4}
                     </Opciones>
