@@ -1,15 +1,45 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 import Main from './main'
 import Project from './project'
 import About from './about'
 import Rrss from './rrss'
+import {Nav} from './index-styled'
 
 import './index.css';
 
     const Inicio = () => {
 
-      const [comp, changecomp] = React.useState(Main);
+      const [comp, setComp] = React.useState(Main);
+
+      const [active, setActive] = useState({
+                call : false,
+                push : false
+      })
+
+
+
+      const activeMenu= () =>{
+
+  //function for responsive menu ('nav'). 
+
+                if (!active.call) setActive({...active, call : true, push : false})
+
+                else setActive({...active, call : false, push : true})
+
+      }
+
+
+      const selectMenu= (elem: React.SetStateAction<JSX.Element>) =>{
+ 
+                setComp(elem); 
+                
+                active.call && setActive({...active, call : false, push : true})
+
+                //will not active still we call responsive menu
+
+
+      }
 
         return (
 
@@ -19,26 +49,39 @@ import './index.css';
                         <div className="container">
                                 <header className="title" id="title">
 
-                                        <div className="logo" onClick= {()=> changecomp(Main)}>Emi Diseño <br/>Web</div>
+                                        <div className="logo" onClick= {()=> selectMenu(Main)}>Emi Diseño <br/>Web</div>
+
+                                        <i className="fas fa-bars" onClick={activeMenu}></i>
 
                                 </header>
 
-                                <nav className="menu">
+                                <Nav 
+                                        active={active.call}
+                                        disactive={active.push}
+                                        className="menu">
+                                        
+                                        <button className="button" onClick= {()=> selectMenu(Project)}>Proyectos</button>
+                                        <button className="button" onClick= {()=> selectMenu(About)}>Sobre Mi</button>
+                                        <button className="button" onClick= {()=> selectMenu(Rrss)}>Contacto</button>
 
-                                        <button className="bottom1" onClick= {()=> changecomp(Project)}>Proyectos</button>
-                                        <button className="bottom2" onClick= {()=> changecomp(About)}>Sobre Mi</button>
-                                        <button className="bottom3" onClick= {()=> changecomp(Rrss)}>Contacto</button>
+                                </Nav>
 
-                                </nav>
-                        </div>
+                                
+                        </div>        
 
                         {comp}
 
 
+                        <footer>Diseñado y programado por: <br/> Emiliano A. Acevedo</footer>
+
+
                         </div>
 
 
-                <footer>Diseñado y programado por: <br/> Emiliano A. Acevedo</footer>
+                       
+
+
+                
 
             </div>
         )

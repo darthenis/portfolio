@@ -61,3 +61,9 @@ export type states={
   edad: boolean | null,
   incomplete: boolean | null
 }
+
+
+export type User={
+  datos: string | null,
+  valido: boolean | null
+}

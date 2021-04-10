@@ -7,7 +7,7 @@ import './motos.css'
 import socket from './sockets'
 
 
-
+let check : boolean=false;
 
 //---------------------------------HORARIOS-------------------------------------
 
@@ -104,39 +104,44 @@ import socket from './sockets'
   }
 
 
+//--------------------------------ACTIONUSERFUNCTION-----------------------------
+
+
   async function actionUser(index:number){
+
+          if(!check)
+
+            check=!check; 
+            // check espera el termino de la funcion para volver a estar disponible para ser ejecutada
+            // evitando bugs de clicks mas rapidos que la respuesta de la base de datos.
 
               if(motos[index-1].motos>0){
 
-                      if (useractions[index-1]===false){
+                useractions[index-1] = !useractions[index-1]
+
+                localStorage.setItem('useractions', JSON.stringify(useractions))
+
+                      if (useractions[index-1]){
 
                               await restarMoto(index)
 
                               loadmotos()
 
-                              useractions[index-1] = !useractions[index-1]
+                              socket.emit('reload');
 
-                            } else if (useractions[index-1]===true && motos[index-1].motos<8){
+                              
+
+                            } else if (!useractions[index-1]){
 
                                       await sumarMoto(index)
 
                                       loadmotos()
 
-                                      useractions[index-1] = !useractions[index-1]
-
-                                } else {
-
-                                  await restarMoto(index)
-
-                                  loadmotos()
+                                      socket.emit('reload');
 
                                 }
 
-                          localStorage.setItem('useractions', JSON.stringify(useractions))
-
-                          socket.emit('reload');
-
-                          console.log(localStorage.getItem('useractions'))
+                              check=!check;
 
                     }
 

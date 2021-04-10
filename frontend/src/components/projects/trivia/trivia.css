@@ -75,14 +75,14 @@ p{
   position: relative;
 }
 
-label{
+.labelform{
   margin-top: 1%
 }
 
 
 .in {
 
-  padding: 2%;
+  padding: 1%;
   width:60%;
   margin: 0 auto;
   margin-top:1%;
@@ -93,28 +93,47 @@ label{
 
 }
 
-#select{
-  width:72%;
+.select{
+  width: 64%;
   margin: 0 auto;
-  padding: 3%;
-  border:none;
-  color: black;
-  font-size: 0.9em;
+  height: fit-content;
 }
 
-select{
+.select__control{
   margin: 0 auto;
-  padding: 1%;
-  text-align:center;
+  margin-top:1%;
   border:none;
+}
+
+.select__valuecontainer{
   color: black;
   font-size: 1em;
+  width: 64%;
 
 }
 
-option{
-  text-align: center;
+.select__menu{
+  color:white;
+  margin: 0 auto;
 }
+
+.select__menu-list{
+  background-color: black;
+  border-right: solid 2px white;
+  border-left: solid 2px white;
+  border-bottom: solid 2px white
+}
+
+.select__option:hover{
+  background-color: white;
+  color: black;
+}
+
+.select__option::selection{
+  background-color: aqua;
+  color: black;
+}
+
 
 #btn {
   font-size: calc(0.1em + 1vw);

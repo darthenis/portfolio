@@ -1,13 +1,10 @@
 #projects{
-    margin-top: 5%;
-    flex-wrap: wrap;
+    grid-column: 1/-1;
     width: 75%;
-    height: 50%;
-    padding: 2em;
     background-color: black;
     justify-content: center;
     opacity: 0;
-    animation-name: aparecer1;   /*Animations localized in index.css*/
+    animation-name: fadein1;   /*Animations localized in index.css*/
     animation-duration: .5s;
     animation-fill-mode: forwards;
     -webkit-box-shadow: 0px 0px 25px rgb(126, 250, 250);
@@ -17,43 +14,91 @@
 
 }
 
-#textinicial{
+#title{
     display: block;
     color: white;
+    text-align: center;
+    margin-bottom: 2rem;
    
 }
 
-#textinicial > h2 {
+#title > h1{
     color:white;
-    text-align: center;
+    
 }
 
-#textinicial > a{
+#title > hr{
+    
+    background-color: rgb(69, 255, 255);
+    height: 1px;
+    border:none;
+}
+
+#title > a{
     color: rgb(97, 197, 236);
     text-decoration:none
 }
 
-#textinicial > a:visited a:active a:link{
+#title > a:visited a:active a:link{
     text-decoration: none;
 }
 
-#textinicial>a:hover{
-    color: rgb(78, 243, 188)
+#title > a:hover{
+    color: rgb(78, 243, 188);
+}
+
+
+
+#container-projects{
+
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 1;
+    justify-content: space-around;
+    grid-gap: 2rem;
+    margin: 2rem;
+
 }
 
 
 
 .projects{
-    margin: 1em;
-    max-width: 40%;
-    background-color: white;
+    columns: 1/1;
+    padding-left: 2%;
+    padding-right: 2%;
+    padding-bottom: 2%;
+    background-color: black;
+    color:white;
     display: inline-block;
-    padding: 1%;
     text-align: justify;
-    font-size: 12px;
+    line-height: 3rem;
+    font-size: calc(.7em + .5vw);
+    border: solid 1px rgba(128, 128, 128, 0.691);
+
+
+}
+
+.projects:hover{
+    -webkit-box-shadow: 0px 0px 25px rgb(126, 250, 250);
+    -moz-box-shadow: 0px 0px 25px rgb(126, 250, 250);
+    box-shadow: 0px 0px 25px rgb(126, 250, 250);
 
 }
 
 .projects > h3 {
     text-align: center;
+}
+
+.img-projects{
+    position:relative;
+    width: 100%;
+    border: solid 1px white;
+    margin-bottom: 1rem;
+}
+
+.img-projects > img{
+    object-fit:fill;
+    width: 100%;
+    height: 100%;
+ 
 }

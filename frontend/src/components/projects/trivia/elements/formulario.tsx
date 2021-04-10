@@ -3,6 +3,8 @@ import React, {useState, useMemo, Dispatch, SetStateAction} from 'react'
 import countryList from 'react-select-country-list'
 import Select from 'react-select'
 import {Pages, Player, states} from '../trivia-interfaces-types'
+import Input from '../../../inputs'
+
 
 
 
@@ -21,50 +23,27 @@ const Formulario = (props:{page: Pages, setPage : Dispatch<SetStateAction<Pages>
   
 
   const [inputState, setInputState] = useState<states>({
-        nombre: null,
-        edad: null,
-        incomplete: null
+        nombre: true,
+        edad: true,
+        incomplete: false
   })
 
 //--------------------------UPDATE----------------------------------------------
 
-  const handleInputChange = (event: React.FormEvent<HTMLInputElement>) =>{
+const handleSelectChange = ( e : any) => {
 
-    props.setPlayer({
+  props.setPlayer({
+    ...props.player,
+          pais : e.label
+  })
 
-      ...props.player,
-
-      [event.currentTarget.name] : event.currentTarget.value
-    })
-
-    console.log(event.currentTarget.value)
-
-  }
-
-  const handleSelectChange = ( e : any) => {
-
-    props.setPlayer({
-      ...props.player,
-            pais : e.label
-    })
-
-  }
-
-
-
-  const validation = (e:React.FormEvent<HTMLInputElement>, expresion:RegExp) => {
-    
-    setInputState({...inputState, [e.currentTarget.name] : expresion.test(e.currentTarget.value)})   
-
-       }
-
-
+}
 
   const submitEvent = (e: React.FormEvent<HTMLFormElement>) => {
 
     e.preventDefault();
 
-    if (inputState.edad===true && inputState.nombre===true){
+    if (inputState.edad && inputState.nombre && props.player.nombre!=='' && props.player.edad!=='' && props.player.pais!==''){
 
         setInputState({...inputState, incomplete : false})
 
@@ -80,16 +59,6 @@ const Formulario = (props:{page: Pages, setPage : Dispatch<SetStateAction<Pages>
 
     }
 
-
-  const borderStatus = (state:boolean | null, player:number | string ) => {
-
-      if (inputState.incomplete===true && player==='' ) return 'solid 5px red'
-
-      else if(state || state===null || player==='' ) return 'solid 5px transparent'
-
-      else if (!state && player!=='') return 'solid 5px red'
-
-    }
 
   return (
 
@@ -108,43 +77,54 @@ const Formulario = (props:{page: Pages, setPage : Dispatch<SetStateAction<Pages>
         </div>
 
         <form onSubmit={submitEvent}>
-                  <label htmlFor='nombre'>Nombre</label>
-                  <input style={{border:borderStatus(inputState.nombre, props.player.nombre)}}
-                         className="in"
-                         type="text"
-                         placeholder='Escriba su nombre'
-                         name='nombre'
-                         value={props.player.nombre}
-                         onChange={handleInputChange}
-                         onKeyUp={(e) => validation(e, expresiones.nombre)}
-                        />
 
-                        {(inputState.incomplete===true && props.player.nombre==='') && <p>*Campo obligatorio</p>}
-                        {(!inputState.nombre && props.player.nombre!=='') && <p>De entre 2 a 40 caracteres solo letras y espacios</p>}
 
-                  <label htmlFor='edad'>Edad</label>
-                  <input style={{border:borderStatus(inputState.edad, props.player.edad)}}
-                         className="in"
-                         type="text"
-                         placeholder='Escriba su edad'
-                         name='edad'
-                         onChange={handleInputChange}
-                         onKeyUp={(e) => validation(e, expresiones.edad)}
-                        />
-                        {(inputState.incomplete===true && props.player.edad==='') && <p>*Campo obligatorio</p>}
-                          {(!inputState.edad && props.player.edad!=='') && <p>2 digitos de 01 al 99</p>}
 
-                  <label htmlFor="country">Pais</label>
-                  <Select id='select'
+                  <Input  
+                          setInputState={setInputState}
+                          inputState={inputState}
+                          label='Nombre'
+                          type='text'
+                          placeholder='Escriba su nombre'
+                          name='nombre'
+                          expresion={expresiones.nombre}
+                          user={props.player}
+                          setUser={props.setPlayer}
+                          className='in'
+                          classLabel='labelform'
+                          errorempty='El campo es obligatorio*'
+                          emptyactive={(inputState.incomplete && props.player.nombre==='') ? true : false }
+                          errorinput='De entre 2 a 40 caracteres solo letras y espacios'/>
+
+                  <Input  
+                          setInputState={setInputState}
+                          inputState={inputState}
+                          label='Edad'
+                          type='text'
+                          placeholder='Escriba su edad'
+                          name='edad'
+                          expresion={expresiones.edad}
+                          user={props.player}
+                          setUser={props.setPlayer}
+                          className='in'
+                          classLabel='labelform'
+                          errorempty='El campo es obligatorio*'
+                          emptyactive={(inputState.incomplete && props.player.edad==='') ? true : false }
+                          errorinput='2 digitos de 01 al 99'/>
+
+                  <label className='labelform'>Pais:</label>
+                  <Select className='select'
+                          classNamePrefix='select'
                           options={options}
                           onChange={handleSelectChange}
                           placeholder='Seleccione un pais'
                           name='pais'/>
-                          {(inputState.incomplete===true && props.player.pais==='') && <p>*Campo obligatorio</p>}
+                          {(inputState.incomplete && props.player.pais==='') && <p>*Campo obligatorio</p>}
 
 
                   <input id='btn' type="submit" value="Enviar"/>
-                  {(inputState.incomplete===true) && <p>Los datos son de caracter obligatorio y han de estar completados de manera correcta</p>}
+
+                  {inputState.incomplete && <p>Los datos son de caracter obligatorio y han de estar completados de manera correcta</p>}
 
 
         </form>
