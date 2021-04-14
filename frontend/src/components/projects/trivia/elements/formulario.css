@@ -29,6 +29,7 @@
   #trivia-talk{
     grid-column: 1;
     position: relative;
+    left: 10%;
     display:flex;
     justify-content:center;
     align-items: center;

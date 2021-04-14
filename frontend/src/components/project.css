@@ -57,11 +57,12 @@
     font-family: sans-serif;
     line-height: 3rem;
     letter-spacing: .2rem;
-    background: black;
+    background:  rgb(0, 26, 32);
     margin: 1%;
     cursor:hand;
     cursor:pointer;
-    border: solid 2px black;
+    border: solid 2px  rgb(0, 26, 32);
+    border-radius: 20px;
    
 
 
