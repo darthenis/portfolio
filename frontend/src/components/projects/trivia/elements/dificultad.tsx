@@ -1,5 +1,6 @@
 import React, {Dispatch, SetStateAction} from 'react'
 import {Player, Pages} from '../trivia-interfaces-types'
+import './dificultad.css'
 
 
 

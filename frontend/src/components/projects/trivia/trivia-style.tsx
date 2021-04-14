@@ -50,8 +50,10 @@ const ButtonNext = styled.div<effectNext>`
 
 const Button = styled.button`
                       color: black;
-                      background-color: rgb(126, 252, 250);
+                      background-color: aqua;
                       border-radius: 10px;
+                      font-family: Arial;
+                      font-size: 2rem;
                       
 
                       &:hover{

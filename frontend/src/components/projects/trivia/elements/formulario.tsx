@@ -4,6 +4,7 @@ import countryList from 'react-select-country-list'
 import Select from 'react-select'
 import {Pages, Player, states} from '../trivia-interfaces-types'
 import Input from '../../../inputs'
+import './formulario.css'
 
 
 
@@ -62,7 +63,7 @@ const handleSelectChange = ( e : any) => {
 
   return (
 
-  <div id="trivia-block">
+  <>
         <div id="trivia-talk">
 
               <i id='emoji-jump' className="fas fa-grin-alt"></i>
@@ -112,7 +113,7 @@ const handleSelectChange = ( e : any) => {
                           emptyactive={(inputState.incomplete && props.player.edad==='') ? true : false }
                           errorinput='2 digitos de 01 al 99'/>
 
-                  <label className='labelform'>Pais:</label>
+                  <label className='labelform'>Pais</label>
                   <Select className='select'
                           classNamePrefix='select'
                           options={options}
@@ -128,7 +129,7 @@ const handleSelectChange = ( e : any) => {
 
 
         </form>
-  </div>)
+  </>)
 }
 
 export default Formulario

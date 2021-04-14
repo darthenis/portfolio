@@ -4,13 +4,20 @@ import Main from './main'
 import Project from './project'
 import About from './about'
 import Rrss from './rrss'
-import {Nav} from './index-styled'
+import {Nav, ButtonNav} from './index-styled'
 
 import './index.css';
 
     const Inicio = () => {
 
-      const [comp, setComp] = React.useState(Main);
+      const [comp, setComp] = useState(Main);
+
+      const [compActive, setCompActive] = useState({
+
+            project : false,
+            about : false,
+            rrss : false
+      })
 
       const [active, setActive] = useState({
                 call : false,
@@ -30,9 +37,14 @@ import './index.css';
       }
 
 
-      const selectMenu= (elem: React.SetStateAction<JSX.Element>) =>{
+      const selectMenu= (elem: React.SetStateAction<JSX.Element>, comp:string) =>{
  
-                setComp(elem); 
+                setComp(elem);
+
+                comp==='main' && setCompActive({...compActive, project : false, about : false, rrss : false})
+                comp==='project' && setCompActive({...compActive, project : true, about : false, rrss : false})
+                comp==='about' && setCompActive({...compActive, project : false, about : true, rrss : false})
+                comp==='rrss' && setCompActive({...compActive, project : false, about : false, rrss : true})
                 
                 active.call && setActive({...active, call : false, push : true})
 
@@ -44,12 +56,12 @@ import './index.css';
         return (
 
             <div>
-                <div className="containermain">
+                <div id="containermain">
 
-                        <div className="container">
-                                <header className="title" id="title">
+                        
+                                <header id="title">
 
-                                        <div className="logo" onClick= {()=> selectMenu(Main)}>Emi Diseño <br/>Web</div>
+                                        <div id="logo" onClick= {()=> selectMenu(Main, 'main')}>Emiliano<br/>A. Acevedo</div>
 
                                         <i className="fas fa-bars" onClick={activeMenu}></i>
 
@@ -58,30 +70,20 @@ import './index.css';
                                 <Nav 
                                         active={active.call}
                                         disactive={active.push}
-                                        className="menu">
+                                        id="menu">
                                         
-                                        <button className="button" onClick= {()=> selectMenu(Project)}>Proyectos</button>
-                                        <button className="button" onClick= {()=> selectMenu(About)}>Sobre Mi</button>
-                                        <button className="button" onClick= {()=> selectMenu(Rrss)}>Contacto</button>
+                                        <ButtonNav active={compActive.project} className="button" onClick= {()=> selectMenu(Project, 'project')}>Proyectos</ButtonNav>
+                                        <ButtonNav active={compActive.about} className="button" onClick= {()=> selectMenu(About, 'about')}>Sobre Mi</ButtonNav>
+                                        <ButtonNav active={compActive.rrss} className="button" onClick= {()=> selectMenu(Rrss, 'rrss')}>Contacto</ButtonNav>
 
-                                </Nav>
-
-                                
-                        </div>        
-
-                        {comp}
-
-
-                        <footer>Diseñado y programado por: <br/> Emiliano A. Acevedo</footer>
+                                </Nav> 
+                                    
+                                    {comp}
+                                  
+                                <footer>Diseñado y programado por: <br/> Emiliano A. Acevedo</footer>
 
 
                         </div>
-
-
-                       
-
-
-                
 
             </div>
         )

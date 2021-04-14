@@ -1,4 +1,5 @@
 import React from 'react'
+import './rrss.css'
 
 
 
@@ -6,7 +7,7 @@ const Rrss = () => {
 
       return (
 
-        <div className="redes">Redes:</div>
+        <div id="redes">Redes:</div>
 
       )
 }
