@@ -16,5 +16,7 @@ router.get('/motos', datactrl.getmotos);
 
 router.post('/addmoto', datactrl.insertmoto);
 
+router.post('/sendmessage', datactrl.sendEmail);
+
 
 export default router

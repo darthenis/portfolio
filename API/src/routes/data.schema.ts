@@ -57,6 +57,24 @@ const motosSchema = new Schema({
     }
 )
 
+
+const emailSchema = new Schema ({
+
+    from : {
+        type : String,
+    },
+    subject : {
+        type : String,
+    },
+
+    message : {
+        type : String
+    }
+})
+
+
 export const Players = model('Player', playerSchema);
 
 export const Motos = model('Moto', motosSchema);
+
+export const Email = model('Email', emailSchema);

@@ -70,17 +70,17 @@ export const Nav = styled.nav<activeEffect>`
 
 export const ButtonNav = styled.button<menuActive>`
 
-    background-color:  rgb(0, 26, 32);
+    background-color:  rgb(0, 10, 12);
     color: aqua;
     position: relative;
     padding-top: 1rem;
     padding-bottom: 1rem;
     margin: 1rem;
     height: fit-content;
-    font-size: calc(.1rem + .7vw);
+    font-size: calc(.3rem + .7vh);
     letter-spacing: 2px;
     border: none;
-    border-bottom: solid 2px ${props => props.active ? 'aqua' : 'rgb(0, 26, 32)'};
+    border-bottom: solid 2px ${props => props.active ? 'aqua' : 'rgb(0, 10, 12)'};
     outline: none;
     transition-duration: .5s;
     cursor: pointer;

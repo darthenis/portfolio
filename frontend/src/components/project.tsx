@@ -54,13 +54,15 @@ function changeurl(url: string){
                                 </div>
 
                                   <div className='img-projects'><img src={trivia}></img></div>
+
+                                  <div className='info-projects'>
                                   
                                           Este es una app trivia. Donde se tomará los datos del jugador, y luego podra escoger
                                           entre las tres dificultades disponibles. La trivia contiene 10 preguntas aleatorias
                                           que son extraidas de una base de datos. Al terminar con la trivia se le mostrará una tabla
                                           donde se mostrará los datos de los jugadores.
 
-                                  
+                                  </div>
             </div>
             
       </div>

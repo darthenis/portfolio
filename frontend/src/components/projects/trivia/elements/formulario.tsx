@@ -29,6 +29,8 @@ const Formulario = (props:{page: Pages, setPage : Dispatch<SetStateAction<Pages>
         incomplete: false
   })
 
+  //inputState.incomplete establece si efectivamente intentado enviar los datos y ha habido un fallo
+
 //--------------------------UPDATE----------------------------------------------
 
 const handleSelectChange = ( e : any) => {
@@ -94,7 +96,7 @@ const handleSelectChange = ( e : any) => {
                           className='in'
                           classLabel='labelform'
                           errorempty='El campo es obligatorio*'
-                          emptyactive={(inputState.incomplete && props.player.nombre==='') ? true : false }
+                          errorMessageClass={'errorinput-msg-form-trivia'}
                           errorinput='De entre 2 a 40 caracteres solo letras y espacios'/>
 
                   <Input  
@@ -110,7 +112,7 @@ const handleSelectChange = ( e : any) => {
                           className='in'
                           classLabel='labelform'
                           errorempty='El campo es obligatorio*'
-                          emptyactive={(inputState.incomplete && props.player.edad==='') ? true : false }
+                          errorMessageClass={'errorinput-msg-form-trivia'}
                           errorinput='2 digitos de 01 al 99'/>
 
                   <label className='labelform'>Pais</label>

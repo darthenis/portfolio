@@ -4,20 +4,20 @@ import {Inputs, Messageinvalid, Messageempty} from './input-style'
 
 
     const Input = (props :{  
-                            setInputState : Dispatch<SetStateAction<any>>,
-                            inputState    : any,
-                            label         : string,
-                            classLabel    : string,
-                            className     : string, 
-                            type          : string, 
-                            placeholder   : string, 
-                            name          : string,
-                            expresion     : RegExp,
-                            errorinput    : string,
-                            errorempty    : string,
-                            emptyactive   : boolean | null,
-                            user          : any,
-                            setUser       : Dispatch<SetStateAction<any>> }) => {
+                            setInputState    : Dispatch<SetStateAction<any>>,
+                            inputState       : any,
+                            label            : string,
+                            classLabel       : string,
+                            className        : string, 
+                            type             : string, 
+                            placeholder      : string, 
+                            name             : string,
+                            expresion        : RegExp,
+                            errorinput       : string,
+                            errorempty       : string,
+                            errorMessageClass: string,
+                            user             : any,
+                            setUser          : Dispatch<SetStateAction<any>> }) => {
 
 
  
@@ -65,9 +65,9 @@ import {Inputs, Messageinvalid, Messageempty} from './input-style'
                             isActive    ={props.inputState[props.name]}
                             className   ={props.className}
                             />
-                    <p>
+                    <p className={props.errorMessageClass}>
                     <Messageinvalid isActive={props.inputState[props.name]}>{props.errorinput}</Messageinvalid> <br/>
-                    <Messageempty isEmpty={props.emptyactive}>{props.errorempty}</Messageempty>
+                    <Messageempty isEmpty={props.inputState.incomplete && props.user[props.name]==='' ? true : false}>{props.errorempty}</Messageempty>
                     </p>
 
                                     </>

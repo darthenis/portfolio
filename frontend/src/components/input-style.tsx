@@ -28,7 +28,7 @@ export const Messageinvalid = styled.span<effecterror>`
             position: relative;
             font-size:1em;        
             color: red;
-            visibility: ${props => !props.isActive ? 'visible' : 'hidden'};
+            display: ${props => !props.isActive ? 'block' : 'none'};
 
 `
 

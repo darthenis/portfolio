@@ -4,6 +4,7 @@ import cors from 'cors';
 import morgan from 'morgan';
 import dataroutes from './routes/data.routes';
 
+
 const app = express();
 
 app.use(morgan('dev'));

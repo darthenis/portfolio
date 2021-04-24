@@ -7,10 +7,11 @@ import Rrss from './rrss'
 import {Nav, ButtonNav} from './index-styled'
 
 import './index.css';
+import { message } from './interfaces-types';
 
     const Inicio = () => {
 
-      const [comp, setComp] = useState(Main);
+      const [comp, setComp] = useState<string>('main');
 
       const [compActive, setCompActive] = useState({
 
@@ -24,9 +25,26 @@ import './index.css';
                 push : false
       })
 
+      const [messageUser, setMessageUser] = useState<message>({
+
+        from: '',
+        name: '',
+        message: '',
+  
+    })
+  
+    const [inputState, setInputState] = useState({
+  
+      name : true,
+      from : true, 
+      message : true,
+      incomplete: false
+  
+    })
 
 
-      const activeMenu= () =>{
+
+      const activeMenu = () =>{
 
   //function for responsive menu ('nav'). 
 
@@ -37,9 +55,9 @@ import './index.css';
       }
 
 
-      const selectMenu= (elem: React.SetStateAction<JSX.Element>, comp:string) =>{
+      const selectMenu= (comp:string) =>{
  
-                setComp(elem);
+                setComp(comp);
 
                 comp==='main' && setCompActive({...compActive, project : false, about : false, rrss : false})
                 comp==='project' && setCompActive({...compActive, project : true, about : false, rrss : false})
@@ -55,13 +73,13 @@ import './index.css';
 
         return (
 
-            <div>
+            <>
                 <div id="containermain">
 
                         
                                 <header id="title">
 
-                                        <div id="logo" onClick= {()=> selectMenu(Main, 'main')}>Emiliano<br/>A. Acevedo</div>
+                                        <div id="logo" onClick= {()=> selectMenu('main')}>Emiliano<br/>A. Acevedo</div>
 
                                         <i className="fas fa-bars" onClick={activeMenu}></i>
 
@@ -72,20 +90,27 @@ import './index.css';
                                         disactive={active.push}
                                         id="menu">
                                         
-                                        <ButtonNav active={compActive.project} className="button" onClick= {()=> selectMenu(Project, 'project')}>Proyectos</ButtonNav>
-                                        <ButtonNav active={compActive.about} className="button" onClick= {()=> selectMenu(About, 'about')}>Sobre Mi</ButtonNav>
-                                        <ButtonNav active={compActive.rrss} className="button" onClick= {()=> selectMenu(Rrss, 'rrss')}>Contacto</ButtonNav>
+                                        <ButtonNav active={compActive.project} className="button" onClick= {()=> selectMenu('project')}>Proyectos</ButtonNav>
+                                        <ButtonNav active={compActive.about} className="button" onClick= {()=> selectMenu('about')}>Sobre Mi</ButtonNav>
+                                        <ButtonNav active={compActive.rrss} className="button" onClick= {()=> selectMenu('rrss')}>Contacto</ButtonNav>
 
                                 </Nav> 
                                     
-                                    {comp}
+                                    {comp==='main' && <Main/>}
+                                    {comp==='project' && <Project/>}
+                                    {comp==='about' && <About/>}
+                                    {comp==='rrss' && <Rrss   messageUser={messageUser} 
+                                                            setMessageUser={setMessageUser}
+                                                            inputState={inputState}
+                                                            setInputState={setInputState}/>}
+
                                   
                                 <footer>Diseñado y programado por: <br/> Emiliano A. Acevedo</footer>
 
 
                         </div>
 
-            </div>
+            </>
         )
     }
 

@@ -1,7 +1,14 @@
-import {RequestHandler} from 'express';
+import {RequestHandler} from 'express'
 
-import * as Datas from './data.schema';
+import * as Datas from './data.schema'
 
+import nodemailer from 'nodemailer'
+
+import {email} from './service.email'
+
+import dotenv from 'dotenv'
+
+dotenv.config();
 
 
 //-----------------------------------MOTOS--------------------------------------------
@@ -71,3 +78,15 @@ export const addplayer : RequestHandler = async (req, res) => {
     res.json(playersaved);
     
 }
+
+//----------------------------------EMAIL-----------------------------------------
+
+
+export const sendEmail : RequestHandler = (req, res) => {
+
+    const message = Object.assign({}, req.body)
+
+    email(message.from, message.name, message.message)
+
+    }
+
