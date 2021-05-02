@@ -1,15 +1,17 @@
 import React, {useState} from 'react';
-
 import Main from './main'
 import Project from './project'
 import About from './about'
 import Rrss from './rrss'
 import {Nav, ButtonNav} from './index-styled'
-
 import './index.css';
-import { message } from './interfaces-types';
 
-    const Inicio = () => {
+  
+
+
+
+
+  const Inicio = () => {
 
       const [comp, setComp] = useState<string>('main');
 
@@ -24,24 +26,6 @@ import { message } from './interfaces-types';
                 call : false,
                 push : false
       })
-
-      const [messageUser, setMessageUser] = useState<message>({
-
-        from: '',
-        name: '',
-        message: '',
-  
-    })
-  
-    const [inputState, setInputState] = useState({
-  
-      name : true,
-      from : true, 
-      message : true,
-      incomplete: false
-  
-    })
-
 
 
       const activeMenu = () =>{
@@ -99,10 +83,7 @@ import { message } from './interfaces-types';
                                     {comp==='main' && <Main/>}
                                     {comp==='project' && <Project/>}
                                     {comp==='about' && <About/>}
-                                    {comp==='rrss' && <Rrss   messageUser={messageUser} 
-                                                            setMessageUser={setMessageUser}
-                                                            inputState={inputState}
-                                                            setInputState={setInputState}/>}
+                                    {comp==='rrss' && <Rrss/>}
 
                                   
                                 <footer>Diseñado y programado por: <br/> Emiliano A. Acevedo</footer>

@@ -18,7 +18,7 @@ function changeurl(url: string){
            
             <div id='header-projects'>
               
-              Estos son algunos de mis proyectos, alguno son orientados a mostrar mis habilidades<br/> los cuales son sacados del
+              Estos son algunos de mis proyectos, alguno son orientados a mostrar mis habilidades los cuales son sacados del
               canal de youtube <a href='https://www.youtube.com/watch?v=aouDQ8caJYg&t'>"Hola Mundo"</a>, y otros son 
               proyectos personales.
               
@@ -30,7 +30,7 @@ function changeurl(url: string){
             <div className='projects' onClick={() => changeurl('/motos')}>
                               
                                 <div className='title-projects'>
-                                    <h3>Servicio de motos</h3>
+                                    <div>Servicio de motos</div>
                                 </div>
 
                                 <div className='img-projects'><img src={motosproject}></img></div>
@@ -50,7 +50,7 @@ function changeurl(url: string){
             <div className='projects' onClick={() => changeurl('/trivia')}> 
             
                                 <div className='title-projects'>
-                                    <h3>Trivia</h3>
+                                    <div>Trivia</div>
                                 </div>
 
                                   <div className='img-projects'><img src={trivia}></img></div>

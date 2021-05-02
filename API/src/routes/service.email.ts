@@ -1,7 +1,6 @@
 import * as nodemailer from 'nodemailer'
-import dotenv from 'dotenv'
+import axios from 'axios'
 
-dotenv.config()
 
 export const email = async (from : string, name : string, message : string) => {
 
@@ -16,15 +15,6 @@ export const email = async (from : string, name : string, message : string) => {
                 <p>${message}</p>
                     
                 `
-
-            let mailOptions = {
-                from: "emidesarrolloweb@gmail.com",
-                to: "emi.acevedo.letra@gmail.com",
-                subject: "Consulta desde la web",
-                text: message,
-                html: htmlEmail,
-                headers: { 'x-myheader': 'test header' }
-            };
 
             const transporter = nodemailer.createTransport({
                 host: 'smtp.gmail.com',
@@ -49,3 +39,13 @@ export const email = async (from : string, name : string, message : string) => {
             console.log("Message sent: %s", info.response);
 
         }
+
+
+export const checkToken = async (token:string) => {
+
+        const checkToken = await axios.post(`https://www.google.com/recaptcha/api/siteverify?secret=${process.env.SECRET_KEY}&response=${token}`)
+
+        return checkToken
+       
+
+}

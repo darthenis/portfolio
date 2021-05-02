@@ -18,7 +18,7 @@ const slideIn = keyframes`
             }
             to{
 
-                top: 110px;
+                top: 90px;
 
             }
 
@@ -26,7 +26,7 @@ const slideIn = keyframes`
 const slideOff = keyframes`
             from{
                 
-                top: 110px;
+                top: 90px;
             
             }
             to{

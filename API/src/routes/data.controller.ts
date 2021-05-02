@@ -2,9 +2,9 @@ import {RequestHandler} from 'express'
 
 import * as Datas from './data.schema'
 
-import nodemailer from 'nodemailer'
+import {email, checkToken} from './service.email'
 
-import {email} from './service.email'
+import fetch from 'isomorphic-fetch'
 
 import dotenv from 'dotenv'
 
@@ -82,11 +82,23 @@ export const addplayer : RequestHandler = async (req, res) => {
 //----------------------------------EMAIL-----------------------------------------
 
 
-export const sendEmail : RequestHandler = (req, res) => {
+export const sendEmail : RequestHandler = async (req, res) => {
 
     const message = Object.assign({}, req.body)
 
-    email(message.from, message.name, message.message)
+    const token = message.token
 
-    }
+    const response = await checkToken(token)
+
+    if (response.data.success===true) {
+
+             try {
+
+                await email(message.from, message.name, message.message)
+        
+             } catch(err) { console.log(err) }
+
+        }
+
+}
 
