@@ -167,7 +167,7 @@ let check : boolean=false;
   return(
 
     <div>
-        <div id="BottomVolver">VOLVER</div>
+        <div id="BottomVolver" onClick={() => {window.location.href='/'}} >VOLVER</div>
             <div id="container">
 
                 <div id='reloj'>{hora} hs</div>

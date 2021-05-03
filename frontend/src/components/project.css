@@ -55,16 +55,15 @@
     grid-gap: 5px;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 15% 1fr;
-    font-size: calc(.7em + .5vw);
+    font-size: calc(1em + .5vw);
     font-family: sans-serif;
-    text-align: justify;
+    text-align: left;
     line-height: 2rem;
-    letter-spacing: .2rem;
     background:  rgb(0, 10, 12);
     margin: 1%;
     cursor:hand;
     cursor:pointer;
-    border: solid 3px  rgb(46, 46, 46);
+    border: solid 3px  rgb(143, 143, 143);
     border-radius: 20px;
    
 

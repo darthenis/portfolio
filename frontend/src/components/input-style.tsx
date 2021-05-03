@@ -1,16 +1,12 @@
 import styled, {css} from 'styled-components'
 
+//que alpedo ese doble interface jajaja corregier ESTO
 
-
-interface effecterror{
+interface effectError{
     readonly isActive : boolean | null;
 }
 
-interface effectempty {
-    readonly isEmpty : boolean | null;
-}
-
-export const Inputs = styled.input<effecterror>`
+export const Inputs = styled.input<effectError>`
 
         border: solid 3px transparent;
 
@@ -24,7 +20,7 @@ export const Inputs = styled.input<effecterror>`
             
 `
 
-export const Messageinvalid = styled.span<effecterror>`
+export const Messageinvalid = styled.span<effectError>`
             position: relative;
             font-size:1em;        
             color: red;
@@ -32,11 +28,11 @@ export const Messageinvalid = styled.span<effecterror>`
 
 `
 
-export const Messageempty = styled.span<effectempty>`
+export const Messageempty = styled.span<effectError>`
                 position: relative;
                 font-size:1em;
                 color: red;
-                display: ${props => props.isEmpty ? 'block' : 'none'}
+                display: ${props => props.isActive ? 'block' : 'none'}
 
 `
 

@@ -1,10 +1,10 @@
 
 #contact{
     grid-column: 1/-1;
+    grid-row: 2/3;
     text-align: center;
     justify-self: center;
     color: white;
-    margin-top: 5%;
     width: 70%;
     padding: 2em;
     padding-top:4em;
@@ -26,18 +26,6 @@
 
 }
 
-#contact > form{
-    display: grid;
-    grid-gap: .5rem;
-    grid-template-columns: 50% 50%;
-    grid-template-rows: 1fr 1fr 1fr;
-    width: 80%;
-    text-align: center;
-    margin: 0 auto;
-    margin-top: 2%;
-
-
-}
 
 .grid-input-rrss{
 
@@ -87,6 +75,17 @@
     font-size: 1.5rem;
 }
 
+
+#captcha{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 2%;
+    margin-bottom: 2%;
+
+
+}
+
 #btn-form-rrss{
     margin-top: 4%;
     grid-column: 1/-1;
@@ -113,15 +112,11 @@
 
 }
 
-
-
-#Recaptcha{
-    width: 50%;
-    grid-column: 1/-1;
-    text-align: center;
+#messageSend{
+    color: green;
+    font-size: 15px;
 }
 
-.grecaptcha-badge {opacity:0}
 
 #redes > p{
     color: white;
@@ -142,4 +137,3 @@
         width: 100%;
     }
 }
-

@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import Inicio from './components/index';
-import Motos from './components/projects/motos'
+import Motos from './components/projects/motos/motos'
 import Trivia from './components/projects/trivia/trivia'
 
 ReactDOM.render(

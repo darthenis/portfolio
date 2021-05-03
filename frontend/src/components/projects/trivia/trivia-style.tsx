@@ -50,16 +50,21 @@ const ButtonNext = styled.div<effectNext>`
 
 const Button = styled.button`
                       color: black;
-                      background-color: aqua;
+                      background-color: rgb(184, 247, 255);
                       border-radius: 10px;
                       font-family: Arial;
-                      font-size: 2rem;
+                      font-size: 1.5rem;
+                      cursor: hand;
+                      cursor: pointer;
+                      padding: .4em;
+
                       
 
                       &:hover{
-                      box-shadow: 0px 0px 25px rgb(126, 250, 250);
-                          -webkit-box-shadow: 0px 0px 25px rgb(126, 250, 250);
-                          -moz-box-shadow: 0px 0px 25px rgb(126, 250, 250);
+                      background-color: rgb(138, 187, 194);
+                      box-shadow: 0px 0px 10px rgb(126, 250, 250);
+                          -webkit-box-shadow: 0px 0px 10px rgb(126, 250, 250);
+                          -moz-box-shadow: 0px 0px 10px rgb(126, 250, 250);
                       }
 
 `

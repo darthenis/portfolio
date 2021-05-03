@@ -5,6 +5,7 @@ import About from './about'
 import Rrss from './rrss'
 import {Nav, ButtonNav} from './index-styled'
 import './index.css';
+import Iconreact from './media/icon-react.png'
 
   
 
@@ -86,7 +87,12 @@ import './index.css';
                                     {comp==='rrss' && <Rrss/>}
 
                                   
-                                <footer>Diseñado y programado por: <br/> Emiliano A. Acevedo</footer>
+                                <footer>
+
+                                        <div>Diseñado y programado por: <br/> Emiliano A. Acevedo </div>
+                                        <div>Powered by React<br/><img src={Iconreact} alt=""/></div>
+                                        
+                                </footer>
 
 
                         </div>

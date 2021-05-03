@@ -4,8 +4,6 @@ import * as Datas from './data.schema'
 
 import {email, checkToken} from './service.email'
 
-import fetch from 'isomorphic-fetch'
-
 import dotenv from 'dotenv'
 
 dotenv.config();
@@ -95,10 +93,12 @@ export const sendEmail : RequestHandler = async (req, res) => {
              try {
 
                 await email(message.from, message.name, message.message)
+
+                return res.json({message: 'El mensaje ha sido enviado'})
         
              } catch(err) { console.log(err) }
 
-        }
+        } else {return res.json({message:'token denegado'})}
 
 }
 

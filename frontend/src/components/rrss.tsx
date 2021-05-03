@@ -1,20 +1,18 @@
-import React, {Dispatch, SetStateAction, useState, useEffect} from 'react'
+import React, {useState, useEffect} from 'react'
 import './rrss.css'
-import Input from './inputs'
-import instagram from './media/instagram.png'
-import facebook from './media/icon-facebook.png'
 import { sendMail } from './rrss-service'
-import Recaptcha, { ReCAPTCHAProps } from 'react-google-recaptcha'
 import {message} from './interfaces-types'
+import Input from './inputs'
+import {Form, SendMail, Contact, MessageSending} from './rrss-styled'
+import Recaptcha from 'react-google-recaptcha'
+
+
 
 
 
 const Rrss = () => {
 
-  const regularExpression = {
-    nombre:  /^[a-zA-ZÀ-ÿ\s]{2,40}$/,
-    email : /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-  }
+
 
   const [messageUser, setMessageUser] = useState<message>({
 
@@ -25,42 +23,40 @@ const Rrss = () => {
 
 })
 
-const [inputState, setInputState] = useState({
+  const [messageSend, setMessageSend] = useState<string | null>(null)
+
   
-  name : true,
-  from : true, 
-  message : true,
-  incomplete: false
-
-})
-  
-  const [messageReady, setMessageReady] = useState(false)
-
-  const sendMessage = async () => {
-
-    const mensaje = await sendMail(messageUser)
+  const regularExpression = {
+    nombre:  /^[a-zA-ZÀ-ÿ\s]{2,40}$/,
+    email : /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
   }
 
 
-  useEffect( ()=>{
-
-    if (messageReady===true) {
-
-      sendMessage();
-      setMessageReady(false)
-    
-    }
-
-  }, [messageReady])
-
-  const recaptchaRef = React.createRef<Recaptcha>();
-
-  const onChange = (value:string | null) => {
+const onChange = (value:string | null) => {
 
     setMessageUser((s:any) => { return {...s, token : value}})
     
   }
 
+  const sendMessage = async () => {
+
+    const mensaje = await sendMail(messageUser)
+
+    setMessageSend(mensaje.data)
+
+    setMessageUser((s:any) => { return {...s, token : ''}})
+
+  }
+
+
+const [inputState, setInputState] = useState({
+
+    name : true,
+    from : true, 
+    message : true,
+    incomplete: false
+  
+  })
 
   const setMessage = (e : React.ChangeEvent<HTMLTextAreaElement>) =>{
 
@@ -72,120 +68,156 @@ const [inputState, setInputState] = useState({
 
   }
 
+
   const submit = async (e:React.FormEvent<HTMLFormElement>) =>{
+    
+    e.preventDefault();
 
-      e.preventDefault();
+    if(messageUser.token===''){
 
-      if (recaptchaRef.current!==null) {
-        
-        const tokenrecaptcha = await recaptchaRef.current.executeAsync(); 
-      
+      alert('confirme que no es un bot, por favor')
+
+    }else{
+  
+
+          if ( inputState.name && 
+                inputState.from && 
+                messageUser.name!=='' && 
+                messageUser.from!=='' && 
+                messageUser.message!=='' ) {
+
+                  setInputState({...inputState, incomplete : false});
+
+                  setMessageSend('sending')
+
+                  sendMessage();
+            
+          } else { setInputState({...inputState, incomplete : true})}
+
         }
-      
 
-     if (inputState.name && inputState.from && messageUser.name!=='' && messageUser.from!=='' && messageUser.message!==''){
+}
 
-      setInputState({...inputState, incomplete : false})
-
-      setMessageReady(true) 
-      
-     } else { setInputState({...inputState, incomplete : true})}
-
+  const messagesending= () => {
+                  return (<MessageSending emailSend={false}>
+                                                          Su mensaje está siendo enviado...<br/>
+                                                          <i style={{color: "yellow"}} className="fas fa-envelope"></i> 
+                                                    </MessageSending>)
   }
+ 
+
+  const messagesend = () => {
+                          return (<MessageSending emailSend={true}>
+                                                              <i style={{color: "green"}} className="far fa-check-circle"></i><br/>
+                                                              Su mensaje ha sido recibido <br/>
+                                                              Le contestaré en lo más breve posible
+                                                          </MessageSending>)
+                            }
+                
+                
 
 
       return (
 
 
-        <div id="contact">
+        <Contact emailSend={messageSend!==null} id="contact">
 
-          <div id='header-rrss'>Si desea contactarse conmigo para consultarme sobre mis servicios web <br/>no dude en
-          comunicarse a través de este formulario.</div>
-
-          <form onSubmit={submit}>
-
-            <div className={'grid-input-rrss'}>
-            <Input  setInputState={setInputState}
-                    inputState={inputState}
-                    label='Nombre'
-                    classLabel='label-rrss'
-                    className='input-rrss'
-                    type='text' 
-                    placeholder='Escriba su nombre' 
-                    name='name'
-                    user={messageUser}
-                    setUser={setMessageUser}
-                    errorMessageClass={'errorinput-msg-rrss'}
-                    expresion={regularExpression.nombre}
-                    errorinput='Solo usar letras y espacios entre 3 y 40 carácteres'
-                    errorempty='*El campo es obligatorio'
-                    />
-
-            </div>
-
-            <div className={'grid-texttarea-rrss'}>
-
-            <label className='label-textarea'>Mensaje</label>
-
-            <textarea name="message" 
-                      id="mensaje"
-                      rows={10}
-                      cols={5} 
-                      value={messageUser.message} 
-                      onChange={setMessage} 
-                      placeholder='Escriba aqui su mensaje'></textarea>
-
-            </div>
-
-            <div className={'grid-input-rrss'}>
-
-            <Input  setInputState={setInputState}
-                    inputState={inputState}
-                    label='Email'
-                    classLabel='label-rrss'
-                    className='input-rrss'
-                    type='text' 
-                    placeholder='Escriba su email' 
-                    name='from'
-                    user={messageUser}
-                    setUser={setMessageUser}
-                    errorMessageClass={'errorinput-msg-rrss'}
-                    expresion={regularExpression.email}
-                    errorinput='Escriba correctamente su email'
-                    errorempty='*El campo es obligatorio'
-                    />
-
-            </div>
-
-            <div id='btn-form-rrss'>
-                    
-                    <input type="submit" value='Enviar'/>
-
-                    {inputState.incomplete && <p className={'errorinput-msg-rrss'}>Los datos son de caracter obligatorio y han de estar completados de manera correcta</p>}
-
-            </div>
-
-          </form>
-
-          <div id='reCAPTCHA'>
-
-          <p>This site is protected by reCAPTCHA and the Google Privacy Policy and Terms of Service apply</p>
-            
-          </div>
-
-          <Recaptcha
-                  sitekey='6LdRx70aAAAAAF12Vhv-dZQZzFRwNaklzrurOme9'
-                  size='invisible'
-                  ref={recaptchaRef}
-                  onChange={onChange}
-                  badge='bottomright'
-                  />
+        <div id='header-rrss'>
+                
+                      {messageSend===null && 'Si desea contactarse conmigo para consultarme sobre mis servicios web no dude encomunicarse a través de este formulario.'}
+        
+                            </div>
 
 
-        </div>
+        <SendMail id='mensajeenviado' emailSend={messageSend!==null}>{messageSend=='sending' ? messagesending() : messagesend() }
+                                                              
+                                                              </SendMail>
+
+                                                              
+        <Form emailSend={messageSend!==null} onSubmit={submit}>
+
+                        <div className={'grid-input-rrss'}>
+                        <Input  setInputState={setInputState}
+                                inputState={inputState}
+                                label='Nombre'
+                                classLabel='label-rrss'
+                                className='input-rrss'
+                                type='text' 
+                                placeholder='Escriba su nombre' 
+                                name='name'
+                                user={messageUser}
+                                setUser={setMessageUser}
+                                errorMessageClass={'errorinput-msg-rrss'}
+                                expresion={regularExpression.nombre}
+                                errorinput='Solo usar letras y espacios entre 3 y 40 carácteres'
+                                errorempty='*El campo es obligatorio'
+                                />
+
+                        </div>
+
+                        <div className={'grid-texttarea-rrss'}>
+
+                        <label className='label-textarea'>Mensaje</label>
+
+                        <textarea name="message" 
+                                    id="mensaje"
+                                    rows={10}
+                                    cols={5} 
+                                    value={messageUser.message} 
+                                    onChange={setMessage} 
+                                    placeholder='Escriba aqui su mensaje'></textarea>
+
+                        </div>
+
+                        <div className={'grid-input-rrss'}>
+
+                        <Input  setInputState={setInputState}
+                                inputState={inputState}
+                                label='Email'
+                                classLabel='label-rrss'
+                                className='input-rrss'
+                                type='text' 
+                                placeholder='Escriba su email' 
+                                name='from'
+                                user={messageUser}
+                                setUser={setMessageUser}
+                                errorMessageClass={'errorinput-msg-rrss'}
+                                expresion={regularExpression.email}
+                                errorinput='Escriba correctamente su email'
+                                errorempty='*El campo es obligatorio'
+                                />
+
+                        </div>
+
+                        <div id='btn-form-rrss'>
+                                <div id='captcha'>
+                                        <Recaptcha
+                                              sitekey='6LdHl8MaAAAAAKwifJAruHUzE2CRfFc7kVSqFvNc'
+                                              onChange={onChange}
+                                              theme='dark'
+                                              />
+                                      </div>
+
+                                
+                                <input type="submit" value='Enviar'/>
+
+                                {messageSend && <div id='messageSend'>Mensaje enviado</div>}
+
+                                {inputState.incomplete && <p className={'errorinput-msg-rrss'}>Los datos son de caracter obligatorio y han de estar completados de manera correcta</p>}
+
+                        </div>
+
+    </Form>
+
+</Contact>
+
+          
+       
 
       )
 }
 
 
 export default Rrss;
+
+
