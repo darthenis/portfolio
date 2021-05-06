@@ -140,7 +140,7 @@ const [inputState, setInputState] = useState({
                         <Input  setInputState={setInputState}
                                 inputState={inputState}
                                 label='Nombre'
-                                classLabel='label-rrss'
+                                classLabel='label-form'
                                 className='input-rrss'
                                 type='text' 
                                 placeholder='Escriba su nombre' 
@@ -155,26 +155,12 @@ const [inputState, setInputState] = useState({
 
                         </div>
 
-                        <div className={'grid-texttarea-rrss'}>
-
-                        <label className='label-textarea'>Mensaje</label>
-
-                        <textarea name="message" 
-                                    id="mensaje"
-                                    rows={10}
-                                    cols={5} 
-                                    value={messageUser.message} 
-                                    onChange={setMessage} 
-                                    placeholder='Escriba aqui su mensaje'></textarea>
-
-                        </div>
-
                         <div className={'grid-input-rrss'}>
 
                         <Input  setInputState={setInputState}
                                 inputState={inputState}
                                 label='Email'
-                                classLabel='label-rrss'
+                                classLabel='label-form'
                                 className='input-rrss'
                                 type='text' 
                                 placeholder='Escriba su email' 
@@ -186,6 +172,20 @@ const [inputState, setInputState] = useState({
                                 errorinput='Escriba correctamente su email'
                                 errorempty='*El campo es obligatorio'
                                 />
+
+                        </div>
+
+                        <div className={'grid-texttarea-rrss'}>
+
+                        <label className='label-form'>Mensaje</label>
+
+                        <textarea name="message" 
+                                    id="mensaje"
+                                    rows={10}
+                                    cols={5} 
+                                    value={messageUser.message} 
+                                    onChange={setMessage} 
+                                    placeholder='Escriba aqui su mensaje'></textarea>
 
                         </div>
 

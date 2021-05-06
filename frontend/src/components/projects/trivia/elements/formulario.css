@@ -1,50 +1,31 @@
-#btn {
-    font-size: calc(0.1em + 1vw);
-    margin: 0 auto;
-    margin-top: 5%;
-    width: 35%;
-    text-align: center;
-    background: aqua;
-    border-radius: 10px;
-  
-  }
-
-  #btn:hover{
 
 
-    -webkit-box-shadow: 0px 0px 25px rgb(126, 250, 250);
-    -moz-box-shadow: 0px 0px 25px rgb(126, 250, 250);
-    box-shadow: 0px 0px 25px rgb(126, 250, 250);
-
-
-}
-
-#trivia-block{
+.trivia-block{
+    grid-column: 1/-1;
     width: 100%;
     display: flex;
     justify-content: space-evenly;
   
   }
 
-  #trivia-talk{
+  #trivia-text{
     grid-column: 1;
     position: relative;
-    left: 10%;
     display:flex;
     justify-content:center;
-    align-items: center;
-    font-size:90%
+    align-items: center
   
   }
   
-  #trivia-talk > i{
+  #trivia-register > i{
     color: rgb(234, 236, 97);
     font-size: 5em;
     margin-right: 2%;
   }
   
-  form{
+  #trivia-form{
     grid-column: 2;
+    width: 40%;
     display:flex;
     flex-direction: column;
     justify-content:center;
@@ -60,7 +41,7 @@
   }
 
 
-  #trivia-talk > div {
+  #trivia-text > div {
 
     letter-spacing: .1rem;
     font-weight: bold;
@@ -75,9 +56,8 @@
   
   
   .in {
-  
+    width: 60%;
     padding: 1%;
-    width:60%;
     margin: 0 auto;
     margin-top:1%;
     border:none;
@@ -88,7 +68,7 @@
   }
   
   .select{
-    width: 64%;
+    width: 63%;
     margin: 0 auto;
     height: fit-content;
   }
@@ -129,36 +109,35 @@
   }
   
   
-  #foot-pages{
-    grid-column: 1/-1;
-    display:flex;
-    justify-content: center;
-    height: 50%;
-    padding: 2%;
-    width: 100%;
-  }
-  
-  #buttonback{
-    position: relative;
-    left: -1%;
-    width: fit-content;
-    padding: 1%;
+ 
+
+  #btn {
+    font-size: calc(0.1em + 1vw);
+    margin: 0 auto;
+    margin-top: 5%;
+    width: 35%;
     text-align: center;
-  }
+    background: aqua;
+    border-radius: 10px;
   
-  #buttontablas{
-    position:relative;
-    left: 1%;
-    width: fit-content;
-    padding: 1%;
-    text-align: center;
   }
+
+  #btn:hover{
+
+
+    -webkit-box-shadow: 0px 0px 25px rgb(126, 250, 250);
+    -moz-box-shadow: 0px 0px 25px rgb(126, 250, 250);
+    box-shadow: 0px 0px 25px rgb(126, 250, 250);
+
+
+}
   
   i{
     color: rgb(255, 209, 65);
   }
   
   #emoji-jump{
+    font-size: 4em;
     position:relative;
     left: -5%;
     transform: translate(10% 10%);
@@ -170,6 +149,81 @@
     transform: translate(0% 0%);
     animation: girar 1.6s infinite;
   }
+
+
+  @media (max-width:840px){
+
+
+    .trivia-block{
+      flex-direction: column;
+      width: 100%;
+      align-items: center;
+      margin-top: 10%;
+    }
+
+
+    #trivia-text{
+            grid-column: 1/-1;
+            left: 0; 
+            display: block;
+            text-align: center;
+    }
+
+    #trivia-text > div {
+
+      font-size: 4em;
+    }
+
+    #trivia-text > i {
+      font-size: 50px;
+      margin: 0;
+      
+    }
+
+    #emoji-jump{
+      left: 0;
+    }
+
+    #trivia-form{
+
+      width: 100%;
+      grid-column: 1/-1;
+      
+    }
+
+    .in{
+      font-size: 3em;
+      padding: 2%;
+    }
+
+    .select{
+      width: 65%;
+      font-size: 3em;
+    }
+
+    .labelform{
+      font-size: 4em;
+    }
+
+    #btn{
+
+      display: inline-block;
+      width: 100%;
+      padding: 3%;
+      font-size: 3em;
+
+    }
+
+    #foot-pages{
+      margin-top: 10%;
+      flex-direction: column;
+      padding: 0;
+
+    }
+
+   
+
+}
   
   /*---------------------FRAMES---------------------------------*/
   

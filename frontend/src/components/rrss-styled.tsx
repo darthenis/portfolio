@@ -38,6 +38,11 @@ export const Form = styled.form<sendEmail>`
             margin: 0 auto;
             margin-top: 2%;
 
+            @media (max-width: 600px){
+                grid-template-columns: 1fr;
+                grid-template-rows: 20% 20% 30% 30%;
+            }
+
 
 `
 

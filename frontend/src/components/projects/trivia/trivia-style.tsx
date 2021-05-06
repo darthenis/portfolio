@@ -24,6 +24,10 @@ const Opciones = styled.div<effectNext>`
                   }
                   `}
 
+                @media (max-width: 840px){
+                  font-size: 4em;
+                }
+
 `
 
 
@@ -43,8 +47,17 @@ const ButtonNext = styled.div<effectNext>`
                     &:hover{
                       background-color: #82E0AA;
                       color: black;
+                      cursor: hand;
+                      cursor: pointer;
                     }
             `}
+
+            @media (max-width: 840px){
+
+                font-size: 3em;
+                margin-top: 100px
+    
+            }
 
 `
 

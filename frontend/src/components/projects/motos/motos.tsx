@@ -78,15 +78,15 @@ let check : boolean=false;
 
   let useractions: boolean[]=[];
 
-  if(localStorage.getItem('useractions') != null){
+  if(sessionStorage.getItem('useractions') != null){
 
-          useractions = JSON.parse(localStorage.getItem('useractions')!)
+          useractions = JSON.parse(sessionStorage.getItem('useractions')!)
 
           } else {
 
                   for (let i=0;i<=24;i++){useractions.push(false)}
 
-                  localStorage.setItem('useractions', JSON.stringify(useractions))
+                  sessionStorage.setItem('useractions', JSON.stringify(useractions))
 
                   }
 

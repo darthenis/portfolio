@@ -65,8 +65,8 @@ const handleSelectChange = ( e : any) => {
 
   return (
 
-  <>
-        <div id="trivia-talk">
+  <div className='trivia-block'>
+        <div id="trivia-text">
 
               <i id='emoji-jump' className="fas fa-grin-alt"></i>
 
@@ -79,7 +79,7 @@ const handleSelectChange = ( e : any) => {
 
         </div>
 
-        <form onSubmit={submitEvent}>
+        <form id='trivia-form' onSubmit={submitEvent}>
 
 
 
@@ -131,7 +131,7 @@ const handleSelectChange = ( e : any) => {
 
 
         </form>
-  </>)
+  </div>)
 }
 
 export default Formulario

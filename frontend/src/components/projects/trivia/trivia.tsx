@@ -66,7 +66,9 @@ const Trivia = (): JSX.Element => {
 
                         <div id='foot-pages'>
                         <Button id='buttonback' onClick={() => (window.location.href='/')}>Inicio</Button>
+
                         {page.page1 && <Button id='buttontablas' onClick={() => changepage('page5', 'page1')}>Tabla de posiciones</Button>}
+                        
                         {(page.page5 && player.nombre==='') && <Button id='buttontablas' onClick={() => changepage('page1','page5')}>Volver al Formulario</Button>}
                         </div>
 

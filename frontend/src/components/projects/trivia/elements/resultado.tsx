@@ -41,7 +41,7 @@ useEffect(()=>{
                { props.player.aciertos===0 && <div><i className="fas fa-sad-cry"></i><br/>Bueno, lo importante es tener salud (?)</div> }
 
 
-               <Button id='buttonTablas-props.player.aciertos' onClick={changepage}>Ir a la tabla!</Button>
+               <Button id='buttonTablas-resultado' onClick={changepage}>Ir a la tabla!</Button>
 
             </div>
           )

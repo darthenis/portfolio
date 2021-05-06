@@ -18,7 +18,7 @@ const slideIn = keyframes`
             }
             to{
 
-                top: 90px;
+                top: 50px;
 
             }
 
@@ -26,7 +26,7 @@ const slideIn = keyframes`
 const slideOff = keyframes`
             from{
                 
-                top: 90px;
+                top: 50px;
             
             }
             to{
@@ -70,8 +70,9 @@ export const Nav = styled.nav<activeEffect>`
 
 export const ButtonNav = styled.button<menuActive>`
 
-    background-color:  rgb(0, 10, 12);
+    background-color: rgb(0, 13, 24);
     color: aqua;
+    text-shadow: black 0.1em 0.1em 0.2em;
     position: relative;
     padding-top: 1rem;
     padding-bottom: 1rem;
@@ -80,7 +81,7 @@ export const ButtonNav = styled.button<menuActive>`
     font-size: calc(.3rem + .7vh);
     letter-spacing: 2px;
     border: none;
-    border-bottom: solid 2px ${props => props.active ? 'aqua' : 'rgb(0, 10, 12)'};
+    border-bottom: solid 2px ${props => props.active ? 'aqua' : 'rgb(0, 13, 24)'};
     outline: none;
     transition-duration: .5s;
     cursor: pointer;

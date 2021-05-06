@@ -1,5 +1,12 @@
+
+#table-container{
+  grid-column: 1/-1;
+  overflow: scroll;
+}
+
+
 table{  
-    
+     grid-column: 1/-1;
      font-size: calc(.5em + .5vw);
      color: black;
      border-collapse: collapse; 
@@ -7,6 +14,7 @@ table{
      width: 90%;
      margin: 0 auto;
      text-align: center;
+     min-width: 600px;
     
      
 }
@@ -44,7 +52,7 @@ tbody{
 
 
 th{
-    padding: 2.5%;
+    padding: 1%;
     letter-spacing: 2px;
     border: solid 2px rgba(11, 0, 167, 0.829);
 }
@@ -56,3 +64,50 @@ td{
 
 }
 
+#buttons-page-table{
+  grid-column: 2/-1;
+  display: flex;
+  margin-top: 3%;
+  margin-bottom: 3%;
+  justify-content: space-around;
+  align-content: center;
+  align-items: center;
+}
+
+.buttonNext{
+  width: fit-content;
+  height: fit-content;
+  padding: 1.5% !important;
+}
+
+#pages-table{
+  padding: 2%;
+  border-radius: 10px;
+  color: rgb(255, 255, 255);
+  font-weight: bold;
+  background: rgb(0, 43, 63);
+  height: fit-content;
+}
+
+@media (max-width: 840px){
+     
+      table {
+          font-size: 20px;
+          overflow: auto;
+          }
+
+      .buttonNext{
+        font-size: 4em;
+      }
+
+      #pages-table{
+            font-size: 2em;
+          }
+
+          #buttons-page-table{
+
+            grid-column: 1/-1;
+            font-size: 2em;
+
+          }
+}

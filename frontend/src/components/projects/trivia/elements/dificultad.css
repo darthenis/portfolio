@@ -1,12 +1,58 @@
-form > select {
+
+
+#trivia-difficult{
+
+    width: 40%;
+    text-align: center;
+}
+
+#trivia-difficult > i{
+
+    font-size: 3em;
+    margin-bottom: 2%;
+}
+
+#form-difficult{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+#form-difficult > select {
 
     font-size: 2rem;
     padding: 1%;
 
 }
 
-form > select > option{
+#form-difficult > select > option{
 
     background: rgb(29, 29, 29);
     color: white;
+}
+
+@media (max-width: 840px){
+
+    #trivia-difficult{
+        font-size: 4em;
+        text-align: center;
+        margin-bottom: 10%;
+        width: 100%;
+    }
+
+    #trivia-difficult > i{
+        font-size: 3em;
+        margin-bottom: 2%;
+    }
+
+    #trivia-difficult > div {
+        width: 100%;
+    }
+
+    #form-difficult{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+    }
 }

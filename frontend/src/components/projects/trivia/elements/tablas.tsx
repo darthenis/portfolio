@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react'
 import './tablas.css'
 import {players} from '../trivia-interfaces-types'
 import {getPlayers} from '../triviaservice'
+import { ButtonNext } from '../trivia-style';
 
 
 let contador=0;
@@ -17,6 +18,24 @@ export const Tablas = () => {
 
 
 const [list, setList] = useState<players[]>([])
+
+const [pageTable, setPageTable] = useState({
+
+            firstnum  : 0,
+            secondnum : 19,
+})
+
+const upTablePage = () => {
+
+    list.length>pageTable.secondnum && setPageTable({...pageTable, firstnum : +20, secondnum : +20})    
+
+}
+
+const downTablePage = () => {
+
+  pageTable.firstnum!==0 && setPageTable({...pageTable, firstnum : -20, secondnum : -20})
+
+}
 
 
  const loadPlayers = async () =>{
@@ -54,10 +73,11 @@ const ordertable = (column : string) => {
 }
 
 
+
   return (
 
-              <div>
-
+              <>
+              <div id='table-container'> 
                 <table cellSpacing='0'>
                     <thead>
                         <tr>
@@ -71,7 +91,7 @@ const ordertable = (column : string) => {
                     <tbody>
 
                         <>
-                        {list.map((player) =>{
+                        {list.slice(pageTable.firstnum, pageTable.secondnum).map((player) =>{
 
                                   contador++
 
@@ -90,9 +110,20 @@ const ordertable = (column : string) => {
 
                 </table>
 
+              </div>
+
+              <div id="buttons-page-table">
+
+                    <ButtonNext className='buttonNext' isactive={pageTable.firstnum===0 ? false : true} onClick={downTablePage}>Atrás</ButtonNext>
+                    <ButtonNext className='buttonNext' isactive={list.length>pageTable.secondnum ? true : false} onClick={upTablePage}>Siguiente</ButtonNext>
+                
+                    <div id='pages-table'>{pageTable.firstnum + 1} - {pageTable.secondnum + 1} de {list.length}</div>
+
+                </div>
+
 
             
-              </div>
+              </>
 
 
   )

@@ -101,11 +101,11 @@ const Preguntas = (props: {page: Pages, setPage : Dispatch<SetStateAction<Pages>
 
     return (
 
-      <div id='block-page-preguntas'>
+      <div id='block-page-questions'>
 
-            <div id='block-la-pregunta'>{actualQuestion+1}) {questions && questions[actualQuestion].pregunta}</div>
+            <div id='block-the-question'>{actualQuestion+1}) {questions && questions[actualQuestion].pregunta}</div>
 
-            <div id='block-respuestas'>
+            <div id='block-answers'>
 
                 <div id='block-carita'>
                         <div className='text'>
@@ -117,7 +117,7 @@ const Preguntas = (props: {page: Pages, setPage : Dispatch<SetStateAction<Pages>
                         </div>
                       </div>
 
-                <div id='block-opciones'>
+                <div id='block-options'>
 
                     <Opciones
                         isactive={selection}

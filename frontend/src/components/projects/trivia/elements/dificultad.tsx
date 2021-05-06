@@ -30,9 +30,9 @@ import './dificultad.css'
 
     return (
 
-    <div id="trivia-block">
+    <div className="trivia-block">
 
-        <div id="trivia-talk">
+        <div id="trivia-difficult">
 
               {props.player.dificultad==='' && <i className="fas fa-laugh"></i>}
               {props.player.dificultad==='facil' && <i className="fas fa-grin-squint"></i>}
@@ -65,7 +65,7 @@ import './dificultad.css'
 
         </div>
 
-        <form onSubmit={enviar}>
+        <form id='form-difficult' onSubmit={enviar}>
               <select value={props.player.dificultad} onChange={handleSelectChange} placeholder='Eliga la dificultad'>
                         <option hidden value=''>Elige tu dificultad</option>
                         <option value='facil'>0 a la izquierda</option>
