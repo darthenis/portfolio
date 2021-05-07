@@ -3,14 +3,14 @@ import axios from 'axios';
 
   export const getMotos = async () => {
 
-        const data = await axios.get('http://localhost:4000/motos')
+        const data = await axios.get('http://personalwebapi.herokuapp.com/motos')
 
         return data;
 }
 
   export const restarMoto = async (id : number) => {
 
-      await axios.post('http://localhost:4000/motosrest/'+id)
+      await axios.post('http://personalwebapi.herokuapp.com/motosrest/'+id)
 
       return true;
 
@@ -19,7 +19,7 @@ import axios from 'axios';
 
   export const sumarMoto = async (id:number) => {
 
-    await axios.post('http://localhost:4000/motossum/'+id)
+    await axios.post('http://personalwebapi.herokuapp.com/motossum/'+id)
 
     return true;
 

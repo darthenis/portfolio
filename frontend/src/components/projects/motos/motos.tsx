@@ -119,7 +119,7 @@ let check : boolean=false;
 
                 useractions[index-1] = !useractions[index-1]
 
-                localStorage.setItem('useractions', JSON.stringify(useractions))
+                sessionStorage.setItem('useractions', JSON.stringify(useractions))
 
                       if (useractions[index-1]){
 

@@ -192,7 +192,7 @@ const [inputState, setInputState] = useState({
                         <div id='btn-form-rrss'>
                                 <div id='captcha'>
                                         <Recaptcha
-                                              sitekey='6LdHl8MaAAAAAKwifJAruHUzE2CRfFc7kVSqFvNc'
+                                              sitekey='6LdEjskaAAAAABMcL8rv9iZgSjsK1mYbd0zpzNDy'
                                               onChange={onChange}
                                               theme='dark'
                                               />

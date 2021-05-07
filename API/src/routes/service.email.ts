@@ -43,7 +43,7 @@ export const email = async (from : string, name : string, message : string) => {
 
 export const checkToken = async (token:string) => {
 
-        const checkToken = await axios.post(`https://www.google.com/recaptcha/api/siteverify?secret=${process.env.SECRET_KEY}&response=${token}`)
+        const checkToken = await axios.post(`https://www.google.com/recaptcha/api/siteverify?secret=6LdEjskaAAAAADlaEZBm8-hlcvU03Pndl2xorkZ5&response=${token}`)
 
         return checkToken
        

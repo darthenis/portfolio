@@ -15,7 +15,7 @@ const connectionParams={
 
 mongoose.connect(url,connectionParams)
     .then( () => {
-        console.log('Connected to database ')
+        console.log('Connected to database to port: ',process.env.PORT)
     })
     .catch( (e?: Error) => {
         console.error(`Error connecting to the database. \n${e}`);
