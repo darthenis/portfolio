@@ -6,6 +6,7 @@
 	text-decoration: none;
 	border: none;
 	outline: none;
+    box-sizing: border-box; 
 }
 
 html{
@@ -89,7 +90,7 @@ body{
     box-shadow: 0px 0px 25px rgb(0, 112, 112);
     border: solid 2px rgb(0, 112, 112);
     font-family: sans-serif;
-    font-size: calc(1.3em + 1vw);
+    font-size: calc(.7em + 1vw);
 }
 
 #title > i{
@@ -97,7 +98,7 @@ body{
 }
 
 #logo{
-    font-size: calc(1em + .5vw);
+    font-size: calc(.5em + 1vw);
     color: azure;
      text-shadow:
         0 0 5px azure,
@@ -420,7 +421,7 @@ footer > div > img {
 @media only screen and (max-width: 840px){
 
     #containermain{
-        width: 100%;
+        width: 100vw;
         margin-top: 0;
         grid-template-rows: 5% auto 10%;
         
@@ -435,7 +436,7 @@ footer > div > img {
     
 
     #menu > button{
-        font-size: 12px;
+        font-size: 13px;
         padding: 2rem;
         margin: 1%;
 
@@ -444,6 +445,7 @@ footer > div > img {
     #logo{
         position: relative;
         right:10%;
+        font-size: 2em;
     
     }
 
@@ -451,6 +453,7 @@ footer > div > img {
     #title > i{
         position: relative;
         display: inline-block;
+        font-size: 20px;
         left: 10%;
         top: 20%; 
     }

@@ -59,7 +59,7 @@
     margin-top: 2%;
     width:90%;
     height: 20px;
-    padding: 3%;
+    padding: 5%;
     padding-left:2%;
     border-radius: 20px;
 
@@ -125,11 +125,31 @@
 
 }
 
+@media only screen and (max-width: 840px){
+
+    #contact{
+        width: 100%;
+    }
+
+    #header-rrss{
+        font-size: calc(1em + 1vw);
+    }
+
+}
+
 @media only screen and (max-width: 600px){
 
     #contact{
         margin-top: 5%;
         width: 100%;
+    }
+
+    #contact > form{
+        margin-top: 10%;
+    }
+
+    .input-rrss{
+        padding: 5%;
     }
 
     .grid-texttarea-rrss{
