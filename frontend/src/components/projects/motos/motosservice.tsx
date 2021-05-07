@@ -3,14 +3,14 @@ import axios from 'axios';
 
   export const getMotos = async () => {
 
-        const data = await axios.get('http://personalwebapi.herokuapp.com/motos')
+        const data = await axios.get('https://personalwebapi.herokuapp.com/motos')
 
         return data;
 }
 
   export const restarMoto = async (id : number) => {
 
-      await axios.post('http://personalwebapi.herokuapp.com/motosrest/'+id)
+      await axios.post('https://personalwebapi.herokuapp.com/motosrest/'+id)
 
       return true;
 
