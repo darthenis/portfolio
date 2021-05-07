@@ -69,7 +69,7 @@ function changeurl(url: string){
             <div className='projects' onClick={() => changeurl('/chatroom')}> 
             
             <div className='title-projects'>
-                <div>Trivia</div>
+                <div>Chatroom</div>
             </div>
 
               <div className='img-projects'><img src='https://upload.wikimedia.org/wikipedia/commons/e/ef/En_construccion.jpg'></img></div>
