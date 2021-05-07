@@ -1,0 +1,70 @@
+
+
+
+#register-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+
+
+}
+
+#register-container > form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    grid-template-columns: 1fr 1fr;
+    width: 40%;
+    height: 40%;
+    background: rgb(0, 13, 24);
+    color: white;
+    -webkit-box-shadow: 0px 0px 25px rgb(0, 112, 112);
+    -moz-box-shadow: 0px 0px 25px rgb(0, 112, 112);
+    box-shadow: 0px 0px 25px rgb(0, 112, 112);
+
+}
+
+
+
+
+.label-register-chat{
+
+    font-size: 3em;
+    margin-bottom: 2%;
+
+}
+
+.input-register-chat{
+
+    font-size: 2em;
+    padding: 1%;
+}
+
+.messageError-register-chat{
+
+    font-size: 2em;
+    color: rgb(241, 80, 80);
+
+}
+
+#boton-chat-register{
+    width: fit-content;
+    height: fit-content;
+    padding: 2%;
+    background: rgb(181, 244, 255);
+    color: black;
+    font-weight: bold;
+    font-size: 2em;
+    border-radius: 10px;
+}
+
+#boton-chat-register:hover{
+
+    background: rgb(131, 226, 243);
+
+}
+
+

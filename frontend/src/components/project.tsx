@@ -64,6 +64,22 @@ function changeurl(url: string){
 
                                   </div>
             </div>
+
+
+            <div className='projects' onClick={() => changeurl('/chatroom')}> 
+            
+            <div className='title-projects'>
+                <div>Trivia</div>
+            </div>
+
+              <div className='img-projects'><img src='https://upload.wikimedia.org/wikipedia/commons/e/ef/En_construccion.jpg'></img></div>
+
+              <div className='info-projects'>
+              
+                      Chat room en construcción
+
+              </div>
+</div>
             
       </div>
 
