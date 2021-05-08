@@ -1,34 +1,54 @@
 
 import React, {useState, useEffect} from 'react';
-import moment from 'moment-timezone';
 import { getMotos, restarMoto, sumarMoto } from './motosservice';
 import {motos} from './motosinter'
 import './motos.css'
 import socket from './sockets'
+import {MotosDiv} from './motos-styled'
 
-
-let check : boolean=false;
 
 //---------------------------------HORARIOS-------------------------------------
 
-    let horarios: string[]=[];
+let horarios: string[]=[];
 
-    let minutes=450;
+let minutes=480;
 
-    for (let i=0;i<=24;i++){
+for (let i=0;i<=24;i++){
 
-        minutes+=30;
+      let hour : number | string = Math.floor(minutes/60)
 
-        let protohorario = moment.utc().startOf("day").add(minutes, "minutes").format("HH:mm");
+      hour = (hour < 10) ? '0' + hour : hour;
 
-        horarios.push(protohorario+' hs');
+      let minute : string | number = minutes % 60;
 
-        }
+      minute = (minute < 10) ? '0' + minute : minute;
+
+      let protohorario = hour + ':' + minute
+
+      horarios.push(protohorario +' hs');
+
+      minutes+=30;
+
+    }
+
+//-------------------------------ACTIONUSERS------------------------------------
+
+let useractions: boolean[]=[];
+
+      
+for ( let i=0;i<=24;i++ ){
+                  
+                  useractions.push(false)
+                        
+                }
+    
 
 //------------------------------COMPONENT-INIT----------------------------------
 
 
   const Motos = (): JSX.Element =>{
+
+  const [loading, setLoading] = useState(false) //carga de un elemento
 
   const [motos, setmotos] = useState<motos[]>([])
 
@@ -42,6 +62,13 @@ let check : boolean=false;
       loadmotos();
 
   }, [])
+
+  useEffect(()=>{
+
+    loadmotos();
+
+
+  }, [loading])
 
 
 //-------------------------------SOCKETS----------------------------------------
@@ -61,41 +88,48 @@ let check : boolean=false;
 
 //-------------------------------HOURSERVER-------------------------------------
 
-  const [hora, sethora] = useState<string>()
+  const [hour, setHour] = useState<string>()
 
-  function settime(){
+  const actualHour = () => {
 
-      let localhour=moment();
+    const horario = new Date
 
-      sethora(localhour.tz('America/Argentina/Buenos_Aires').format('HH:mm:ss'))
+      const addZero = (n : number) => {
 
-    }
+        if (n===-1) return '23'
 
-  setInterval(settime, 1000)
+        if (n===-2) return '22'
+ 
+        if (n===-3) return '21'
 
+        if(n < 10) return '0' + n
+        
+        return n
 
-//-------------------------------ACTIONUSERS------------------------------------
+      }
 
-  let useractions: boolean[]=[];
+      let minutes    = addZero(horario.getUTCMinutes())
+     
+      let hours      = addZero(horario.getUTCHours()-3)
 
-  if(sessionStorage.getItem('useractions') != null){
+      let seconds    = addZero(horario.getUTCSeconds())
 
-          useractions = JSON.parse(sessionStorage.getItem('useractions')!)
+      let actualHour = hours+':'+minutes+':'+seconds
 
-          } else {
+      setHour(actualHour)
+    
 
-                  for (let i=0;i<=24;i++){useractions.push(false)}
+   }
 
-                  sessionStorage.setItem('useractions', JSON.stringify(useractions))
-
-                  }
+   
+  setInterval(actualHour, 1000)
 
 
 //---------------------------------STATUS---------------------------------------
 
   function status(num :number, index:number){
 
-    if (useractions[index]===true && motos[index].motos!==8) return 'Reservado'
+    if (useractions[index]===true) return 'Reservado'
 
         else if(num === 0) return 'No Disponible'
 
@@ -109,39 +143,36 @@ let check : boolean=false;
 
   async function actionUser(index:number){
 
-          if(!check)
+          if(!loading)
 
-            check=!check; 
-            // check espera el termino de la funcion para volver a estar disponible para ser ejecutada
+            // loading espera el termino de la funcion para volver a estar disponible para ser ejecutada
             // evitando bugs de clicks mas rapidos que la respuesta de la base de datos.
 
               if(motos[index-1].motos>0){
 
-                useractions[index-1] = !useractions[index-1]
+                let useractioncheck = !useractions[index-1]
 
-                sessionStorage.setItem('useractions', JSON.stringify(useractions))
+                      if (useractioncheck){
 
-                      if (useractions[index-1]){
+                              setLoading(true);
 
                               await restarMoto(index)
 
-                              loadmotos()
-
                               socket.emit('reload');
 
-                              
+                            } else if (!useractioncheck){
 
-                            } else if (!useractions[index-1]){
+                                      setLoading(true);
 
                                       await sumarMoto(index)
-
-                                      loadmotos()
-
+                                
                                       socket.emit('reload');
 
                                 }
 
-                              check=!check;
+                              useractions[index-1] = !useractions[index-1]
+
+                              setLoading(false)
 
                     }
 
@@ -170,7 +201,7 @@ let check : boolean=false;
         <div id="BottomVolver" onClick={() => {window.location.href='/'}} >VOLVER</div>
             <div id="container">
 
-                <div id='reloj'>{hora} hs</div>
+                <div id='reloj'>{hour}</div>
 
                 <div id="containertitulos">
                         <div><i className="far fa-clock"></i> Horarios</div>
@@ -181,7 +212,9 @@ let check : boolean=false;
                 <>
                 {motos.map((motos) => {
 
-                            return <div style={{backgroundColor:statuscolor(motos.motos, motos.id-1)}}
+                            return <MotosDiv 
+                                    loadactive={loading} 
+                                    style={{backgroundColor:statuscolor(motos.motos, motos.id-1)}}
                                     className='motos'
                                     key={motos.id+200}
                                     onClick={() => (actionUser(motos.id))}
@@ -197,7 +230,7 @@ let check : boolean=false;
 
                                               <div key={motos.id+100}>{status(motos.motos, motos.id-1)}</div>
 
-                                    </div>
+                                    </MotosDiv>
 
                                       }
 

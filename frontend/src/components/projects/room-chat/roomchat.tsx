@@ -21,7 +21,7 @@ const RoomChat = () => {
             return (<>
 
 
-                {pages==="register" && <Register user={user} setUser={setUser}></Register>}
+                {pages==="register" && <Register user={user} setUser={setUser} setPages={setPages}></Register>}
 
 
 

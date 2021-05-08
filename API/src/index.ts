@@ -9,8 +9,6 @@ import reloj, {horarios, revisarhora} from './horarios'
 const httpServer = require("http").createServer(app);
 
 
-
-
 export const io = require("socket.io")(httpServer, {
   cors: {
     origin: "http://localhost:3000",
@@ -21,9 +19,8 @@ export const io = require("socket.io")(httpServer, {
 });
 
 require('./chatroom/sockets')(io)
+
 require('./sockets-motos/sockets')(io)
-
-
 
 
 

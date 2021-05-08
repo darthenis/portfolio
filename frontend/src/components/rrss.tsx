@@ -90,6 +90,8 @@ const [inputState, setInputState] = useState({
 
                   setMessageSend('sending')
 
+                  console.log('deberia enviar')
+
                   sendMessage();
             
           } else { setInputState({...inputState, incomplete : true})}
@@ -219,5 +221,6 @@ const [inputState, setInputState] = useState({
 
 
 export default Rrss;
+
 
 

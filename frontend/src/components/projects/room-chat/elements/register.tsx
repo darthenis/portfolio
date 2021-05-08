@@ -4,13 +4,14 @@ import Input from '../../../inputs';
 import { Button } from '../../trivia/trivia-style';
 import './register.css'
 import socket from '../../motos/sockets' 
+import { useEffect } from 'react';
 
 
 
 
 
 
-const Register = (props: {user: any, setUser: Dispatch<SetStateAction<any>>}) => {
+const Register = (props: {user: any, setUser: Dispatch<SetStateAction<any>>, setPages: Dispatch<SetStateAction<any>>}) => {
 
 
     const [inputState, setInputState] = useState({
@@ -20,17 +21,34 @@ const Register = (props: {user: any, setUser: Dispatch<SetStateAction<any>>}) =>
     })
 
 
-    const submit = (e : React.FormEvent<HTMLFormElement>) =>  {
+    useEffect(()=>{
+
+        socket.on('callback', (res: string) => {
+
+            res==='error' && alert('El nick ya se encuentra escogido')
+
+            console.log(res)
+
+            //props.setPages('chatroom')
+         })
+
+         return () => {socket.off()};
+
+
+    },[])
+    
+
+
+
+    const submit = async (e : React.FormEvent<HTMLFormElement>) =>  {
 
         e.preventDefault()
 
+        let userSaved;
+
         if(inputState.nombre && props.user.nombre!==''){
 
-            console.log('entrando')
-
             socket.emit('userchat', props.user)
-
-
 
         }else{ 
 
