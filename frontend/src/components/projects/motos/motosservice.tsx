@@ -19,7 +19,7 @@ import axios from 'axios';
 
   export const sumarMoto = async (id:number) => {
 
-    await axios.post('http://personalwebapi.herokuapp.com/motossum/'+id)
+    await axios.post('https://personalwebapi.herokuapp.com/motossum/'+id)
 
     return true;
 
