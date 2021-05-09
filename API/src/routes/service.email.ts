@@ -21,15 +21,15 @@ export const email = async (from : string, name : string, message : string) => {
                 port: 587,
                 secure: false,
                 auth:{
-                    user: process.env.EMAIL_USER,
-                    pass: process.env.EMAIL_PASS
+                    user: 'emidesarrolloweb@gmail.com',
+                    pass: 'lorencia676'
                 }
             });
 
             const info = await transporter.sendMail({
 
-                        from: '"Desde la Web" <'+ process.env.EMAIL_USER +'>',
-                        to: process.env.EMAIL,
+                        from: '"Desde la Web" <'+ 'emidesarrolloweb@gmail.com' +'>',
+                        to: 'emi.acevedo.letras@gmail.com',
                         subject: "Consulta desde la web",
                         text: message,
                         html: htmlEmail,

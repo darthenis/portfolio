@@ -9,7 +9,12 @@ const app = express();
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
-app.use(cors());
+app.use(cors({
+    origin: 'https://webpersonal-darthenis.vercel.app',
+    methods: ["GET", "POST", "OPTIONS"],
+    allowedHeaders: ["my-custom-header", "content-type"],
+    credentials: true
+}));
 app.use(dataroutes);
 
 
