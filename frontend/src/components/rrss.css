@@ -153,6 +153,11 @@
 
     .input-rrss{
         padding: 5%;
+        font-size: 16px;
+    }
+
+    #mensaje{
+        font-size: 16px;
     }
 
     .grid-texttarea-rrss{
