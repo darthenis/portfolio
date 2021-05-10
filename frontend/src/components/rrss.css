@@ -140,7 +140,8 @@
 @media only screen and (max-width: 600px){
 
     #contact{
-        margin-top: 5%;
+        margin-top: 5% !important;
+        padding-top: 4em !important;
         width: 100%;
     }
 

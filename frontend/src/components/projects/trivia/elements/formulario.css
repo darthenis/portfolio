@@ -194,10 +194,11 @@
     .in{
       font-size: 3em;
       padding: 2%;
+      width: 80%;
     }
 
     .select{
-      width: 65%;
+      width: 80%;
       font-size: 3em;
     }
 
