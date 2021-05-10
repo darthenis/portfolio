@@ -139,10 +139,6 @@
 
 @media only screen and (max-width: 600px){
 
-    #header-rrss{
-        font-size: 16px !important;
-    }
-
     #contact{
         margin-top: 5%;
         width: 100%;
@@ -162,16 +158,16 @@
     .input-rrss{
         width: 100%;
         padding: 5%;
-        font-size: 3em;
+        font-size: 3em !important;
     }
 
     .input-rrss:focus{
         border: 0;
-        font-size: 16px;
+        font-size: 3em;
     }
 
     #mensaje{
-        font-size: 3em;
+        font-size: 3em !important;
     }
 
     .grid-texttarea-rrss{
@@ -179,11 +175,11 @@
     }
 
     .label-form{
-        font-size: 3em;
+        font-size: 3em !important;
     }
     
     #header-rrss{
-        font-size: 2.5em;
+        font-size: 2.5em !important;
         padding-bottom: 2%;
         border-bottom: solid 2px white;
     }
