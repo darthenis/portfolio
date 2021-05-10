@@ -158,12 +158,12 @@
     .input-rrss{
         width: 100%;
         padding: 5%;
-        font-size: 3em !important;
+        font-size: 16px !important;
     }
 
     .input-rrss:focus{
         border: 0;
-        font-size: 3em;
+        font-size: 16px !important;
     }
 
     #mensaje{
@@ -179,7 +179,7 @@
     }
     
     #header-rrss{
-        font-size: 2.5em !important;
+        font-size: 16px !important;
         padding-bottom: 2%;
         border-bottom: solid 2px white;
     }
