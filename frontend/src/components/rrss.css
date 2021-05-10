@@ -152,6 +152,7 @@
     }
 
     .input-rrss{
+        width: 100%;
         padding: 5%;
         font-size: 3em;
     }
