@@ -138,48 +138,40 @@ const [inputState, setInputState] = useState({
                                                               
         <Form emailSend={messageSend!==null} onSubmit={submit}>
 
-                        <div className={'grid-input-rrss'}>
+                        
                         <Input  setInputState={setInputState}
                                 inputState={inputState}
                                 label='Nombre'
-                                classLabel='label-form'
-                                className='input-rrss'
+                                classLabel='label-form-name'
+                                className='input-rrss-name'
                                 type='text' 
                                 placeholder='Escriba su nombre' 
                                 name='name'
                                 user={messageUser}
                                 setUser={setMessageUser}
-                                errorMessageClass={'errorinput-msg-rrss'}
+                                errorMessageClass={'errorinput-msg-rrss-name'}
                                 expresion={regularExpression.nombre}
                                 errorinput='Solo usar letras y espacios entre 3 y 40 carácteres'
                                 errorempty='*El campo es obligatorio'
-                                />
-
-                        </div>
-
-                        <div className={'grid-input-rrss'}>
+                                />     
 
                         <Input  setInputState={setInputState}
                                 inputState={inputState}
                                 label='Email'
-                                classLabel='label-form'
-                                className='input-rrss'
+                                classLabel='label-form-email'
+                                className='input-rrss-email'
                                 type='text' 
                                 placeholder='Escriba su email' 
                                 name='from'
                                 user={messageUser}
                                 setUser={setMessageUser}
-                                errorMessageClass={'errorinput-msg-rrss'}
+                                errorMessageClass={'errorinput-msg-rrss-email'}
                                 expresion={regularExpression.email}
                                 errorinput='Escriba correctamente su email'
                                 errorempty='*El campo es obligatorio'
                                 />
 
-                        </div>
-
-                        <div className={'grid-texttarea-rrss'}>
-
-                        <label className='label-form'>Mensaje</label>
+                        <label className='label-form-mensaje'>Mensaje</label>
 
                         <textarea name="message" 
                                     id="mensaje"
@@ -189,7 +181,6 @@ const [inputState, setInputState] = useState({
                                     onChange={setMessage} 
                                     placeholder='Escriba aqui su mensaje'></textarea>
 
-                        </div>
 
                         <div id='btn-form-rrss'>
                                 <div id='captcha'>

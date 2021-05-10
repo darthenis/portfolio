@@ -32,7 +32,7 @@ export const Form = styled.form<sendEmail>`
             display: ${props => props.emailSend ? 'none' : 'grid' };
             grid-gap: .5rem;
             grid-template-columns: 50% 50%;
-            grid-template-rows: 1fr 1fr 1fr;
+            grid-template-rows: 5rem 5rem 1rem 5rem 30rem;
             width: 80%;
             text-align: center;
             margin: 0 auto;
