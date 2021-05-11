@@ -215,8 +215,13 @@
 
     #contact > form > input:focus {
 
-            font-size: 16px;
+            font-size: 16px !important;
     }
+
+    #contact > form > label {
+
+        font-size: 16px !important;
+}
 
     
 
