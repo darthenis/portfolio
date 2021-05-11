@@ -213,4 +213,11 @@
         font-size: 16px !important;
     }
 
+    #contact > form > input:focus {
+
+            font-size: 16px;
+    }
+
+    
+
 }
