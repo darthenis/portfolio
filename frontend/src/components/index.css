@@ -445,7 +445,7 @@ footer > div > img {
     #logo{
         position: relative;
         right:10%;
-        font-size: 2em;
+        font-size: 16px !important;
     
     }
 

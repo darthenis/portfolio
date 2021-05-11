@@ -17,9 +17,9 @@ export const adduser = (newuser : user) => {
 
     } else{
 
-    const users = chatroom.map(users => users.nombre)
+    const actualUsers = chatroom.map(users => users.nombre)
 
-    if(!users.includes(newuser.nombre)){
+    if(!actualUsers.includes(newuser.nombre)){
 
         chatroom.push(newuser);
 
@@ -29,7 +29,7 @@ export const adduser = (newuser : user) => {
 
     } else {
 
-        return 'error'
+        return 'el nombre ya existe'
     }
 
 }
