@@ -5,7 +5,7 @@ import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import Inicio from './components/index';
 import Motos from './components/projects/motos/motos'
 import Trivia from './components/projects/trivia/trivia'
-import RoomChat from './components/projects/room-chat/roomchat';
+import RoomChat from './components/projects/room-chat/indexChat';
 
 ReactDOM.render(
   <React.StrictMode>

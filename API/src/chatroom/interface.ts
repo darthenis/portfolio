@@ -9,5 +9,14 @@ export type user = {
 
 export interface chatroom {
 
-        nombre : string; id : string
+        nombre : string; 
+        id : string
     }
+
+
+export interface privateChat {
+
+        nombre : string;
+        integrantes : string []
+
+}

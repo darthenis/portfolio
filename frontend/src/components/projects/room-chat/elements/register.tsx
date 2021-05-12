@@ -1,7 +1,5 @@
-import React from 'react';
-import react, { useState, SetStateAction, Dispatch } from 'react'
+import React, { useState, SetStateAction, Dispatch } from 'react'
 import Input from '../../../inputs';
-import { Button } from '../../trivia/trivia-style';
 import './register.css'
 import socket from '../../motos/sockets' 
 import { useEffect } from 'react';
@@ -11,7 +9,9 @@ import { useEffect } from 'react';
 
 
 
-const Register = (props: {user: any, setUser: Dispatch<SetStateAction<any>>, setPages: Dispatch<SetStateAction<any>>}) => {
+const Register = (props: {  myUser: any, 
+                            setMyUser: Dispatch<SetStateAction<any>>, 
+                            setPages: Dispatch<SetStateAction<any>>}) => {
 
 
     const [inputState, setInputState] = useState({
@@ -23,16 +23,13 @@ const Register = (props: {user: any, setUser: Dispatch<SetStateAction<any>>, set
 
     useEffect(()=>{
 
-        socket.on('callback', (res: string) => {
+        socket.on('done', (res: string) => {
 
-            res==='error' && alert('El nick ya se encuentra escogido')
+            if (res==='error') { alert('El nick ya se encuentra escogido' )}
 
-            console.log(res)
+            else { props.setPages('chatroom') }
 
-            //props.setPages('chatroom')
          })
-
-         return () => {socket.off()};
 
 
     },[])
@@ -46,9 +43,9 @@ const Register = (props: {user: any, setUser: Dispatch<SetStateAction<any>>, set
 
         let userSaved;
 
-        if(inputState.nombre && props.user.nombre!==''){
+        if(inputState.nombre && props.myUser.nombre!==''){
 
-            socket.emit('userchat', props.user)
+            socket.emit('userchat', props.myUser)
 
         }else{ 
 
@@ -80,8 +77,8 @@ const Register = (props: {user: any, setUser: Dispatch<SetStateAction<any>>, set
                                         errorinput='Solo letras entre 2 a 8 carácteres y espacios'
                                         errorempty='El nick es requerido para entrar a la sala de chat'
                                         errorMessageClass='messageError-register-chat'
-                                        user={props.user}
-                                        setUser={props.setUser}/>
+                                        user={props.myUser}
+                                        setUser={props.setMyUser}/>
 
 
                                 <input type='submit' id='boton-chat-register' value='Entrar'/>
