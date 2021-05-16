@@ -32,6 +32,16 @@ const ChatRoom = (props: {myUser : string}) => {
 
     }
 
+    const systemLeaveMessage = (username : string) => {
+
+        let newobject = {
+            user : 'Chat Room',
+            message: username + ' ha abandonado el chat'
+        }
+
+        return newobject
+    }
+
     
 
     useEffect(()=>{
@@ -78,6 +88,20 @@ const ChatRoom = (props: {myUser : string}) => {
           })
 
         return () => {socket.off()}
+
+    })
+
+    useEffect(()=>{
+
+        socket.on('disconnectuser', (user) =>{
+
+            console.log('se ha desconectado: ', user)
+
+            setUsers(users.filter(users => users !== user))
+
+            setChat(chat => [...chat, systemLeaveMessage(user)])
+
+        })
 
     })
 
@@ -135,6 +159,14 @@ const ChatRoom = (props: {myUser : string}) => {
 
 }
 
+    const privatemsg = (user : string) => {
+
+
+        socket.emit('privatemsg', user)
+
+
+    }
+
 
 
 
@@ -156,7 +188,7 @@ const ChatRoom = (props: {myUser : string}) => {
 
                                         {users.map((user) => {
 
-                                            return <div id={user}>
+                                            return <div id={user} onClick={() => {privatemsg(user)}}>
                                                         
                                                         {user}
 

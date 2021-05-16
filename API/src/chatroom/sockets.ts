@@ -1,6 +1,6 @@
 import {Socket} from 'socket.io'
 import {io} from '../index'
-import {adduser, chatroomusers} from './chatroom'
+import {adduser, chatroomusers, deleteUser} from './chatroom'
 import { user, chatroom } from './interface'
 
 
@@ -23,7 +23,7 @@ module.exports = () => {
                                 socket.join('chatRoom'); 
                                 socket.emit('done', 'completed')
                                 socket.emit('users', actualUsers)
-                                socket.to('chatRoom').emit('newUser', user.nombre) //mandar a los usuarios
+                                socket.to('chatRoom').emit('newUser', user.nombre)
 
                             }else{ 
                                 socket.emit('done', 'error')
@@ -32,18 +32,29 @@ module.exports = () => {
                     })
 
                     socket.on('sendmsg', (msg) => {
-                        console.log('mensaje recibido: ', msg)
 
                         socket.to('chatRoom').emit('newmsg', msg)
 
 
                     })
 
+                    socket.on('privatemsg', data => {
+
+                            let userid = chatroomusers.filter(chatUser => {return chatUser.nombre === data.nombre})
+
+                            socket.to(userid[0].id).emit(data.msg)
+
+
+                    })
+
                     socket.on('disconnect', () =>{
 
+                        let userDisconnect = chatroomusers.filter((user)=>{return user.id === socket.id})
 
+                        if(userDisconnect.length===1){
 
-                        socket.to('chatRoom').emit('disconnectuser', socket.id)
+                        deleteUser(userDisconnect[0].nombre)
+                        socket.to('chatRoom').emit('disconnectuser', userDisconnect[0].nombre)}
 
 
                     })

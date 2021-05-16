@@ -2,7 +2,7 @@
 import { user, chatroom, privateChat } from "./interface";
 
 
-export let chatroomusers : chatroom[]=[]
+export let chatroomusers : chatroom [] = [] 
 
 
 export const adduser = (newuser : user) => {
@@ -10,8 +10,6 @@ export const adduser = (newuser : user) => {
     if(chatroomusers.length===0){
 
         chatroomusers.push(newuser);
-
-        console.log('usuarios: ',chatroomusers)
 
         return 'correct'
 
@@ -23,8 +21,6 @@ export const adduser = (newuser : user) => {
 
         chatroomusers.push(newuser);
 
-        console.log('usuarios: ',chatroomusers)
-
         return 'correct'
 
     } else {
@@ -32,18 +28,17 @@ export const adduser = (newuser : user) => {
         return 'error'
     }
 
-}
-
-   
 
 }
 
-// export const deleteuser = (userid : string) => {
+}
 
-//     const index = chatroomusers.findIndex(x => x.id === userid)
 
-//     chatroomusers.splice(index, 1);
+export const deleteUser = (username : string) => {
 
-// }
+   let newUsers = chatroomusers.filter(user => {return user.nombre !== username})
 
+    chatroomusers = newUsers
+
+ }
 
