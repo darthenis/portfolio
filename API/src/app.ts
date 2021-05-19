@@ -10,7 +10,7 @@ app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 app.use(cors({
-    origin: 'http://localhost:3000',
+    origin: 'https://webpersonal-darthenis.vercel.app',
     methods: ["GET", "POST", "OPTIONS"],
     allowedHeaders: ["my-custom-header", "content-type"],
     credentials: true

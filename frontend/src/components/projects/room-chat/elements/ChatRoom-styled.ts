@@ -1,0 +1,30 @@
+import styled, { keyframes, css } from 'styled-components'
+
+interface activeMsg{
+    readonly isActive : boolean | undefined,
+    readonly chatActive : boolean | undefined
+}
+
+
+const newMsg = keyframes`
+                        0% {background-color: rgb(0, 247, 255)}
+                        100% {background-color: none}
+`
+
+
+export const List = styled.div<activeMsg>`
+
+                cursor: hand;
+                cursor: pointer;
+                background-color: ${props => props.chatActive ? 'rgb(173, 173, 173)' : 'none' };
+                color: ${props => props.chatActive ? 'black' : 'white'};
+                margin: 5px 0px 5px 0px;
+                padding: 5px 0px 5px 0px;
+                animation: ${props => props.isActive ? newMsg : 'none' } .5s infinite;
+
+                &:hover{
+                    background: rgb(173, 173, 173);
+                    color: black;
+                }
+
+`

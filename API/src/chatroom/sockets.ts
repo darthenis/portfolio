@@ -38,11 +38,13 @@ module.exports = () => {
 
                     })
 
-                    socket.on('privatemsg', data => {
+                    socket.on('privatemsg', (msg, user) => {
 
-                            let userid = chatroomusers.filter(chatUser => {return chatUser.nombre === data.nombre})
+                            let userid = chatroomusers.filter(chatUser => {return chatUser.nombre === user})
 
-                            socket.to(userid[0].id).emit(data.msg)
+                            console.log('usuario id: ', userid[0])
+
+                            socket.to(userid[0].id).emit('privatemsgin', msg)
 
 
                     })
@@ -54,6 +56,7 @@ module.exports = () => {
                         if(userDisconnect.length===1){
 
                         deleteUser(userDisconnect[0].nombre)
+
                         socket.to('chatRoom').emit('disconnectuser', userDisconnect[0].nombre)}
 
 
