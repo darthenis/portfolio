@@ -177,7 +177,9 @@
 @media only screen and (max-width: 570px){
 
     #container-chatroom{
-        top: 0px
+        top: 0px;
+        height: 100%;
+        max-height: none;
     }
 
 

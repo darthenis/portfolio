@@ -10,3 +10,6 @@ const socket = io('https://personalwebapi.herokuapp.com', {
 })
 
 export default socket;
+
+
+//https://personalwebapi.herokuapp.com
