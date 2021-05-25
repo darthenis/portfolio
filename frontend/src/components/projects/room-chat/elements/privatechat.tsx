@@ -1,11 +1,11 @@
 import react, {Dispatch, SetStateAction, useEffect, useRef, useState} from 'react'
-import { messagesUser, privateMessages } from './interfaces'
+import { messagesUser, Users } from './interfaces'
 
 
 
 
-const PrivateChat = (props: { privateMsg : privateMessages[], 
-                              setPrivateMsg : Dispatch<SetStateAction<privateMessages[]>>
+const PrivateChat = (props: { users : Users[], 
+                              setUsers : Dispatch<SetStateAction<Users[]>>
                               numberChat : number
                               myUser : string}) => {
                                 
@@ -16,7 +16,7 @@ const PrivateChat = (props: { privateMsg : privateMessages[],
 
             endmessage.current!==null && endmessage.current.scrollIntoView(); 
 
-    }, [JSON.stringify(props.privateMsg[props.numberChat].messages)] )
+    }, [JSON.stringify(props.users[props.numberChat].privateChat)] )
 
 
     const classChat = (user : string) => {
@@ -27,25 +27,27 @@ const PrivateChat = (props: { privateMsg : privateMessages[],
 
         }
 
+        console.log(props.users)
+
 
             return (
 
 
                 <div className='chat-box'>
 
-                    
+                        
 
-                {props.privateMsg[props.numberChat].messages.map((chat : any)=>{
+                        {props.users[props.numberChat].privateChat.map((chat : any)=>{
 
-                        if (!chat.user) {return <div>Chat Room dice: Bienvenide al chat privado.</div>}
+                                        if(chat.user==='') return <div>Bienvenide al chat privado.</div>
 
-                        return <div id={Math.random().toString()} className={classChat(chat.user)}>
+                                        return <div id={Math.random().toString()} className={classChat(chat.user)}>
 
-                                {chat.user === props.myUser && <>{chat.message} </>}
-                                {(chat.user !== props.myUser && chat.user !== 'Chat Room') && <>{chat.user} dice: {chat.message}</>}
-                                {chat.user === 'Chat Room' && <>{chat.message}</>}
-                                
-                                </div>
+                                                {chat.user === props.myUser && <>{chat.message} </>}
+                                                {(chat.user !== props.myUser && chat.user !== 'Chat Room') && <>{chat.user} dice: {chat.message}</>}
+                                                {chat.user === 'Chat Room' && <>{chat.message}</>}
+                                                
+                                                </div>
                         
                         })}
 

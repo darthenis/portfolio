@@ -8,11 +8,12 @@ export interface messagesUser {
 }
 
 
-export interface privateMessages{
+export interface Users{
 
             user : string,
-            messages : [{ user : string, message: string }],
-            boolean : boolean
+            privateChat : { user : string, message: string }[],
+            newMsg : boolean,
+            state : boolean
             
 
 }
