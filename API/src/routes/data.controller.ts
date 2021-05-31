@@ -1,10 +1,12 @@
-import {RequestHandler} from 'express'
+import {NextFunction, RequestHandler} from 'express'
 
 import * as Datas from './data.schema'
 
 import {email, checkToken} from './service.email'
 
 import dotenv from 'dotenv'
+
+import jwt from 'jsonwebtoken'
 
 dotenv.config();
 
@@ -34,7 +36,7 @@ export const restaurarmotos = async (id:number) =>{
 
 export const insertmoto : RequestHandler = async (req, res) => {
 
-        const moto= new Datas.Motos(req.body);
+        const moto = new Datas.Motos(req.body);
         const motosaved = await moto.save();
         res.json(motosaved);
  }
@@ -102,3 +104,135 @@ export const sendEmail : RequestHandler = async (req, res) => {
 
 }
 
+//------------------------------adduserroletools-----------------------------
+
+
+export const ensureToken : RequestHandler =  (req : any, res, next) => {
+
+    const bearerHeader = req.headers["authorization"]
+
+    if(bearerHeader){
+
+        const bearer = bearerHeader.split(' ')
+        const bearerToken = bearer[1]
+        req.token = bearerToken
+    
+        jwt.verify(bearerToken, 'codificaesto', (err : any, data : any) => {
+
+                    if (err) {
+
+                            res.sendStatus(403)
+
+                    } else {
+                        
+                            next()
+                    
+                      }
+        
+        })
+        
+    } else {
+
+        res.sendStatus(403)
+    }
+
+
+}
+
+export const getUser : RequestHandler = async (req, res) => {
+
+
+    Datas.UserRoleTools.findOne({user : req.body})
+                .then ((data : any) => {
+
+                                    const newObject={
+                                                user : data.user,
+                                                friends : data.friends,
+                                    }
+
+                                    res.json(newObject)
+
+
+                        }
+                    )
+                .then( (err)=> { res.sendStatus(403) } )
+
+
+            } 
+
+
+
+export const loginUser : RequestHandler = async (req, res) => {
+            
+            Datas.UserRoleTools.findOne({user : req.body.user}) 
+
+                    .then ((doc : any)=>{
+
+                            if (doc.pass === req.body.pass){
+                
+                                const user = doc.user
+                
+                                const token = jwt.sign({user}, 'codificaesto')
+                
+                                res.json({token})
+                
+                            }
+            
+                        }, (err) => { res.sendStatus(403)}
+                    
+                    ) 
+    
+        }
+        
+      
+
+        
+
+
+export const registerUser : RequestHandler = async (req, res) => {
+
+
+            await Datas.UserRoleTools.findOne({ user : req.body.user})
+                        .then((result)=>{ 
+                                            if(result) return res.json({message : 'user already exist'})
+                                        }
+                                    ) 
+        
+            await Datas.UserRoleTools.findOne({ email : req.body.email})
+                        .then((result)=>{ 
+                                            if(result) return res.json({message: 'email already exist'})
+                                        }
+                                    )
+
+            const dataUser ={
+                user : req.body.user,
+                pass : req.body.pass,
+                email : req.body.email,
+                friends : [],
+                actived : false
+            }
+
+    try{
+
+            const newUser = new Datas.UserRoleTools(dataUser)
+
+            await newUser.save()
+
+            const token = jwt.sign(req.body.user, 'codificaesto')
+
+            res.json({message : 'user created', tokenGenerated : token})
+
+        } catch(err) { res.json({message:'error to create new user'}) }
+    
+}
+
+export const recoveryUser : RequestHandler = async (req, res) => {
+
+    res.json({message: 'todo okkk'})
+}
+
+export const recoveryCode : RequestHandler = async (req, res) => {
+
+    res.json({message: 'todo okkk'})
+
+}

@@ -45,14 +45,14 @@
     border-bottom: solid 3px rgb(50, 88, 105);
 }
 
-#main-chat-title > i {
-    
+#menu-responsive {
     display: none;
-    position: absolute;
-
+    font-size: 20px;
+    
 }
 
-#main-chat-title > div{
+
+#title-text{
     display: inline;
     width: fit-content;
 
@@ -191,8 +191,9 @@
 
     #list-users{
         position: absolute;
-        left:-1000px;
+        left:-500px;
         width: 100%;
+        height: 100%;
         z-index: 99;
     }
 
@@ -203,13 +204,17 @@
 
     }
 
-    #main-chat-title > i {
-    
+    #menu-responsive {
+        position: absolute;
         display: inline-block;
         color: beige;
         left:5px
 
     
+    }
+
+    #menu-responsive > i {
+        color: white;
     }
 
     .chat-box{

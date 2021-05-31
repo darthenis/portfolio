@@ -303,6 +303,8 @@ const ChatRoom = (props: {myUser : string}) => {
 
             setNumberChat(index)
 
+            setActive({...active, call : false, push : true})
+
     }
 
 
@@ -334,6 +336,8 @@ const ChatRoom = (props: {myUser : string}) => {
     const mainChat = () => {
 
         setNumberChat(-1)
+
+        setActive({...active, call : false, push : true})
 
     }
 
@@ -413,16 +417,22 @@ const ChatRoom = (props: {myUser : string}) => {
 
                                     <div id='main-chat-title'>
 
-                                    <i className="fas fa-ellipsis-h" onClick={activeMenu}></i>
+                                        <div id='menu-responsive'>
 
-                                        <div>{titleChat}</div>
+                                            <i className="fas fa-ellipsis-v" onClick={activeMenu}></i> Salas
+                                            
+                                        </div>
+
+                                        <div id='title-text'>{active.call ? 'Usuarios' : titleChat}</div>
 
                                     </div>
 
 
                                     <ListUsers isActive={active.call} isOff={active.push} id='list-users'>
 
-                                        <List isActive={false} chatActive={checkChatActive('Sala Principal')} onClick={mainChat}>Sala Principal</List>
+                                        <List   isActive={false} 
+                                                chatActive={checkChatActive('Sala Principal')} 
+                                                onClick={mainChat}>Sala Principal</List>
 
                                         {users.map((item) => {
         

@@ -2,6 +2,7 @@ import React from 'react';
 import './project.css';
 import motosproject from './media/motosproject.png';
 import trivia from './media/trivia.png'
+import chatroom from './media/chat-room.png'
 
 
 const Project = () =>{
@@ -72,11 +73,12 @@ function changeurl(url: string){
                 <div>Chatroom</div>
             </div>
 
-              <div className='img-projects'><img src='https://upload.wikimedia.org/wikipedia/commons/e/ef/En_construccion.jpg'></img></div>
+              <div className='img-projects'><img src={chatroom}></img></div>
 
               <div className='info-projects'>
               
-                      Chat room en construcción
+                      Chat room funcional. Se entra con un nick y se tiene acceso a un chat Principal
+                      y se puede enviar mensajes privados con los demás usuarios.
 
               </div>
 </div>

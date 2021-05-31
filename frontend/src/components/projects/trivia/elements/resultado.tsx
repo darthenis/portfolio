@@ -8,12 +8,12 @@ import {addPlayer} from '../triviaservice'
 const Resultado = (props:{page : Pages, setPage : Dispatch<SetStateAction<Pages>>, player : Player}) => {
 
 
-//upload player data to database
+//upload player data to database at end game
 
 
 useEffect(()=>{
 
-  addPlayer(props.player)
+  addPlayer(props.player) 
 
 }, [])
 

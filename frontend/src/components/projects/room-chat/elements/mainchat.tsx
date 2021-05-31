@@ -11,7 +11,7 @@ const MainChat = (props: {mainChat : any, myUser : string}) =>{
 
     useEffect(()=>{
 
-        scrollref.current!==null && scrollref.current.scrollIntoView({ behavior: "smooth" });
+        scrollref.current!==null && scrollref.current.scrollIntoView();
 
     }, [props.mainChat])
 
@@ -30,7 +30,7 @@ const MainChat = (props: {mainChat : any, myUser : string}) =>{
     return (
 
 
-        <div className='chat-box' ref={scrollref}>
+        <div className='chat-box'>
 
                 {props.mainChat.map((chat : any)=>{
 
@@ -43,7 +43,7 @@ const MainChat = (props: {mainChat : any, myUser : string}) =>{
                         
                         })}
 
-
+            <div ref={scrollref}/>
 
 
         </div>

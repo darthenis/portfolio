@@ -72,9 +72,36 @@ const emailSchema = new Schema ({
     }
 })
 
+const userRoleToolsSchema = new Schema ({
+
+    'user' : {
+        type : String,
+    },
+
+    'pass' : {
+        type : String,
+    },
+
+    'email' : {
+        type : String,
+    },
+
+    'friends' : {
+        type : [String],
+    },
+
+    'actived' : {
+        type : Boolean,
+    }
+
+
+})
+
 
 export const Players = model('Player', playerSchema);
 
 export const Motos = model('Moto', motosSchema);
 
 export const Email = model('Email', emailSchema);
+
+export const UserRoleTools = model('User', userRoleToolsSchema)

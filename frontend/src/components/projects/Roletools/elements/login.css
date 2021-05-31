@@ -1,0 +1,50 @@
+.login-container{
+    display: flex;
+    color: white;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    font-size: 10px;
+
+}
+
+.login-container > form {
+    background: black;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+    height: 50%;
+    
+
+}
+
+.login-container > form > input{
+
+    width: 50%;
+    max-width: 200px;
+    padding: 1%;
+
+}
+
+.login-container > form > a {
+    font-size: 15px;
+    margin-top: 2%;
+}
+
+.login-container > form > input[type='submit']:hover{
+
+    background: rgb(209, 209, 209);
+
+    cursor: pointer;
+    cursor: hand;
+}
+
+.input-label-roletool{
+
+    font-size: 3em;
+}

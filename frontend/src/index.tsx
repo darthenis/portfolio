@@ -6,6 +6,7 @@ import Inicio from './components/index';
 import Motos from './components/projects/motos/motos'
 import Trivia from './components/projects/trivia/trivia'
 import RoomChat from './components/projects/room-chat/indexChat';
+import RoleTools from './components/projects/Roletools/roletools';
 
 ReactDOM.render(
   <React.StrictMode>
@@ -15,6 +16,7 @@ ReactDOM.render(
         <Route exact path='/motos' component={Motos} />
         <Route exact path='/trivia' component={Trivia} />
         <Route exact path='/chatroom' component={RoomChat} />
+        <Route exact path='/roletools' component={RoleTools} />
       </Switch>
     </BrowserRouter>
   </React.StrictMode>,

@@ -18,5 +18,15 @@ router.post('/addmoto', datactrl.insertmoto);
 
 router.post('/sendmessage', datactrl.sendEmail);
 
+router.post('/loginuser', datactrl.loginUser)
+
+router.post('/registeruser', datactrl.registerUser)
+
+router.post('/recoveryuser', datactrl.recoveryUser)
+
+router.post('/recoverycode', datactrl.recoveryCode)
+
+router.get('/roletools/getprofile', datactrl.ensureToken, datactrl.getUser)
+
 
 export default router

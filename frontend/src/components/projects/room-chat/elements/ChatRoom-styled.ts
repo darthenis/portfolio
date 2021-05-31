@@ -18,7 +18,7 @@ const newMsg = keyframes`
 
 const deslizarin = keyframes`
 
-                        from {left: -1000px}
+                        from {left: -500px}
 
                         to {left: 0px}
 `
@@ -27,7 +27,7 @@ const deslizaroff = keyframes`
 
                         from {left: opx}
 
-                        to {left: -1000px}
+                        to {left: -500px}
 
 `
 
@@ -54,14 +54,14 @@ export const ListUsers = styled.div<activemenu>`
 
                 ${props => props.isActive && css`
                         animation-name: ${deslizarin};
-                        animation-duration: 1s;
+                        animation-duration: .3s;
                         animation-fill-mode: forwards;
                         
                 `}
                 ${props => props.isOff && css`
                 
                         animation-name: ${deslizaroff};
-                        animation-duration: 1s;
+                        animation-duration: .3s;
                         animation-fill-mode: forwards;
                         
                         `}
