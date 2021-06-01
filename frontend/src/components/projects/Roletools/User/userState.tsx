@@ -1,41 +1,28 @@
-import react, { useEffect, useReducer } from 'react'
-import UserReducer from './userReducer'
+import react, { useState } from 'react'
 import UserContext from './userContext'
 import axios from 'axios'
+import { profile } from './types';
 
 
 type Props={
     children : React.ReactNode
 }
 
-type Profile = {
-    user: string;
-    friends: string[];
-    token: string;
+const initialProfile = {
+    user: '',
+    friends: [],
+    token: ''
     };
 
 const UserState = ({children} : Props) =>{
 
-    const [{profile, isLoading, error} , dispatch] = useReducer(UserReducer, { isLoading : false })
+    const [profile, setProfile] = useState<profile>(initialProfile)
 
-    
-    
-    const setProfile = (profile : Profile) =>{
-
-        dispatch({type : 'success', results : profile})
-
-    }
-
-
-    const getProfile = async (token : string, name : string) =>{
-
-        if (profile){
-
-            dispatch({type : 'request'})
+    const getProfile = async (mytoken : string, name : string) =>{
 
             axios.post('http://localhost:4000/roletools/getprofile', name, {
                 headers : {
-                    'authorization': `bearer ${token}`,
+                    'authorization': `bearer ${mytoken}`,
                     'Accept'       : 'application/json',
                     'Content-Type' : 'application/json'
 
@@ -43,19 +30,20 @@ const UserState = ({children} : Props) =>{
             }).then(
                 (res) => {
 
-                    const newObject = {
-                                user : res.data.user,
-                                friends : res.data.friends,
-                                token : profile.token
-                    }
+                            setProfile({...profile,
+                                            user : res.data.user,
+                                            friends : res.data.friends,
+                                            token : mytoken
+                                    })
 
-                    dispatch({type : 'success', results : newObject})
+                                },
+                    
+                (error) => { return 'error cargando perfil'}
                 
-                },
-                (error) => dispatch({type : 'failure', error})
-            )
+                )
+            
 
-        }
+        
 
     }
 

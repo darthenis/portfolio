@@ -178,7 +178,7 @@ export const loginUser : RequestHandler = async (req, res) => {
                 
                             }
             
-                        }, (err) => { res.sendStatus(403)}
+                        }, (err) => { res.sendStatus(403) }
                     
                     ) 
     
@@ -204,12 +204,14 @@ export const registerUser : RequestHandler = async (req, res) => {
                                         }
                                     )
 
+            const token = jwt.sign(req.body.email, 'ads32dggreRERg12')
+
             const dataUser ={
                 user : req.body.user,
                 pass : req.body.pass,
                 email : req.body.email,
-                friends : [],
-                actived : false
+                confirmationCode : token
+                
             }
 
     try{
@@ -236,3 +238,5 @@ export const recoveryCode : RequestHandler = async (req, res) => {
     res.json({message: 'todo okkk'})
 
 }
+
+

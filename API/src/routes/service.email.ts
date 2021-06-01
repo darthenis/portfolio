@@ -50,4 +50,41 @@ export const checkToken = async (token:string) => {
 
 }
 
-//key 
+export const reSendEmail = async () => {  //configurar el envio de email re confirmacions
+
+                    
+            let htmlEmail = `
+            
+            <h3>Email enviado desde la app RoleTools</h3>
+            <ul>
+                <li></li>
+                <li></li>
+            </ul>
+            <h3>Mensaje</h3>
+            <p></p>
+                
+            `
+
+        const transporter = nodemailer.createTransport({
+            host: 'smtp.gmail.com',
+            port: 587,
+            secure: false,
+            auth:{
+                user: 'emidesarrolloweb@gmail.com',
+                pass: 'lorencia676'
+            }
+        });
+
+        const info = await transporter.sendMail({
+
+                    from: '"Desde la Web" <'+ 'emidesarrolloweb@gmail.com' +'>',
+                    to: 'emi.acevedo.letras@gmail.com',
+                    subject: "Consulta desde la web",
+                    text: '',
+                    html: htmlEmail,
+                    headers: { 'x-myheader': 'test header' }
+               });
+
+        console.log("Message sent: %s", info.response);
+
+    }
