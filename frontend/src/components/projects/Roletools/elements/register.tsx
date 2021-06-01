@@ -82,7 +82,7 @@ const RegisterRoleTool = (props: {loadPage : any, setLoadPage : Dispatch<SetStat
                                                 friends: [],
                                                 token: response.data.message})
 
-                                    props.setLoadPage({...props.loadPage, register : false, userPage : true}) //cambiar por la pagina de activacion
+                                    props.setLoadPage({...props.loadPage, register : false, emailConfirm : true}) //cambiar por la pagina de activacion
                                     break;
                     }
                                     
@@ -97,7 +97,7 @@ const RegisterRoleTool = (props: {loadPage : any, setLoadPage : Dispatch<SetStat
 
         return (
 
-            <div id='container-register-roletools'> 
+            <div className='container-register-roletools'> 
 
                             <form onSubmit={sendRegister}>
 

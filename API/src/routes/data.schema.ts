@@ -88,14 +88,20 @@ const userRoleToolsSchema = new Schema ({
 
     'friends' : {
         type : [String],
+        default : []
     },
 
-    'actived' : {
-        type : Boolean,
+    'status' : {
+        type : String,
+        enum : ['Pending', 'Active'],
+        default : 'Pending'
+    },
+
+    'confirmationCode': {
+            type : String,
+            unique : true }
     }
-
-
-})
+)
 
 
 export const Players = model('Player', playerSchema);

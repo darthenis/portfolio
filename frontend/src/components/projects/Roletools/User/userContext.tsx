@@ -1,17 +1,5 @@
-import {createContext, useContext} from 'react'
-
-type userStateContext = {
-    profile: profile | undefined;
-    getProfile: (value : string, value2 : string) => void;
-    setProfile: (value : profile) => void;
-  };
-
-type profile ={
-    user : string;
-    friends : string[];
-    token : string
-
-}
+import {createContext, SetStateAction, useContext, Dispatch} from 'react'
+import { userStateContext } from './types';
 
 
 const UserContext = createContext<userStateContext | undefined>(undefined)

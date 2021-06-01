@@ -1,4 +1,4 @@
-#container-register-roletools{
+.container-register-roletools{
     display: flex;
     color: white;
     justify-content: center;
@@ -9,7 +9,7 @@
 
 }
 
-#container-register-roletools > form {
+.container-register-roletools > form {
     background: black;
     text-align: center;
     display: flex;
@@ -22,7 +22,7 @@
 
 }
 
-#container-register-roletools > form > input{
+.container-register-roletools > form > input{
 
     width: 50%;
     max-width: 200px;
@@ -30,7 +30,7 @@
 
 }
 
-#container-register-roletools > form > a {
+.container-register-roletools > form > a {
     font-size: 15px;
     margin-top: 2%;
 }
