@@ -72,36 +72,94 @@ const emailSchema = new Schema ({
     }
 })
 
-const userRoleToolsSchema = new Schema ({
+export interface user  extends Document {
+    user : string,
+    pass : string,
+    email: string,
+    matchesCreated : string[],
+    matchesJoined  : string[],
+    friends: string[],
+    status : string,
+    confirmationCode: string,
+    resetPassCode : number | null
+}
 
-    'user' : {
+export interface match extends Document {
+    name : string,
+    pass : string,
+    creator : string[],
+    players : string[]
+}
+
+const userRoleToolsSchema : Schema = new Schema ({
+
+    user : {
         type : String,
+        required: true,
     },
 
-    'pass' : {
+    pass : {
         type : String,
+        required: true,
     },
 
-    'email' : {
+    email : {
         type : String,
+        required: true,
     },
 
-    'friends' : {
+    matchesCreated : {
+            type : [String],        
+    },
+
+    matchesJoined : {
+        type : [String]
+    },
+
+    friends : {
         type : [String],
         default : []
     },
 
-    'status' : {
+    status : {
         type : String,
         enum : ['Pending', 'Active'],
         default : 'Pending'
     },
 
-    'confirmationCode': {
+    confirmationCode : {
             type : String,
-            unique : true }
+            unique : true 
+    },
+
+    resetPassCode : {
+        type : Number,
+        default : null
+        
     }
-)
+    })
+
+
+const matchRoleToolsSchema : Schema = new Schema ({
+
+    name : {
+       type : String
+    },
+
+    pass : {
+        type : String
+    },
+
+    creator : {
+        type : String
+    },
+
+    players : {
+        type : [String],
+    }
+
+
+})
 
 
 export const Players = model('Player', playerSchema);
@@ -110,4 +168,6 @@ export const Motos = model('Moto', motosSchema);
 
 export const Email = model('Email', emailSchema);
 
-export const UserRoleTools = model('User', userRoleToolsSchema)
+export const UserRoleTools = model<user>('User', userRoleToolsSchema)
+
+export const MatchRoleTools = model<match>('Match', matchRoleToolsSchema)

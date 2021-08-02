@@ -10,7 +10,3 @@ export interface Register {
     pass  : string,
     email : string
 }
-
-export interface Recovery {
-    email : string
-}

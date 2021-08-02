@@ -3,13 +3,13 @@ import {Dispatch, SetStateAction} from 'react'
 
 export type userStateContext = {
     profile: profile;
-    getProfile: (value : string, value2 : string) => void;
+    getProfile: () => void;
     setProfile: Dispatch<SetStateAction<profile>>;
   };
 
-export type profile ={
+export interface profile {
     user : string;
-    friends : string[];
+    matchesCreated : string[],
+    matchesJoined  : string[],
     token : string
-
 }

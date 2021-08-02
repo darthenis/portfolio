@@ -48,20 +48,15 @@ export const checkToken = async (token:string) => {
         return checkToken
        
 
-}
+    }
 
-export const reSendEmail = async () => {  //configurar el envio de email re confirmacions
+export const infoAccount = async (token : number, email : string) => {
 
                     
             let htmlEmail = `
             
             <h3>Email enviado desde la app RoleTools</h3>
-            <ul>
-                <li></li>
-                <li></li>
-            </ul>
-            <h3>Mensaje</h3>
-            <p></p>
+            <p>Este es el codigo: ${token}</p>
                 
             `
 
@@ -78,9 +73,8 @@ export const reSendEmail = async () => {  //configurar el envio de email re conf
         const info = await transporter.sendMail({
 
                     from: '"Desde la Web" <'+ 'emidesarrolloweb@gmail.com' +'>',
-                    to: 'emi.acevedo.letras@gmail.com',
-                    subject: "Consulta desde la web",
-                    text: '',
+                    to: email,
+                    subject: "Recuperación de cuenta",
                     html: htmlEmail,
                     headers: { 'x-myheader': 'test header' }
                });
@@ -88,3 +82,39 @@ export const reSendEmail = async () => {  //configurar el envio de email re conf
         console.log("Message sent: %s", info.response);
 
     }
+
+
+
+export const confirmationEmail = async (token : string, email : string) => {
+
+                    
+        let htmlEmail = `
+        
+        <h3>Email enviado desde la app RoleTools</h3>
+        <p>Gracias por registrarte en RoleTools, a continuacion haga click en el siguiente link 
+        <a href='http://localhost:3000/roletools/confirm/${token}'>Haga click aquí</a></p>
+            
+        `
+
+    const transporter = nodemailer.createTransport({
+        host: 'smtp.gmail.com',
+        port: 587,
+        secure: false,
+        auth:{
+            user: 'emidesarrolloweb@gmail.com',
+            pass: 'lorencia676'
+        }
+    });
+
+    const info = await transporter.sendMail({
+
+                from: '"Desde la Web" <'+ 'emidesarrolloweb@gmail.com' +'>',
+                to: email,
+                subject: "Confirmación de email",
+                html: htmlEmail,
+                headers: { 'x-myheader': 'test header' }
+           });
+
+    console.log("Message sent: %s", info.response);
+
+}

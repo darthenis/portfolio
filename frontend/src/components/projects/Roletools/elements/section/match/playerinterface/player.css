@@ -1,0 +1,152 @@
+
+#match-app-player-container{
+    z-index: 9;
+    max-width: 900px;
+    width: 80%;
+    height: 70%;
+    background-color: rgb(0, 0, 0);
+    display: grid;
+    grid-template-columns: 25% 75%;
+    grid-template-rows: 80% 20%;
+
+}
+
+#list-init-player{
+
+    background-color: cornflowerblue;
+    grid-column: 1;
+    grid-row: 1;
+}
+
+#list-init-player > :first-child{
+
+    background-color: black;
+    color: white;
+    text-align: center;
+    padding: 5px;
+    font-size: 20px;
+    height: 30px;
+
+}
+
+#list-options-player{
+
+    background-color: darkgoldenrod;
+    grid-column: 2;
+    grid-row: 1/2;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 5% 15% 80%;
+    height: 100%;
+
+}
+
+#list-options-player > :first-child{
+    background-color: black;
+    text-align: center;
+    color: white;
+    grid-row: 1;
+    font-size: 20px;
+    padding: 5px;
+    height: 30px;
+
+}
+
+#static-stats{
+    font-size: 20px;
+    padding: 5px;
+    font-weight: bold;
+    grid-column: 1;
+    grid-row: 2;
+    display: flex;
+    justify-content: space-evenly;
+
+}
+
+#static-stats > div{
+
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+#static-stats > div > input{
+
+    padding: 5px;
+    width: 100px;
+
+
+}
+
+#attacks-list{
+    grid-column: 1;
+    grid-row: 3;
+    padding-top: 5px;
+    overflow: auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 200px;
+    grid-auto-rows: max-content;
+    grid-gap: 5px;
+    font-size: 15px;
+    font-weight: bold;
+
+
+}
+
+#attacks-list > div{
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 5px;
+    box-shadow: 1px 1px 1px black;
+
+
+}
+
+#attacks-list > div > input{
+
+    width: 60%;
+    padding: 2px;
+
+}
+
+#attacks-list > div > button{
+
+    width: fit-content;
+    height: fit-content;
+    margin-top: 5px;
+    align-self: center;
+    justify-self: center;
+    padding: 2px;
+    font-size: 15px;
+    font-weight: bold;
+    box-shadow: 1px 0px 5px rgb(0, 0, 0);
+    background-color: red;
+    color: white;
+    cursor: hand;
+    cursor: pointer;
+
+}
+
+#roll-options-player{
+
+    grid-column: 2;
+    grid-row: 2;
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+    background-color: black;
+
+}
+
+#player-buttons{
+    color: black;
+    background-color: darkseagreen;
+    padding: 5px;
+    display: grid;
+    width: 100%;
+    grid-template-columns: 1fr 1fr 1fr 1fr
+
+}

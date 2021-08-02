@@ -22,6 +22,8 @@ require('./chatroom/sockets')(io)
 
 require('./sockets-motos/sockets')(io)
 
+require('./sockets-match/sockets')(io)
+
 
 
 httpServer.listen(config.PORT);

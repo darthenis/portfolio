@@ -1,9 +1,9 @@
-import React, { useEffect, useContext, SetStateAction, Dispatch } from 'react'
-import react, { useState } from 'react'
-import Input from '../../../inputs'
+import React, { useEffect, useState, SetStateAction, Dispatch } from 'react'
+import Input from '../../../../inputs'
 import './register.css'
-import { postRegister } from './roletoolsservice'
-import {useProfile} from '../User/userContext'
+import { postRegister, setNewEmail } from '../../service/roletoolsservice'
+import {useProfile} from '../../User/userContext'
+import ButtonLoading from '../../components/buttonLoading'
 
 
 const RegisterRoleTool = (props: {loadPage : any, setLoadPage : Dispatch<SetStateAction<any>>}) => {
@@ -21,26 +21,35 @@ const RegisterRoleTool = (props: {loadPage : any, setLoadPage : Dispatch<SetStat
     const [inputState, setInputState] = useState({
         user           : true,
         pass           : true,
-        passcheck      : true,
+        passCheck      : true,
         passcheckState : false, 
         email          : true, 
         incomplete     : false
     })
 
+    const [loadRegister, setLoadRegister] = useState(false)
+
+    const [endLoad, setEndLoad] = useState(false)
+
+    useEffect(() => {
+
+        if(endLoad) {
+            setLoadRegister(false)
+            setEndLoad(false)
+        }
+        
+    })
+
     useEffect(()=>{
-
-        console.log('hubo un cambio')
-
 
         if(user.pass===passCheck.passCheck){
 
-            setInputState({...inputState, passcheckState : true})
-           
+            setInputState({...inputState, passcheckState : true})  
 
         } else {
 
             setInputState({...inputState, passcheckState : false})
-    
+
         }
 
     }, [user, passCheck])
@@ -54,11 +63,7 @@ const RegisterRoleTool = (props: {loadPage : any, setLoadPage : Dispatch<SetStat
       }
 
 
-      const sendRegister = async (e : React.FormEvent<HTMLFormElement>) => {
-
-            e.preventDefault();
-
-            console.log('inputStates: ', inputState)
+      const sendRegister = async () => {
 
             if (inputState.user &&
                 inputState.pass &&
@@ -67,8 +72,12 @@ const RegisterRoleTool = (props: {loadPage : any, setLoadPage : Dispatch<SetStat
                 user.user &&
                 user.pass &&
                 user.email) {
+
+                    setLoadRegister(true)
                     
                     const response = await postRegister(user)
+
+                    setEndLoad(true)
 
                     switch(response.data.message){
                                 case 'user already exist':
@@ -78,11 +87,10 @@ const RegisterRoleTool = (props: {loadPage : any, setLoadPage : Dispatch<SetStat
                                     alert('El email ya existe')
                                     break;
                                 case 'user created':
-                                    setProfile({user : user.user,
-                                                friends: [],
-                                                token: response.data.message})
+                                    setProfile({...profile, user : user.user,
+                                                            token: response.data.message})
 
-                                    props.setLoadPage({...props.loadPage, register : false, emailConfirm : true}) //cambiar por la pagina de activacion
+                                    props.setLoadPage({...props.loadPage, register : false, emailConfirm : true})
                                     break;
                     }
                                     
@@ -91,16 +99,24 @@ const RegisterRoleTool = (props: {loadPage : any, setLoadPage : Dispatch<SetStat
                         setInputState({...inputState, incomplete : true})
                 }
 
+      }
+
+      const backLogin = () => {
+
+        props.setLoadPage({...props.loadPage, register : false, login : true})
 
       }
 
 
         return (
 
-            <div className='container-register-roletools'> 
+            <div className='register-container-roletools'>
 
-                            <form onSubmit={sendRegister}>
+                        <div>
 
+                            <form id='roletools-form-register'>
+
+                                <div>    
                                     <Input  inputState={inputState}
                                             setInputState={setInputState}
                                             user={user}
@@ -114,9 +130,10 @@ const RegisterRoleTool = (props: {loadPage : any, setLoadPage : Dispatch<SetStat
                                             name='user'
                                             errorempty='El campo es obligatorio'
                                             errorinput='Solo letras y numeros de hasta 10 carácteres'
-                                            errorMessageClass='error-message-input-roletool'
+                                            errorMessageClass='error-message-register-roletool'
                                             ></Input>
-
+                                        </div>
+                                <div>        
                                     <Input  inputState={inputState} 
                                             setInputState={setInputState}
                                             user={user}
@@ -130,26 +147,30 @@ const RegisterRoleTool = (props: {loadPage : any, setLoadPage : Dispatch<SetStat
                                             name='pass'
                                             errorempty='El campo es obligatorio'
                                             errorinput='Solo letras y numeros de hasta 16 carácteres'
-                                            errorMessageClass='error-message-input-roletool'
+                                            errorMessageClass='error-message-register-roletool'
                                             ></Input>
-
+                                        </div>
+                                <div>        
                                     <Input  inputState={inputState} 
                                             setInputState={setInputState}
                                             user={passCheck}
-                                            setUser={setPassCheck}       //here user means state of pass string
+                                            setUser={setPassCheck}     
                                             expresion={regularExpression.pass}
                                             type='password' 
-                                            label='contraseña' 
+                                            label='repita la contraseña' 
                                             classLabel='input-label-roletool' 
                                             className='pass-input-roletool'
                                             placeholder='Escriba su contraseña'
                                             name='passCheck'
                                             errorempty='El campo es obligatorio'
                                             errorinput='Solo letras y numeros de hasta 16 carácteres'
-                                            errorMessageClass='error-message-input-roletool'
+                                            errorMessageClass='error-message-register-roletool'
                                             ></Input>
+                                        </div>
 
+                                            
 
+                                <div>
                                     <Input  inputState={inputState} 
                                             setInputState={setInputState}
                                             user={user}
@@ -163,17 +184,24 @@ const RegisterRoleTool = (props: {loadPage : any, setLoadPage : Dispatch<SetStat
                                             name='email'
                                             errorempty='El campo es obligatorio'
                                             errorinput='El email es incorrecto'
-                                            errorMessageClass='error-message-input-roletool'
+                                            errorMessageClass='error-message-register-roletool'
                                             ></Input>
+                                        </div>
+
+                                            {inputState.passcheckState===false && <div id='pass-form'>Las contraseñas deben coincidir</div>}
 
 
-                                            <input type="submit" value='Registrarse' />
+                                           
 
 
 
                              </form>
 
+                             <ButtonLoading isLoading={loadRegister} insideText='Registrar' color='black' background='white' hover='#00F3FF' onClick={sendRegister}/>
 
+                             <button id='button-backLogin-RoleTools' onClick={backLogin}>volver</button>
+
+                        </div>
 
 
             </div>

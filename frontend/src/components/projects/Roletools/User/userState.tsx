@@ -10,7 +10,8 @@ type Props={
 
 const initialProfile = {
     user: '',
-    friends: [],
+    matchesCreated: [],
+    matchesJoined : [],
     token: ''
     };
 
@@ -18,11 +19,13 @@ const UserState = ({children} : Props) =>{
 
     const [profile, setProfile] = useState<profile>(initialProfile)
 
-    const getProfile = async (mytoken : string, name : string) =>{
+    const getProfile = async () =>{
 
-            axios.post('http://localhost:4000/roletools/getprofile', name, {
+            const data = { user : profile.user}
+
+            axios.post('http://localhost:4000/roletools/getprofile', data, {
                 headers : {
-                    'authorization': `bearer ${mytoken}`,
+                    'Authorization': `bearer ${profile.token}`,
                     'Accept'       : 'application/json',
                     'Content-Type' : 'application/json'
 
@@ -30,10 +33,13 @@ const UserState = ({children} : Props) =>{
             }).then(
                 (res) => {
 
+                            console.log('response :',res)
+
                             setProfile({...profile,
                                             user : res.data.user,
-                                            friends : res.data.friends,
-                                            token : mytoken
+                                            matchesCreated : res.data.matchesCreated,
+                                            matchesJoined  : res.data.matchesJoined,
+                                            token : profile.token
                                     })
 
                                 },

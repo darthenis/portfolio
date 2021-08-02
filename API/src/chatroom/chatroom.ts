@@ -36,9 +36,9 @@ export const adduser = (newuser : user) => {
 
 export const deleteUser = (username : string) => {
 
-   let newUsers = chatroomusers.filter(user => {return user.nombre !== username})
+   let newUsers = chatroomusers.filter(user => user.nombre !== username)
 
-    chatroomusers = newUsers
+    chatroomusers = [...newUsers]
 
  }
 

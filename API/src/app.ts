@@ -12,7 +12,7 @@ app.use(express.urlencoded({extended: false}));
 app.use(cors({
     origin: 'http://localhost:3000',
     methods: ["GET", "POST", "OPTIONS"],
-    allowedHeaders: ["my-custom-header", "content-type"],
+    allowedHeaders: ["my-custom-header", "Content-Type", "Authorization", "X-Requested-Wit"],
     credentials: true
 }));
 app.use(dataroutes);

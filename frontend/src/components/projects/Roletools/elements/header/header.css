@@ -1,0 +1,24 @@
+#header-App{
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    background-color: black;
+    color: white;
+    font-size: 20px;
+    padding: 2%;
+
+}
+
+#header-App > nav{
+    width: 70%;
+    display: flex;
+    justify-content: space-around;
+    z-index: 99;
+}
+
+
+#header-App > nav > div {
+    position: relative;
+    z-index: 99999;
+}

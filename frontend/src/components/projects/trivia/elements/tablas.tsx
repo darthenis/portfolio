@@ -62,8 +62,6 @@ const downTablePage = () => {
 
 const ordertable = (column : string) => {
 
-  console.log('haz hecho click en ', column)
-
   let newsortlist = sort_lists(column, list)
 
   if (newsortlist[0]===list[0]) newsortlist = sort_lists(column, list, true)

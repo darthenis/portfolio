@@ -1,0 +1,145 @@
+#container-section{
+
+    width: 100%;
+    height: 100%;
+    background-color: rgb(16, 27, 26);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container-Match{
+
+    max-width: 700px;
+    width:70%;
+    height: 50%;
+    background-color: rgb(0, 0, 0);
+    display: flex;
+    justify-content: center;
+
+}
+
+.container-Match > form {
+    width: 80%;
+    display: flex;
+    font-size: 20px;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 5%;
+    color: white;
+    text-align: center;
+}
+
+.container-Match > form > input {
+
+    width: 150px;
+    padding: 10px;
+
+}
+
+.container-Match > form > input[type='submit'] {
+
+    margin: 2%;
+    border-radius: 10px;
+
+}
+
+#list-matches-created{
+
+    grid-column: 1;
+    grid-row: 1/5;
+    color: white;
+    width:100%;
+    text-align: center;
+
+}
+
+
+#list-matches-joined{
+
+    grid-column: 2;
+    grid-row: 1/5;
+    color: white;
+    width:100%;
+    text-align: center;
+
+}
+
+
+#container-buttons-joinmatch{
+
+    grid-column: 1/-1;
+    justify-self: center;
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+
+}
+
+.new-join-match{
+
+    width: fit-content;
+    padding: 10px;
+    font-weight: bold;
+    cursor: hand;
+    cursor: pointer;
+    border-radius: 10px;
+    margin-top: 1%;
+
+
+}
+
+.new-join-match:hover{
+
+    background-color: rgb(184, 184, 184);
+    
+
+
+}
+
+
+.matchesList-title{
+
+    width: 100%;
+    font-size: calc(1em + 1vw);
+    margin-bottom: 5%;
+    border-bottom: solid 2px white;
+    padding: 5px;
+
+
+}
+
+.matchName{
+
+    padding: 5px;
+    font-size: calc(.5em + 1vw);
+    cursor: hand;
+    cursor: pointer
+
+}
+
+.matchName:hover{
+
+        background-color: rgb(100, 100, 100);
+
+}
+
+
+
+#container-match-list{ 
+
+    padding: 1%;
+    max-width: 700px;
+    width:70%;
+    height: 50%;
+    background-color: rgb(0, 0, 0);
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 5fr 1fr;
+    
+
+
+}
+
+

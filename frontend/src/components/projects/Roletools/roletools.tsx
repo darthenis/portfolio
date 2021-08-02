@@ -1,20 +1,24 @@
-import react, { useState } from 'react'
-import Login from './elements/login'
+import react, { useEffect, useState } from 'react'
+import Login from './elements/login/login'
 import './roletools.css'
-import RegisterRoleTool from './elements/register'
-import Recovery from './elements/recoverypass'
+import RegisterRoleTool from './elements/login/register'
+import Recovery from './elements/login/recoveryAccount'
 import UserState  from './User/userState'
-import UserPage from './elements/userPage'
-import EmailConfirm from './elements/emailConfirm'
+import EmailConfirm from './elements/login/emailConfirm'
+import UserPage from './userPage'
+import { useProfile } from './User/userContext'
+
 
 
 
 
 const RoleTools = () =>{
 
-    const [loadpage, setLoadpage] = useState({
+    const {profile, setProfile} = useProfile()!
 
-        login    : true,
+    const [loadPage, setLoadPage] = useState({
+
+        login    : false,
         register : false,
         emailConfirm : false,
         recovery : false, 
@@ -23,20 +27,40 @@ const RoleTools = () =>{
         
     })
 
+    useEffect(()=>{
+
+        const userInfo = window.sessionStorage.getItem('userInfo')
+
+        if(userInfo) {
+
+            const data = JSON.parse(userInfo)
+
+            setProfile({...profile, user : data.user,
+                                    token : data.token})
+                                
+
+            setLoadPage({...loadPage, login : false,
+                                     userPage : true})
+                                                
+        } else { setLoadPage({...loadPage, login : true})}
+
+            
+    }, [])
+
 
         return (
-
-            <UserState>
+                
                     <div id='roletool-main-container'>
 
-                        {loadpage.login && <Login loadpage={loadpage} setLoadPage={setLoadpage}></Login>}
-                        {loadpage.register && <RegisterRoleTool loadPage={loadpage} setLoadPage={setLoadpage}></RegisterRoleTool>}
-                        {loadpage.emailConfirm && <EmailConfirm/>}
-                        {loadpage.recovery && <Recovery/>}
-                        {loadpage.userPage && <UserPage/>}  
+                        {loadPage.login && <Login loadPage={loadPage} setLoadPage={setLoadPage}></Login>}
+                        {loadPage.register && <RegisterRoleTool loadPage={loadPage} setLoadPage={setLoadPage}></RegisterRoleTool>}
+                        {loadPage.emailConfirm && <EmailConfirm/>}
+                        {loadPage.recovery && <Recovery loadPage={loadPage} setLoadPage={setLoadPage}/>}
+                        {loadPage.userPage && <UserPage/>}  
                         
                     </div>
-            </UserState>
+               
+           
         )
 
 

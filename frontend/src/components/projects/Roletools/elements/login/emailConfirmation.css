@@ -1,0 +1,25 @@
+.register-container-roletools > div > span {
+
+    margin-top: 5%;
+}
+
+.confirmation-email-button{
+
+        padding: 10px 15px 10px 15px;
+        border-radius: 10px;
+}
+
+.register-container-roletools > div > input{
+
+    padding: 10px 15px 10px 15px;
+    margin: 2%;
+}
+
+.register-container-roletools > div > button{
+
+    font-weight: bold;
+    padding: 10px 15px 10px 15px;
+    margin: 2%;
+    cursor: hand;
+    cursor: pointer
+}
