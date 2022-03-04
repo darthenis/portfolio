@@ -5,19 +5,19 @@ import { match, profile } from '../Interfaces/interfaces'
 
 export const loginRoleTools = async (data : Login) => {
 
-        return await axios.post('http://localhost:4000/loginuser', data)
+        return await axios.post('https://personalwebapi.herokuapp.com/loginuser', data)
 
 }
 
 export const postRegister = async (data : Register) => {
 
-         return await axios.post('http://localhost:4000/registeruser', data)
+         return await axios.post('https://personalwebapi.herokuapp.com/registeruser', data)
 
 }
 
 export const recoveryUser = async (email : any) => {
 
-        return await axios.post('http://localhost:4000/recoveryuser', email)
+        return await axios.post('https://personalwebapi.herokuapp.com/recoveryuser', email)
 } 
 
 export const reSendLink = async (user : string) => {
@@ -26,7 +26,7 @@ export const reSendLink = async (user : string) => {
                 user : user
         }
 
-        return await axios.post('http://localhost:4000/resendlink', data)
+        return await axios.post('https://personalwebapi.herokuapp.com/resendlink', data)
 
 }
 
@@ -38,14 +38,14 @@ export const setNewEmail = async (newEmail : string, user : string) => {
                 email : newEmail
         }
 
-        return await axios.post('http://localhost:4000/setNewEmail', data)
+        return await axios.post('https://personalwebapi.herokuapp.com/setNewEmail', data)
 
 }
 
 
 export const verifyUser = async (code : string) => {
 
-        return await axios.get('http://localhost:4000/confirm/'+ code).then((response)=>{
+        return await axios.get('https://personalwebapi.herokuapp.com/confirm/'+ code).then((response)=>{
                 return response.data
         })
 
@@ -56,7 +56,7 @@ export const checkingCode = async (code : string) => {
         const data = { code : code}
 
 
-        return await axios.post('http://localhost:4000/checkcode', data)
+        return await axios.post('https://personalwebapi.herokuapp.com/checkcode', data)
 
 }
 
@@ -67,7 +67,7 @@ export const restPassword = async (email : string, pass : string) => {
                 pass : pass
         }
 
-        return await axios.post('http://localhost:4000/restpass', data)
+        return await axios.post('https://personalwebapi.herokuapp.com/restpass', data)
         
 
 }
@@ -82,7 +82,7 @@ export const newMatch = async (profile : profile, match : match) => {
                 match : match
         }
 
-        return await axios.post('http://localhost:4000/roletools/creatematch', data, {
+        return await axios.post('https://personalwebapi.herokuapp.com/roletools/creatematch', data, {
                                                                                 headers : {
                                                                                 'Authorization': `bearer ${profile.token}`,
                                                                                 'Accept'       : 'application/json',
@@ -103,7 +103,7 @@ export const seekMatch = async (profile : profile, match : match) => {
         }
 
 
-        return await axios.post('http://localhost:4000/roletools/seekmatch', data, {
+        return await axios.post('https://personalwebapi.herokuapp.com/roletools/seekmatch', data, {
                                                                                         headers : {
                                                                                         'Authorization': `bearer ${profile.token}`,
                                                                                         'Accept'       : 'application/json',
@@ -129,7 +129,7 @@ export const myMatch = async (profile : profile, matchName : string) => {
                 match : matchName
         }
                                                                 
-                return await axios.post('http://localhost:4000/roletools/mymatch', data, {
+                return await axios.post('https://personalwebapi.herokuapp.com/roletools/mymatch', data, {
                                                                                                  headers : {
                                                                                                                 'Authorization': `bearer ${profile.token}`,
                                                                                                                 'Accept'       : 'application/json',
