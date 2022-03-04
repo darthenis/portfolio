@@ -54,6 +54,9 @@ for ( let i=0;i<=24;i++ ){
 
   const loadmotos = async () =>{
     const res = await getMotos()
+
+    console.log('motos: ', res)
+
     setmotos(res.data);
   }
 
