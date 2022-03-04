@@ -1,16 +1,16 @@
-
+import config from '../../../config'
 import axios from 'axios';
 
   export const getMotos = async () => {
 
-        const data = await axios.get('https://personalwebapi.herokuapp.com/motos')
+        const data = await axios.get(config.APIURL+'/motos')
 
         return data;
 }
 
   export const restarMoto = async (id : number) => {
 
-      await axios.post('https://personalwebapi.herokuapp.com/motosrest/'+id)
+      await axios.post(config.APIURL+'/motosrest/'+id)
 
       return true;
 
@@ -19,7 +19,7 @@ import axios from 'axios';
 
   export const sumarMoto = async (id:number) => {
 
-    await axios.post('https://personalwebapi.herokuapp.com/motossum/'+id)
+    await axios.post(config.APIURL+'/motossum/'+id)
 
     return true;
 

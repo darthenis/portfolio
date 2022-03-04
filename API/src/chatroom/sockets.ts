@@ -10,6 +10,8 @@ module.exports = () => {
 
                     socket.on('userchat', (user) => {
 
+                        console.log('userchat', user)
+
                         const newuser:user={nombre: user.nombre, id : socket.id}
 
                         const result = adduser(newuser)

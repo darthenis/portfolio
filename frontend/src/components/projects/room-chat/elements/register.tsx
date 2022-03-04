@@ -49,6 +49,8 @@ const Register = (props: {  myUser: any,
             
             socket.emit('userchat', props.myUser)
 
+            console.log('registration user')
+
         }else{ 
 
             console.log('falta introducir nick')

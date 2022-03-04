@@ -1,8 +1,7 @@
 import React, {useState, useEffect} from 'react'
-import socket from '../motos/sockets';
 import ChatRoom from './elements/ChatRoom';
 import Register from './elements/register';
-import { useImmer } from 'use-immer'
+
 
 
 
