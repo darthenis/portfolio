@@ -11,7 +11,7 @@ const httpServer = require("http").createServer(app);
 
 export const io = require("socket.io")(httpServer, {
   cors: {
-    origin: "http://localhost:3000",
+    origin: "https://webpersonal-darthenis.vercel.app",
     methods: ["GET", "POST"],
     allowedHeaders: ["my-custom-header"],
     credentials: true
