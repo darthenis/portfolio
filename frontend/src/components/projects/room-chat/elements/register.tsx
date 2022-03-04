@@ -41,12 +41,12 @@ const Register = (props: {  myUser: any,
 
         e.preventDefault()
 
+        console.log('registration user')
+
         let userSaved;
 
         if(inputState.nombre && props.myUser.nombre!==''){
-
-            console.log('registration user')
-
+            
             socket.emit('userchat', props.myUser)
 
         }else{ 
