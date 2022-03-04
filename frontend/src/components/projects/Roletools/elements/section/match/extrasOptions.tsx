@@ -1,11 +1,10 @@
 import React, { Dispatch, SetStateAction, useState } from 'react'
 import { useNavigation } from '../../../navegation/navigationContext'
-import { useMaster } from '../../../User/ActualMatch/Master/masterContext'
-import { usePlayer } from '../../../User/ActualMatch/Player/playerContext'
-import { returnDice } from './logic-dice'
-
-
-
+import socket from '../../../service/socket'
+import { useMaster } from './contextMatch/Master/masterContext'
+import { usePlayer } from './contextMatch/Player/playerContext'
+import { customRoll, returnDice } from './logic-dice'
+import { ButtonMonster } from './styled-match'
 
 
 
@@ -25,29 +24,28 @@ const ExtrasOptions = (props : {options : any, setOptions : Dispatch<SetStateAct
 
     const onChange = (e : React.ChangeEvent<HTMLSelectElement> | React.ChangeEvent<HTMLInputElement>) => {
 
-        setRoll({...roll, [e.currentTarget.name] : parseInt(e.currentTarget.value)})
+        if(e.currentTarget.name === 'ventaja'){
 
+            props.setOptions({...props.options, [e.currentTarget.name] : checkVentaja(e.currentTarget.value)})
+
+        } else {
+
+            setRoll({...roll, [e.currentTarget.name] : parseInt(e.currentTarget.value)})
+
+        }
+        
     }
 
-    const onChangeOptions = (e : React.ChangeEvent<HTMLInputElement>) => {
+    const checkVentaja = (ventaja : string) => {
 
-        navigation.actualMatch === 'Player' ? props.setOptions(e.currentTarget.value)
+        if(ventaja === 'ventaja') return true
 
-        : props.setOptions({...props.options, ventaja : e.currentTarget.value})
+        if(ventaja === 'desventaja') return false
+        
+        return null
+
+
     }
-    
-    const checkedOption = () => {
-
-        let page = navigation.actualPage
-
-        if (page === 'Player' && props.options === 'none') return true
-
-        else if (props.options.ventaja === 'none') return true
-
-        else return false
-  
-    }
-
 
     const rollDice = () => {
 
@@ -59,9 +57,9 @@ const ExtrasOptions = (props : {options : any, setOptions : Dispatch<SetStateAct
 
     const rollPlayer = () => {
 
-        let result = repeatRoll(props.options.ventaja)
+        let result = customRoll(roll.value, roll.dices, roll.bonus, props.options.ventaja)
 
-        let newRegister = { name : player.playerStats ? player.playerStats.name : '',
+        let newRegister = { name : player.playerStats ? player.playerStats.myStateRef.current.name : '',
                             dice : roll.value,
                             rolled: result,
                             ventaja : props.options.ventaja,
@@ -70,22 +68,31 @@ const ExtrasOptions = (props : {options : any, setOptions : Dispatch<SetStateAct
                             diceDmg : 0,
                             dmg : 0,
                             bonusDmg : 0,
-                            exit : null, 
+                            exit : returnExit(result), 
                         }
 
-        player.addRegisterText(newRegister)
+        socket.emit('customRoll', newRegister)
 
-    }   
+    }
+    
+    const returnExit = (result : number) => {
+
+        if (player.CD > 0) { 
+            
+            if(result >= player.CD) return true 
+            return false
+        }
+
+        else return null
+    }
 
     const rollMaster = () =>{
 
-        let result;
+        let result = customRoll(roll.value, roll.dices, roll.bonus, props.options.ventaja)
 
-        result = repeatRoll(props.options.ventaja)
+        let target = master.monsterStats.myStateRef.current.filter(e => e.selected)
 
-        let target = master.monsterStat.filter(e => e.initEnabled)
-
-        let firstOrderList = master.monsterStat.filter (e => e.id === master.initOrder[0].id)
+        let firstOrderList = master.monsterStats.myStateRef.current.filter (e => e.id === master.initOrder.myStateRef.current[0].id)
 
         let newRegister;
 
@@ -103,10 +110,10 @@ const ExtrasOptions = (props : {options : any, setOptions : Dispatch<SetStateAct
                                 exit : null,
             }
 
-            master.addRegisterText(newRegister)
+            master.registerText.addRegisterText(newRegister)
 
 
-        } else if (master.initOrder.length > 0){
+        } else if (master.initOrder.myStateRef.current.length > 0){
 
             newRegister = { name : firstOrderList[0].name,
                             dice : roll.value,
@@ -121,7 +128,7 @@ const ExtrasOptions = (props : {options : any, setOptions : Dispatch<SetStateAct
 
              }
 
-             master.addRegisterText(newRegister)
+             master.registerText.addRegisterText(newRegister)
 
         }
 
@@ -129,67 +136,44 @@ const ExtrasOptions = (props : {options : any, setOptions : Dispatch<SetStateAct
 
     }
 
-
-    const repeatRoll = (ventaja? : string) => {
-
-        let resultTotal : number [] = []
-
-        if(ventaja !== 'none') {
-
-           for(let i = 1; i<=roll.dices; i++){
-
-                let rolled = returnDice(roll.value, 0, ventaja)
-
-                resultTotal = resultTotal.concat(rolled.result)
-
-           }
-
-        } else { 
-
-            for(let i = 1; i<=roll.dices; i++){
-
-                    let rolled = returnDice(roll.value, 0)
-        
-                    resultTotal = resultTotal.concat(rolled.result)
-    
-               }  
-
-        }
-
-
-        return resultTotal.reduce((a : number, b : number ) => a + b, roll.bonus)
-
-
-    }
 
 
     return(
 
             <div className='buttons-options'>
 
-                    <button onClick={rollDice}>Roll</button>
-                    <div id='dice-select'>
+                
+                    <div className='input-options'>
                         <label>Dados:</label>
                         <input type="number" value={roll.dices} name='dices' onChange={(e)=> onChange(e)}/>
-                        <label>caras:</label>
-                        <select name='dice' onChange={(e) => onChange(e)}> 
-                                                <option value={4} selected>4</option>
-                                                <option value={6}>6</option>
-                                                <option value={8}>8</option>
-                                                <option value={10}>10</option>
-                                                <option value={12}>12</option>
-                                                <option value={20}>20</option>
+                    </div>
+                    <div className='options-select'>
+                        <label>Caras:</label>
+                        <select name='value' onChange={(e) => onChange(e)}> 
+                                                    <option value={4} selected>4</option>
+                                                    <option value={6}>6</option>
+                                                    <option value={8}>8</option>
+                                                    <option value={10}>10</option>
+                                                    <option value={12}>12</option>
+                                                    <option value={20}>20</option>
                         </select>
                     </div>
-                    <div id='bonus-options'>
+                    
+                    <div className='input-options'>
                         <label>Bonus:</label>
                         <input type="number" value={roll.bonus} name='bonus' onChange={(e)=> onChange(e)}/>
                     </div>
-                    <div id='radio-options'>
-                        <label><input type='radio' value={'none'} checked={checkedOption()} name='ventaja' onChange={(e)=> onChangeOptions(e)}/> none</label>
-                        <label><input type='radio' value={'ventaja'} name='ventaja' onChange={(e)=> onChangeOptions(e)}/> ventaja </label>
-                        <label><input type='radio' value={'desventaja'} name='ventaja' onChange={(e)=> onChangeOptions(e)}/> desventaja </label>
+                    <div className='options-select'>
+                        <label>Ventaja</label>
+                        <select  name='ventaja' onChange={(e) => onChange(e)}> 
+                                                <option value={'none'} selected>none</option>
+                                                <option value={'ventaja'}>ventaja</option>
+                                                <option value={'desventaja'}>desventaja</option>
+                        </select>
                     </div>
+                    
+                    <ButtonMonster isActive={true} onClick={rollDice}>Roll</ButtonMonster>
+
             </div>
 
 

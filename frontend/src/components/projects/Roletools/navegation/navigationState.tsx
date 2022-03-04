@@ -14,21 +14,7 @@ type Props={
 
 const NavigationState = ({children} : Props) => {
 
-    const [navigation, setNavigation] = useState(initialNavigation)
-
-    useEffect(()=>{
-
-
-        const data = window.sessionStorage.getItem('navigationRoleTools')
-
-        if (data){
-
-                 setNavigation({...JSON.parse(data)})
-
-        }
-
-   
-    }, [])
+    const [navigation, setNavigation] = useState(JSON.parse(sessionStorage.getItem('navigationRoleTools')!) || initialNavigation)
 
 
     useEffect(() => {
@@ -36,12 +22,6 @@ const NavigationState = ({children} : Props) => {
         window.sessionStorage.setItem('navigationRoleTools', JSON.stringify(navigation))
 
     },[navigation])
-
-
-   
-
-
-
 
 
     return(

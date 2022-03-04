@@ -15,11 +15,13 @@ interface active{
 export const UnitInit = styled.div<isActive>`
             display: flex;
             justify-content: space-around;
-            background-color: ${props => props.isFirst ? 'green' : props.isActive ? 'blue' : 'burlywood'};
+            background-color: ${props => props.isFirst ? '#00767C' : props.isActive ? '#00BDC7' : '#c8d6e5'};
+            color: ${props => props.isFirst ? 'white' : 'black'};
             padding: 10px;
             height: 70px;
             margin-bottom: 5px;
             text-align: center;
+            font-weight: bold;
             font-size: 15px;
             
 
@@ -32,7 +34,7 @@ export const UnitInit = styled.div<isActive>`
 
 
                 & > div > i {
-                    color : black;
+                    color : ${props => props.isFirst ? 'white' : 'black'};
                     font-size: 20px;
                     cursor: hand;
                     cursor: pointer;
@@ -63,16 +65,15 @@ export const MonsterListDiv = styled.div<isActive>`
             flex-direction: column;
             text-align: center;
             align-items: center;
-            background-color: ${props => props.isActive ? 'green' : props.isRolled ? 'red' : 'rgb(0, 177, 171)'};
+            background-color: ${props => props.isActive ? '#00BDC7' : '#7f8c8d'};
             cursor: hand;
             cursor: pointer;
 
 `
 
-export const ButtonMonster = styled.div<active>`
+export const ButtonMonster = styled.button<active>`
 
                 background-color: ${props => props.isActive ? 'white' : 'rgb(187, 187, 187)' };
-                grid-row: 1;
                 width: fit-content;
                 height: fit-content;
                 align-self: center;

@@ -1,10 +1,8 @@
 import React, { Dispatch, SetStateAction, useEffect, useState } from 'react'
-import { buttonState, monsterStat } from '../../../../Interfaces/interfaces'
-import { attackDMG, returnDice } from '../logic-dice'
-import { useMaster } from '../../../../User/ActualMatch/Master/masterContext'
+import { buttonState } from '../../../../Interfaces/interfaces'
+import { useMaster } from '../contextMatch/Master/masterContext'
 import { ButtonMonster } from '../styled-match'
 import { registerText } from '../../../../Interfaces/interfaces'
-import { createInitOrder } from './addUnitOrder'
 
 
 
@@ -12,7 +10,7 @@ const ButtonsMonster = (props : {   options : any,
                                     setOptions : Dispatch<SetStateAction<any>>
                                     }) => {
 
-        const {monsterStat, setMonsterStat, initOrder, setInitOrder, registerText, addRegisterText} = useMaster()!
+        const {monsterStats, initOrder, registerText, rollInit, monsterAttack, playerStats} = useMaster()!
 
         const [buttonsState, setButtonsState] = useState<buttonState>({
 
@@ -27,13 +25,13 @@ const ButtonsMonster = (props : {   options : any,
 
                 let oldButtonState = {...buttonsState}
 
-                let newTargets = monsterStat.filter(e => e.initEnabled===true)
+                let newTargets = monsterStats.myStateRef.current.filter(e => e.selected===true)
 
                 let coincidence = false
 
                 newTargets.map(target => { 
                 
-                        if(initOrder.find(e => e.id === target.id)) coincidence = true
+                        if(initOrder.findId(target.id)) coincidence = true
 
                 })
 
@@ -48,11 +46,11 @@ const ButtonsMonster = (props : {   options : any,
                 setButtonsState({...oldButtonState})
 
 
-        }, [monsterStat, initOrder])
+        }, [monsterStats.myStateRef.current, initOrder.myStateRef.current])
 
         const checkInitButton = (coincidence : boolean, oldButtonState : buttonState) => {
 
-                if (monsterStat.find(e => e.initEnabled===true) && !coincidence) return {...oldButtonState, init : true}
+                if (monsterStats.myStateRef.current.find(e => e.selected===true) && !coincidence) return {...oldButtonState, init : true}
 
                 return {...oldButtonState, init : false}
 
@@ -60,7 +58,7 @@ const ButtonsMonster = (props : {   options : any,
 
         const checkDuplicateButton = (oldButtonState : buttonState) => {
 
-                if(monsterStat.filter(e => e.initEnabled === true).length === 1) return {...oldButtonState, duplicate : true}
+                if(monsterStats.myStateRef.current.filter(e => e.selected === true).length === 1) return {...oldButtonState, duplicate : true}
 
                 return {...oldButtonState, duplicate : false}
 
@@ -70,11 +68,13 @@ const ButtonsMonster = (props : {   options : any,
 
         const checkAttackButton = (oldButtonState : buttonState) => {
 
-                let target = initOrder.filter(e => e.selected === true)
+                let target = initOrder.myStateRef.current.find(e => e.selected === true)!
 
-                let attacker = initOrder[0]
+                let attacker = initOrder.myStateRef.current[0]
 
-                if ( target.length === 1 && target[0].id!==attacker.id) {
+                let notPlayer = attacker && monsterStats.myStateRef.current.find(e => e.id === attacker.id)
+
+                if ( target && target.id!==attacker.id && notPlayer) {
                      
                      return {...oldButtonState, attack : true}
 
@@ -85,155 +85,22 @@ const ButtonsMonster = (props : {   options : any,
 
         const checkPassTurnButton = (oldButtonState : buttonState) => {
 
-                if (initOrder.length>1) return {...oldButtonState, passTurn : true}
+                if (initOrder.myStateRef.current.length>1) return {...oldButtonState, passTurn : true}
 
                 else return {...oldButtonState, passTurn : false}
 
         }
         
-        const addMonster = () => {
-
-                const monster = [{
-                        name : '',
-                        AC : 0,
-                        init : 0,
-                        attack : 0,
-                        diceDmg : 4,
-                        bonusDmg : 0,
-                        hitPoint : 1,
-                        initEnabled : false,
-                        initRolled : false,  
-                        rolled   : 0,
-                        dmg      : 0,
-                        id : monsterStat.length > 0 ? createId() : 0
-
-                }]
-       
-                const newMonster = monsterStat.concat(monster)
-
-                setMonsterStat([...newMonster])
-       
-}
-
-        const createId = () => {
-
-                let ids = monsterStat.map(e => {
-
-                        return e.id
-
-                })
-
-                let maxId = Math.max.apply(null, ids)
-
-                return maxId + 1
-
-        }
-
-        const duplicateMonster = () => {
-
-                let monster = monsterStat.filter(e => e.initEnabled === true)[0]
-
-                monster = {...monster, initEnabled : false, initRolled : false, id : createId()}
-       
-                const newMonster = monsterStat.concat(monster)
-
-                setMonsterStat([...newMonster])
-        }
-
-        const rollInit = () => {
-
-                let newInitArray = monsterStat.map(monster => {
-
-                        if(monster.initEnabled){
-
-                                return {...monster, rolled : returnDice(20, monster.init).result}
-
-                        } else {
-
-                                return monster
-                        }
-
-                })
-
-                newInitArray = createInitOrder(initOrder, setInitOrder, newInitArray)
-
-                setMonsterStat([...newInitArray])
-
-        }
-
-        const attack = () => {
-
-                let target = monsterStat.find(e => e.id === initOrder.find(e => e.selected)!.id)!
-
-                let attacker = monsterStat.find(e => e.id === initOrder[0].id)!
-
-                let result = attackDMG(target.AC, attacker.bonusDmg, attacker.diceDmg, attacker.attack, props.options.ventaja)
-
-                let register = {
-                        name : attacker.name,
-                        dice : 20,
-                        rolled: result.rolled,
-                        ventaja : props.options.ventaja,
-                        critic : result.critic,
-                        bonusDice : attacker.attack,
-                        diceDmg : attacker.diceDmg,
-                        dmg : result.dmg,
-                        bonusDmg : attacker.bonusDmg,
-                        exit : result.exit
-                }
-
-                addRegister(register)
-
-                if(result.exit){
-
-                        let newStateMonster = monsterStat.map(monster => {
-
-                                if(monster.id === target.id){
-
-                                        let resultHitPoint = monster.hitPoint - result.dmg
-                                
-                                        return {...monster, hitPoint : resultHitPoint < 0 ? 0 : resultHitPoint }
-
-                                } else {
-
-                                        return monster
-                                }
-
-                })
-
-                        setMonsterStat([...newStateMonster])
-
-                } 
-
-        }
-
-        const addRegister = (data : registerText) => {
-        
-                addRegisterText(data)    //VERIFICAR SI FUNCIONA ESTO
-        }
-
-        const passTurn = () =>{
-
-                let oldOrder = [...initOrder]
-
-                let firstElement = oldOrder.shift()!
-
-                let newOrder = oldOrder.concat(firstElement)
-
-                setInitOrder([...newOrder])
-
-        }
-
 
     return(
 
                 <div id='monster-buttons'>
 
-                        <ButtonMonster isActive={true} onClick={addMonster}>Agregar</ButtonMonster>
-                        <ButtonMonster isActive={buttonsState.duplicate} onClick={() => buttonsState.duplicate && duplicateMonster()}>Duplicar</ButtonMonster>
+                        <ButtonMonster isActive={true} onClick={monsterStats.addMonster}>Agregar</ButtonMonster>
+                        <ButtonMonster isActive={buttonsState.duplicate} onClick={() => buttonsState.duplicate && monsterStats.duplicate()}>Duplicar</ButtonMonster>
                         <ButtonMonster isActive={buttonsState.init} onClick={() => buttonsState.init && rollInit()}>Iniciativa</ButtonMonster>
-                        <ButtonMonster isActive={buttonsState.attack} onClick={() => buttonsState.attack && attack()}>Ataque</ButtonMonster>
-                        <ButtonMonster isActive={buttonsState.passTurn} onClick={() => buttonsState.passTurn && passTurn()}>Pasar Turno</ButtonMonster>
+                        <ButtonMonster isActive={buttonsState.attack} onClick={() => buttonsState.attack && monsterAttack(props.options.ventaja)}>Ataque</ButtonMonster>
+                        <ButtonMonster isActive={buttonsState.passTurn} onClick={() => buttonsState.passTurn && initOrder.passTurn()}>Pasar Turno</ButtonMonster>
 
                 </div>
     )

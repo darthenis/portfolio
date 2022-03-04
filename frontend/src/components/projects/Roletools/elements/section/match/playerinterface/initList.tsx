@@ -1,18 +1,16 @@
-import React, { useState, useEffect } from 'react'
-import { playerInitOrder } from '../../../../Interfaces/interfaces'
-import socket from '../../../../service/socket'
-import { usePlayer } from '../../../../User/ActualMatch/Player/playerContext'
+import React from 'react'
+import { usePlayer } from '../contextMatch/Player/playerContext'
 import { UnitInit } from '../styled-match'
 
 
 
 const InitList = () => {
 
-    const { playerInitOrder, setPlayerInitOrder, selectUnitInitOrder} = usePlayer()!
+    const { initOrder } = usePlayer()!
 
     const firstPlace = (id : number) =>{
 
-        let index = playerInitOrder.findIndex(e => e.id === id)
+        let index = initOrder.myStateRef.current.findIndex(e => e.id === id)
 
         if(index===0) return true
 
@@ -20,30 +18,17 @@ const InitList = () => {
 
 }
 
-useEffect(() => {
-
-    
-    socket.on('newInitOrder', (newInitOrder : playerInitOrder[]) => {
-
-        setPlayerInitOrder([...newInitOrder])
-
-    })
-
-
-})
-
-
         return (
 
             <div id='list-init-player'>
 
                 <div id='title-init-player'>Iniciativas</div>
             
-                {playerInitOrder.map(e => {
+                {initOrder.myStateRef.current.map(e => {
 
-                  return <UnitInit isActive={e.selected} isFirst={firstPlace(e.id)}>
+                  return <UnitInit isActive={e.selected} isFirst={firstPlace(e.id)} onClick={() => initOrder.select(e.id)}>
 
-                                                <div onClick={() => selectUnitInitOrder(e.id)}>
+                                                <div>
                                                                 <div>Iniciativa: {e.init}</div>
                                                                 <div>Nombre: {e.name}</div>
                                                                 <div>PG: {e.state}</div>

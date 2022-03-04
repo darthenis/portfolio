@@ -2,8 +2,8 @@ import react, { useEffect } from 'react'
 import { useNavigation } from '../../../navegation/navigationContext'
 import { useProfile } from '../../../User/userContext'
 import { myMatch } from '../../../service/roletoolsservice'
-import { useMaster } from '../../../User/ActualMatch/Master/masterContext'
-import socket from '../../../service/socket'
+import { useMaster } from '../match/contextMatch/Master/masterContext'
+import { usePlayer } from '../match/contextMatch/Player/playerContext'
 
 
 
@@ -12,8 +12,6 @@ const Matches = () => {
     const {navigation, setNavigation} = useNavigation()! 
 
     const { profile, getProfile } = useProfile()!
-
-    const { resetMatchesSession } = useMaster()!
 
     useEffect(() => {
        
@@ -24,9 +22,7 @@ const Matches = () => {
 
     const loadPage = (page : string) =>{
 
-
         setNavigation({...navigation, actualPage : page})
-
 
     }
 
@@ -37,19 +33,15 @@ const Matches = () => {
 
         switch(result.data.message){
             case 'done':
-
-                resetMatchesSession()
                 
                 if(profile.matchesCreated.includes(nameMatch)){
 
                         setNavigation({...navigation,   actualPage : 'Master',
                                                         actualMatch : nameMatch})
-                        socket.emit('joinMatch', nameMatch)
                 } else {
 
                         setNavigation({...navigation,   actualPage : 'Player',
                                                         actualMatch : nameMatch})
-                        socket.emit('joinMatch', nameMatch)
                     }
                 break;
             case 'invalid':

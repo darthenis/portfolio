@@ -1,9 +1,7 @@
 import React, { useEffect, useRef } from 'react'
 import { useNavigation } from '../../../navegation/navigationContext'
-import { useMaster } from '../../../User/ActualMatch/Master/masterContext'
-import { usePlayer } from '../../../User/ActualMatch/Player/playerContext'
-
-
+import { useMaster } from './contextMatch/Master/masterContext'
+import { usePlayer } from './contextMatch/Player/playerContext'
 
 
 const RegisterText = () => {
@@ -16,20 +14,21 @@ const RegisterText = () => {
 
     const scrollRef = useRef<HTMLDivElement>(null);
 
+
     useEffect(()=>{
 
         scrollRef.current!==null && scrollRef.current.scrollIntoView();
 
-    }, [master.registerText, player.registerText])
+    })
 
 
     const callRegister = () => {
 
         let register;
 
-        if(navigation.actualPage==='Master') {register = [...master.registerText]}
+        if(navigation.actualPage==='Master') {register = [...master.registerText.myStateRef.current]}
 
-        else {register = [...player.registerText]}
+        else {register = [...player.registerText.myStateRef.current]}
 
         return (<>{register.map(e => {
 

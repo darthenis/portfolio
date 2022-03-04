@@ -1,15 +1,14 @@
 import React, { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { initOrder, monsterStat, player } from '../../../../Interfaces/interfaces'
 import { UnitInit } from '../styled-match'
-import { useMaster } from '../../../../User/ActualMatch/Master/masterContext'
-import { addPlayerInit } from './addUnitOrder'
+import { useMaster } from '../contextMatch/Master/masterContext'
 import { useNavigation } from '../../../../navegation/navigationContext'
 import socket from '../../../../service/socket'
 
 
 const InitList = () => {
 
-        const {monsterStat, setMonsterStat, initOrder, setInitOrder, selectUnitInit} = useMaster()!
+        const {monsterStats, initOrder, playerStats, resetInitOrder} = useMaster()!
 
         const { navigation } = useNavigation()!
 
@@ -18,110 +17,44 @@ const InitList = () => {
         const onChangeCD = (e : React.ChangeEvent<HTMLInputElement>) => {
 
                 setCD(parseInt(e.currentTarget.value))
-
         }
 
         useEffect(() => {
-                if(cd){
-
-                        console.log('cd no es 0, es: ', cd)
-
-                }
+            
+                 cd > 0 && socket.emit('newCD', cd)
+                
         }, [cd])
-
-        useEffect(()=>{
-
-                let data = { match : navigation.actualMatch, data : initOrder}
-
-                socket.emit('newInitOrder', data)
-
-
-        }, [initOrder])
-
-
-        useEffect(()=>{
-
-
-                socket.on('initRolled', (playerStats) => {
-
-                        addPlayerInit(initOrder, setInitOrder, playerStats)
-
-                })
-
-        })
-
-        
 
         
         const returnStat = (id : number, type : string) => {
 
-                let monster = monsterStat.filter(e => e.id === id)
+                let monster = monsterStats.findId(id)
 
-                if(monster.length){
+                if(monster){
 
-                        let name = monster[0].name
+                        if(type === 'name') return monster.name
 
-                        let hitPoint = monster[0].hitPoint
-
-                        if(name) return name
-
-                        if(hitPoint) return hitPoint
+                        return monster.actualHP
 
                 } else {
 
+                        let player = playerStats.findId(id)
 
-                        //return players stats
+                        if(player){
 
+                                if(type === 'name') return player.name
 
-
-                }
-
-                
-
-
-                
-
-               
-
-        }
-
-        const passTurn = (id : number, action : string) => {
-
-                let monsterIndex = initOrder.findIndex(e => e.id === id)
-
-                let newOrder = [...initOrder]
-
-                let element = newOrder.splice(monsterIndex, 1)
-
-                action === 'up' ? newOrder.splice(monsterIndex-1, 0, element[0])
-
-                        : newOrder.splice(monsterIndex+1, 0, element[0])
-                
-                setInitOrder([...newOrder])
+                                return player.actualHP
+                        }
 
                 }
 
-        const deleteinitOrder = () => {
-
-                setInitOrder([])
-
-                const newElement = monsterStat.map( monster => {
-
-                        if(monster.initRolled) return {...monster, initRolled : false}
-
-                        return monster  
-
-                })
-
-
-                setMonsterStat([...newElement])
-
-
         }
+
 
         const firstPlace = (id : number) =>{
 
-                let index = initOrder.findIndex(e => e.id === id)
+                let index = initOrder.myStateRef.current.findIndex(e => e.id === id)
 
                 if(index===0) {
                         
@@ -135,7 +68,7 @@ const InitList = () => {
 
         const checkSelect = (id : number) => {
 
-                let select = initOrder.filter(e => e.id === id)  //verificar si es necesaria la funcion
+                let select = initOrder.myStateRef.current.filter(e => e.id === id)  //verificar si es necesaria la funcion
 
                 if(select.length) return select[0].selected
 
@@ -151,22 +84,23 @@ const InitList = () => {
 
                                 <div className='title-init'>
                                                 
-                                                        <i onClick={deleteinitOrder} className="fas fa-times-circle"></i>
+                                                        <i onClick={resetInitOrder} className="fas fa-times-circle"></i>
                                                         Iniciativas
                                 </div>
 
-                                        { initOrder.map( (unit : initOrder ) => {
+                                        { initOrder.myStateRef.current.map( (unit : initOrder ) => {
+
 
                                                 return  <UnitInit isActive={checkSelect(unit.id)} isFirst={firstPlace(unit.id)} className='init-unit'>
                                                                         
-                                                                        <div onClick={() => selectUnitInit(unit.id)}>
+                                                                        <div onClick={() => initOrder.selectUnitInit(unit.id)}>
                                                                                 <div>Iniciativa: {unit.init}</div>
                                                                                 <div>Nombre: {returnStat(unit.id, 'name')}</div>
                                                                                 <div>PG: {returnStat(unit.id, 'hitPoint')}</div>
                                                                         </div>
                                                                         <div>
-                                                                                <div> <i className="fas fa-arrow-circle-up" onClick={() => passTurn(unit.id, 'up')} ></i>   </div>
-                                                                                <div> <i className="fas fa-arrow-circle-down" onClick={() => passTurn(unit.id, 'down')} ></i> </div>
+                                                                                <div> <i className="fas fa-arrow-circle-up" onClick={() => initOrder.moveTurn(unit.id, 'up')} ></i>   </div>
+                                                                                <div> <i className="fas fa-arrow-circle-down" onClick={() => initOrder.moveTurn(unit.id, 'down')} ></i> </div>
                                                                         </div>
 
                                                         </UnitInit>

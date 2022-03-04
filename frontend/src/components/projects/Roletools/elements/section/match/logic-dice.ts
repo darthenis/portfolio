@@ -8,22 +8,25 @@ let result = {
 
 //------------------------ROLLDICE--------------------------
 
-  export const returnDice = (dado : number, bonus : number, ventaja? : string) => { //ventaja or critic
+  export const returnDice = (dado : number, bonus : number, ventaja? : boolean | null, critic? : boolean) => { //ventaja or critic
 
-        let result={
+        type result = { critic : boolean, ventaja : boolean | null, result : number}
+
+        let result : result = {
           critic : false,
-          result : 0,
+          ventaja : null,
+          result : 0
         }
 
-        if(ventaja==='critic'){
+        if(critic){
 
           let rolled1 = Math.round(Math.random() * ( dado - 1) + 1 )
 
           let rolled2 = Math.round(Math.random() * ( dado - 1) + 1 )
 
-          return {...result, result : rolled1 + rolled2 + bonus}
+          return {...result, result : rolled1 + rolled2 + Number(bonus)}
 
-        } else if (ventaja==='ventaja') {
+        } else if (ventaja) {
 
             let rolled1 = Math.round(Math.random() * ( dado - 1) + 1 )
 
@@ -31,18 +34,18 @@ let result = {
 
             if (rolled1 > rolled2) {
 
-                if(rolled1===20) result = {...result, critic : true}
+                if(rolled1===20) result = {...result, critic : true, ventaja : true}
               
-                return {...result, result : rolled1 + bonus}
+                return {...result, result : rolled1 + Number(bonus)}
               
               } else {
 
-                  if(rolled2===20) result = {...result, critic : true}
+                  if(rolled2===20) result = {...result, critic : true, ventaja : true}
 
-                  return {...result, result : rolled2 + bonus}
+                  return {...result, result : rolled2 + Number(bonus)}
             }
 
-        } else if (ventaja === 'desventaja'){
+        } else if (!ventaja && ventaja !== null){
 
             let rolled1 = Math.round(Math.random() * ( dado - 1) + 1 )
 
@@ -50,15 +53,15 @@ let result = {
 
             if (rolled1 < rolled2) {
 
-                if(rolled1===20) result = {...result, critic : true}
+                if(rolled1===20) result = {...result, critic : true, ventaja : false}
               
-                return {...result, result : rolled1 + bonus}
+                return {...result, result : rolled1 + Number(bonus)}
               
               } else { 
                   
-                  if(rolled2===20) result = {...result, critic : true}
+                  if(rolled2===20) result = {...result, critic : true, ventaja : false}
 
-                  return {...result, result : rolled2 + bonus}
+                  return {...result, result : rolled2 + Number(bonus)}
 
               }
 
@@ -68,7 +71,7 @@ let result = {
 
         if(diceResult===20) result = {...result, critic : true}
 
-        return {...result, result : diceResult + bonus}
+        return {...result, result : diceResult + Number(bonus)}
 
 
     
@@ -76,9 +79,9 @@ let result = {
 
 //------------------------ATTACK----------------------------
 
-export const attackDMG = (CA : number, bonusDmg : number, diceDMG : number, bonusAttack : number, ventaja : string) => {
+export const attackDMG = (CA : number, bonusDmg : number, diceDMG : number, bonusAttack : number, ventaja : boolean | null, critic? : boolean) => {
 
-  let resultAttack = returnDice(20, bonusAttack, ventaja)
+  let resultAttack = returnDice(20, bonusAttack, ventaja, critic)
 
   result = {...result, rolled : resultAttack.result}
 
@@ -92,7 +95,7 @@ export const attackDMG = (CA : number, bonusDmg : number, diceDMG : number, bonu
 
   } else if (resultAttack.critic){
 
-    result = {...result, critic : true, dmg : returnDice(diceDMG, bonusDmg, 'critic').result, exit : true}
+    result = {...result, critic : true, dmg : returnDice(diceDMG, bonusDmg, critic).result, exit : true}
 
   } else {
 
@@ -101,5 +104,19 @@ export const attackDMG = (CA : number, bonusDmg : number, diceDMG : number, bonu
   }
 
   return result;
+
+}
+
+export const customRoll = (diceValue : number, numberDices : number, bonus : number, ventaja : boolean | null) => {
+
+    let result = 0
+
+      for (let i = 0; i<numberDices; ++i){
+        
+            result = returnDice(diceValue, bonus, ventaja).result + result
+
+      }
+
+    return result
 
 }

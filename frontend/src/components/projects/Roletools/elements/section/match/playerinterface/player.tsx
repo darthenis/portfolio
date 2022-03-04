@@ -6,7 +6,7 @@ import Attacks from './attacks'
 import RegisterText from '../registerText'
 import ButtonsPlayer from './buttonsPlayer'
 import ExtrasOptions from '../extrasOptions'
-import { usePlayer } from '../../../../User/ActualMatch/Player/playerContext'
+import { usePlayer } from '../contextMatch/Player/playerContext'
 import InitList from '../playerinterface/initList'
 
 
@@ -15,9 +15,15 @@ import InitList from '../playerinterface/initList'
 
 const Player = () => {
 
-    const {playerStats, setPlayerStats} = usePlayer()!
+    const {playerStats, initOrder, attacks, checkActualMatch } = usePlayer()!
 
     const {navigation} = useNavigation()!
+
+    useEffect(()=>{
+
+        checkActualMatch(navigation.actualMatch)
+
+    }, [])
    
 
     interface choice {
@@ -32,19 +38,12 @@ const Player = () => {
 
     useEffect(()=>{
 
-        socket.emit('joinRoom', navigation.actualMatch)
+        socket.emit('joinMatch', {match : navigation.actualMatch, type : navigation.actualPage})
+
+        console.log('conectando en sala')
         
-    }, [])
+    })
 
-   
-
-
-    const onChange = (e : React.ChangeEvent<HTMLInputElement>) =>{
-
-        setPlayerStats({...playerStats, [e.currentTarget.name] : e.currentTarget.value})
-
-
-    }
 
     const selectRoll = (e : React.ChangeEvent<HTMLInputElement>) => {
 
@@ -66,20 +65,24 @@ const Player = () => {
                             <div id='static-stats'>
                                 <div>
                                     <label>Nombre</label>
-                                    <input type="text" name='name' value={playerStats.name} onChange={onChange}/>
+                                    <input type="text" name='name' value={playerStats.myStateRef.current.name} onChange={playerStats.onChange}/>
                                 </div>
                                 <div>
                                     <label>Iniciativa</label>
-                                    <input type="number" name='init' value={playerStats.init} onChange={onChange}/>
+                                    <input type="number" name='bonusInit' value={playerStats.myStateRef.current.bonusInit} onChange={playerStats.onChange}/>
                                 </div>
                                 <div>
                                     <label>CA</label>
-                                    <input type="number" name='AC' value={playerStats.AC} onChange={onChange}/>
+                                    <input type="number" name='AC' value={playerStats.myStateRef.current.AC} onChange={playerStats.onChange}/>
                                 </div>
                                 <div>
-                                    <label>PG</label>
-                                    <input type="number" name='hitPoints' value={playerStats.hitPoint} onChange={onChange}/>
-                                </div>         
+                                    <label>Vida total</label>
+                                    <input type="number" name='totalHP' value={playerStats.myStateRef.current.totalHP} onChange={playerStats.onChange}/>
+                                </div>
+                                <div>
+                                    <label>Vida actual</label>
+                                    <input type="number" name='actualHP' value={playerStats.myStateRef.current.actualHP} onChange={playerStats.onChange}/>
+                                </div>                  
                             </div>
 
                             <div id='attacks-list'>
@@ -94,7 +97,7 @@ const Player = () => {
 
                         <div id='roll-options-player' onChange={selectRoll}>
 
-                                    <ButtonsPlayer />  
+                                    <ButtonsPlayer options={choice} setOptions={setChoice}/>  
                                     
                                     <ExtrasOptions options={choice} setOptions={setChoice}/>
                                                      

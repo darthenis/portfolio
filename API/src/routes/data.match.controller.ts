@@ -144,7 +144,7 @@ const addNewPlayer =  (player : string, matchName : string) => {
 
 export const myMatch : RequestHandler = (req, res) => {
 
-            Datas.MatchRoleTools.findOne({name : req.body.match})
+           /* Datas.MatchRoleTools.findOne({name : req.body.match})
                             .then ((match) => {
 
                                                     if (match) {
@@ -161,6 +161,28 @@ export const myMatch : RequestHandler = (req, res) => {
 
                                                     }
 
-                                   })
+                                   })*/
 
+        const matches = [{name : 'prueba',
+                            pass : '',
+                        creator : 'Darthenis',
+                        players : ['testerone']}]
+
+        let match = matches.find(e => e.name === req.body.match)
+
+        if (match) {
+                                                        
+            if(match.players){
+
+                if (match.players.includes(req.body.user)) return res.json({message: 'done'})
+
+            }
+           
+           if (match.creator.includes(req.body.user)) return res.json({message: 'done'})
+
+           return res.json({message: 'invalid'})
+
+        } 
+        
+        return res.json({message: 'invalid match'})
 }

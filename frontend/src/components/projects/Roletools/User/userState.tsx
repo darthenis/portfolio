@@ -33,8 +33,6 @@ const UserState = ({children} : Props) =>{
             }).then(
                 (res) => {
 
-                            console.log('response :',res)
-
                             setProfile({...profile,
                                             user : res.data.user,
                                             matchesCreated : res.data.matchesCreated,

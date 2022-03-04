@@ -16,11 +16,12 @@ export interface profile {
 export interface playerStats {
 
     name : string;
-    init : number;
+    bonusInit : number;
     initRolled : boolean;
-    playerId : number;
+    id : number;
     AC : number;
-    hitPoint : number
+    totalHP : number;
+    actualHP : number
     
 }
 
@@ -39,13 +40,15 @@ export interface playerAttacks{
 export interface monsterStat {
 
     name : string;
+    bonusInit : number;
     init : number;
     AC : number;
     attack : number;
     diceDmg : number;
     bonusDmg : number;
-    hitPoint : number,
-    initEnabled : boolean,
+    totalHP : number,
+    actualHP: number,
+    selected : boolean,
     initRolled : boolean,
     rolled   : number;
     dmg      : number;
@@ -53,11 +56,23 @@ export interface monsterStat {
 
 }
 
+
 export interface initOrder {
-bonusInit : number;
-init : number;
-selected : boolean;
-id : number;
+                            bonusInit : number;
+                            init : number;
+                            selected : boolean;
+                            totalHP : number;
+                            actualHP : number;
+                            AC : number;
+                            id : number
+}
+
+
+export interface newInitOrder {
+
+    bonusInit : number;
+    init : number;
+    id : number;
 }
 
 
@@ -65,19 +80,21 @@ export interface playerInitOrder{
     name : string;
     init : number,
     state : string;
+    AC : number;
     selected : boolean;
     id : number;
 }
 
 
 export interface player{
-
+    name : string;
     bonusInit : number;
     init : number;
-    selected : boolean;
+    selected? : boolean;
     id : number;
     AC : number;
-    hitPoint : number
+    totalHP : number;
+    actualHP : number;
 
 }
 
@@ -96,7 +113,7 @@ export interface registerText {
             name : string;
             dice : number;
             rolled: number;
-            ventaja : string;
+            ventaja : boolean | null;
             critic : boolean;
             bonusDice : number;
             diceDmg : number;
@@ -111,11 +128,33 @@ export interface argsRegisterText {
     name : string;
     dice : number;
     rolled : number;
-    ventaja : string;
+    ventaja : boolean | null;
     critic? : boolean;
     bonusDice? : number;
     diceDmg? : number;
     dmg? : number;
     bonusDmg? : number;
     exit? : boolean | null;
+}
+
+
+export interface attackRolledSocket {
+    
+                    bonusDice : number;
+                    bonusDmg : number;
+                    rolle : number;
+                    critic : boolean;
+                    exit : boolean;
+                    diceDmg : number;
+                    dmg : number;
+                    ventaja : boolean | null
+
+}
+
+
+export interface resultAttack {
+
+            data : attackRolledSocket;
+            combatients : {attacker : number, target : number}
+
 }

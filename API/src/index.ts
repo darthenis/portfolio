@@ -26,7 +26,9 @@ require('./sockets-match/sockets')(io)
 
 
 
-httpServer.listen(config.PORT);
+httpServer.listen(config.PORT)
+
+console.log('server connected')
 
 setInterval (revisarhora, 60000)
 

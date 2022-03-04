@@ -42,15 +42,28 @@ export const ensureToken : RequestHandler =  (req : any, res, next) => {
 
 export const getUser : RequestHandler = async (req, res) => {
 
-    Datas.UserRoleTools.findOne({user : req.body.user})
+   /* Datas.UserRoleTools.findOne({user : req.body.user})
                 .then ((data) => {
 
                                 data && res.json(data)
 
                         }
                     )
-                .catch( (err)=> { res.sendStatus(403) } )
+                .catch( (err)=> { res.sendStatus(403) } )*/
 
+        const user = [{  user : 'Darthenis',
+                        matchesCreated : ['prueba'],
+                        matchesJoined  : [''] },      
+                        {user : 'testerone',
+                        matchesCreated : [''],
+                        matchesJoined  : ['prueba'] }
+                    ]
+
+        let solicite = user.find(e => e.user === req.body.user)
+
+        solicite && res.json(solicite)
+
+        console.log('solicite: ', solicite)
 
             } 
 
@@ -58,7 +71,7 @@ export const getUser : RequestHandler = async (req, res) => {
 
 export const loginUser : RequestHandler = async (req, res) => {
             
-            Datas.UserRoleTools.findOne({user : req.body.user}) 
+            /*Datas.UserRoleTools.findOne({user : req.body.user}) 
 
                     .then ( (user)=>{
 
@@ -82,7 +95,7 @@ export const loginUser : RequestHandler = async (req, res) => {
                     
                                                 
                     
-                                            const userIn = user.user
+                                            const userIn = user.user //no se usa¿?
                                             
                                             const token = jwt.sign({user}, 'codificaesto')
                             
@@ -96,7 +109,34 @@ export const loginUser : RequestHandler = async (req, res) => {
             
                         }, (err) => { res.json({message: 'invalid user'}) }
                     
-                    ) 
+                    ) */
+
+            const users = [{user : 'Darthenis', pass : 'lorencia676'},
+                           { user : 'testerone', pass : 'lorencia676'}]
+
+            const result = users.find(e => e.user === req.body.user)
+
+            if(result){
+
+                if(result.pass !== req.body.pass){  res.json({message: 'invalid'})}
+
+                else {
+
+                    const friends : string [] = []
+
+                    const token = jwt.sign(result.user, 'codificaesto')
+
+                    res.json({token, friends})
+
+                }
+
+                                           
+ 
+            }
+
+            
+                            
+            
     
         }
         

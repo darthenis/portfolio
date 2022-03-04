@@ -9,9 +9,10 @@ import RoomChat from './components/projects/room-chat/indexChat';
 import RoleTools from './components/projects/Roletools/roletools';
 import UserPage from './components/projects/Roletools/userPage'
 import Welcome from './components/projects/Roletools/elements/login/confirmationWelcome';
-import UserState from './components/projects/Roletools/User/userState';
-import MasterState from './components/projects/Roletools/User/ActualMatch/Master/masterState';
-import PlayerState from './components/projects/Roletools/User/ActualMatch/Player/playerState';
+import MasterState from './components/projects/Roletools/elements/section/match/contextMatch/Master/masterState';
+import PlayerState from './components/projects/Roletools/elements/section/match/contextMatch/Player/playerState';
+import NavigationState from './components/projects/Roletools/navegation/navigationState'
+import UserState from './components/projects/Roletools/User/userState'
 
 ReactDOM.render(
   <React.StrictMode>
@@ -23,21 +24,17 @@ ReactDOM.render(
         <Route exact path='/chatroom' component={RoomChat} />
         <Route exact path='/roletools/confirm/:confirmation' component={Welcome} />
         <Route exact path='/roletools/user' component={UserPage} />
-        <Route exact path='/roletools'>
+        <Route exact path='/roletools'> 
 
-                  <UserState>
-                    
-                    <MasterState> 
+          <UserState>
 
-                      <PlayerState>
+                <NavigationState> 
 
                            <RoleTools/>
 
-                      </PlayerState>
+                </NavigationState>
 
-                    </MasterState>
-
-                  </UserState>
+          </UserState>
 
                 </Route>
       </Switch>
