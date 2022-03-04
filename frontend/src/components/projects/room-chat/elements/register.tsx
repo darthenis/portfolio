@@ -45,6 +45,8 @@ const Register = (props: {  myUser: any,
 
         if(inputState.nombre && props.myUser.nombre!==''){
 
+            console.log('registration user')
+
             socket.emit('userchat', props.myUser)
 
         }else{ 
