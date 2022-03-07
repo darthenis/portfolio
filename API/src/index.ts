@@ -2,7 +2,7 @@ import app from './app';
 import './database';
 import './chatroom/sockets'
 import config from './config'
-import reloj, {horarios, revisarhora} from './horarios'
+import {checkHour} from './horarios'
 
 
 
@@ -30,7 +30,6 @@ httpServer.listen(config.PORT)
 
 console.log('server connected')
 
-setInterval (revisarhora, 60000)
-
+checkHour()
 
 export default httpServer;

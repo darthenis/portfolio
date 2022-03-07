@@ -26,6 +26,8 @@ export const sumarmotos : RequestHandler = async (req, res) => {
 
 export const restaurarmotos = async (id:number) =>{
 
+    console.log('restaurar motos')
+
   await Datas.Motos.findOneAndUpdate({ id: id}, {motos: 8}, {new:true})
 
 }

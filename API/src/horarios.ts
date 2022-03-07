@@ -1,56 +1,96 @@
 
-import moment from 'moment-timezone';
 import {restaurarmotos} from './routes/data.controller'
 
 
-export function horarios(){
+interface hour {
 
-  let horarios: string[]=[];
+        hour : number;
+        minutes : number;
+        day : number
 
-  let minutes=450;
+}
 
-  for (let i=0;i<=24;i++){
+const convertHour = (miliseconds : number) =>{
 
-      minutes+=30;
+  let seconds = Math.floor(miliseconds / 1000);
+  let minutes = Math.floor(seconds / 60);
+  let hours = Math.floor(minutes / 60);
 
-      let protohorario = moment.utc().startOf("day").add(minutes, "minutes").format("HH:mm");
+  
 
-      horarios.push(protohorario);
+  return {hour : hours, minutes : minutes }
+}
 
-      }
+let hours: hour[]=[];
 
-  return horarios;
+let miliseconds=270000; //seteado a las 7:30
+
+for (let i=0;i<=24;i++){
+
+      miliseconds+=1800;
+
+      const date = new Date()
+
+      let hour = {  hour : convertHour(miliseconds).hour,
+                    minutes : convertHour(miliseconds).minutes,
+                    day : 1
+                }
+
+      hours = hours.concat(hour)
 
 }
 
 
-export default function reloj(){
+export default function time(){
 
-      let localhour=moment();
+      let date = new Date();
 
-      return localhour.tz('America/Argentina/Buenos_Aires').format('HH:mm')
+      return { hour : setLocalArgHour(Date.now()),
+                minutes : date.getMinutes(),
+                day : date.getDay() }
 
       }
 
+const setLocalArgHour = (number : number) => {
+
+        return number - 3;
+    
+}
 
 
-const horasmotos:string[]=horarios();
+export function checkHour(){
 
-export function revisarhora(){
-
-      let horaactual = reloj()
+      let actualTime = time()
 
       let i=1;
 
-      horasmotos.map((hora) =>{
+      setInterval( () => { 
+        
+        console.log('hours: ', hours)
+        
+        hours = hours.map((time) => {
 
-              if (horaactual===hora){
+        if (  time.hour < actualTime.hour  
+              && time.day !== actualTime.day
+              || 
+              time.hour === actualTime.hour 
+              && time.minutes === 0 
+              && actualTime.minutes >= 30){
 
-                restaurarmotos(i)
+            console.log('true')
 
-                console.log('restaurando hora')
-              }
+            restaurarmotos(i)
 
-              i++
+            return {...time, day : actualTime.day}
 
-            })}
+          }
+
+        i++
+
+        return time;
+
+
+
+      })}, 1000)
+
+    }
