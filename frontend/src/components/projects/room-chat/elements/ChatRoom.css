@@ -200,6 +200,8 @@
     #main-chat-title {
 
         grid-column: 1/-1;
+        position: fixed;
+        top: 0px;
 
 
     }
