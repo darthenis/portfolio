@@ -16,18 +16,7 @@ function changeurl(url: string){
     return (
 
       <div id='main-container-projects'>
-           
-            <div id='header-projects'>
-              
-              Estos son algunos de mis proyectos, alguno son orientados a mostrar mis habilidades los cuales son sacados del
-              canal de youtube <a href='https://www.youtube.com/watch?v=aouDQ8caJYg&t'>"Hola Mundo"</a>, y otros son 
-              proyectos personales.
-              
-              
-              
-              </div>
-
-  
+      
             <div className='projects' onClick={() => changeurl('/motos')}>
                               
                                 <div className='title-projects'>

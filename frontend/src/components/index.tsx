@@ -66,7 +66,7 @@ import Iconreact from './media/icon-react.png'
 
                                         <div id="logo" onClick= {()=> selectMenu('main')}>Emiliano<br/>A. Acevedo</div>
 
-                                        <i className="fas fa-bars" onClick={activeMenu}></i>
+                                        <div><i className="fas fa-bars" onClick={activeMenu}/></div>
 
                                 </header>
 

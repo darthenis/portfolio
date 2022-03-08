@@ -18,7 +18,7 @@ const slideIn = keyframes`
             }
             to{
 
-                top: 70px;
+                top: 100px;
 
             }
 
@@ -26,7 +26,7 @@ const slideIn = keyframes`
 const slideOff = keyframes`
             from{
                 
-                top: 70px;
+                top: 100px;
             
             }
             to{
@@ -40,7 +40,7 @@ const slideOff = keyframes`
 
 export const Nav = styled.nav<activeEffect>`
         @media only screen and (max-width: 840px){
-                position: absolute;
+                position: fixed;
                 width: 100%;
                 z-index:-1;
                 top:-1000px;
@@ -92,9 +92,6 @@ export const ButtonNav = styled.button<menuActive>`
     &:hover {
         border-bottom: solid 2px aqua;
     }
-}
-
-
 
 `
 

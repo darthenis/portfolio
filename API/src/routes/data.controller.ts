@@ -11,14 +11,14 @@ dotenv.config();
 
 export const restarmotos : RequestHandler = async (req, res) => {
     const { id } =req.params;
-    await Datas.Motos.findOneAndUpdate({ id: id}, {$inc:{motos: -1}}, {new:true})
+    await Datas.Motos.updateOne({ id: id}, {$inc:{motos: -1}}, {new:true})
     const newdata = await Datas.Motos.find();
     return res.json(newdata)
 }
 
 export const sumarmotos : RequestHandler = async (req, res) => {
   const { id } =req.params;
-  await Datas.Motos.findOneAndUpdate({ id: id}, {$inc:{motos: 1}}, {new:true})
+  await Datas.Motos.updateOne({ id: id}, {$inc:{motos: 1}}, {new:true})
   const newdata = await Datas.Motos.find();
   return res.json(newdata)
 }
@@ -28,7 +28,7 @@ export const restaurarmotos = async (id:number) =>{
 
     console.log('restaurar motos')
 
-  await Datas.Motos.findOneAndUpdate({ id: id}, {motos: 8}, {new:true})
+  await Datas.Motos.updateOne({ id: id}, {motos: 8}, {new:true})
 
 }
 

@@ -10,30 +10,27 @@ interface hour {
 
 }
 
-const convertHour = (miliseconds : number) =>{
+const convertHour = (mss : number) =>{
 
-  let seconds = Math.floor(miliseconds / 1000);
-  let minutes = Math.floor(seconds / 60);
-  let hours = Math.floor(minutes / 60);
-
-  
+  let hours = Math.floor((mss % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  let minutes = Math.floor((mss % (1000 * 60 * 60)) / (1000 * 60));
 
   return {hour : hours, minutes : minutes }
 }
 
 let hours: hour[]=[];
 
-let miliseconds=270000; //seteado a las 7:30
+let miliseconds=27000000; //seteado a las 7:30
 
 for (let i=0;i<=24;i++){
 
-      miliseconds+=1800;
+      miliseconds+=1800000;
 
       const date = new Date()
 
       let hour = {  hour : convertHour(miliseconds).hour,
                     minutes : convertHour(miliseconds).minutes,
-                    day : 1
+                    day : 0
                 }
 
       hours = hours.concat(hour)
@@ -62,32 +59,30 @@ export function checkHour(){
 
       let actualTime = time()
 
-      let i=1;
+      let i=0;
+
+      console.log('hours',hours)
 
       setInterval( () => { 
         
-        console.log('hours: ', hours)
-        
         hours = hours.map((time) => {
 
-        if (  time.hour < actualTime.hour  
-              && time.day !== actualTime.day
-              || 
-              time.hour === actualTime.hour 
-              && time.minutes === 0 
-              && actualTime.minutes >= 30){
+              i++;  
 
-            console.log('true')
+              if (  time.hour < actualTime.hour  
+                    && time.day !== actualTime.day
+                    || 
+                    time.hour === actualTime.hour 
+                    && time.minutes === 0 
+                    && actualTime.minutes >= 30){
 
-            restaurarmotos(i)
+                  restaurarmotos(i)
 
-            return {...time, day : actualTime.day}
+                  return {...time, day : actualTime.day}
 
-          }
+                }
 
-        i++
-
-        return time;
+              return time;
 
 
 
