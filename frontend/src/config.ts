@@ -3,11 +3,12 @@
 
 export default {
 
-    APIURL : 'https://webpersonal-darthenis.vercel.app'
+    APIURL : 'https://personalwebapi.herokuapp.com'
 
 
 }
 
 // http://localhost:4000
 
-// https://webpersonal-darthenis.vercel.app
+// https://personalwebapi.herokuapp.com
+
