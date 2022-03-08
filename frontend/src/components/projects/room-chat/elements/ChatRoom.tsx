@@ -419,7 +419,7 @@ const ChatRoom = (props: {myUser : string}) => {
 
                                         <div id='menu-responsive'>
 
-                                            <i className="fas fa-ellipsis-v" onClick={activeMenu}>Salas</i>
+                                            <i className="fas fa-ellipsis-v" onClick={activeMenu}> Salas</i>
                                             
                                         </div>
 
