@@ -296,7 +296,7 @@ const ChatRoom = (props: {myUser : string}) => {
                
             } 
             
-            if (e.key === 'Enter' === e.shiftKey){
+            if (e.key === 'Enter' && e.shiftKey){
 
                 e.preventDefault()
 
