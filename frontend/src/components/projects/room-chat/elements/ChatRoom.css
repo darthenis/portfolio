@@ -181,6 +181,7 @@
         top: 0px;
         height: 100%;
         max-height: none;
+        grid-template-rows: 7% 80% 100px;
     }
 
 
@@ -202,7 +203,7 @@
     #main-chat-title {
         grid-column: 1/-1;
         width: 100%;
-        height: 100px;
+        height: 50px;
         position: -webkit-sticky;
         top: 0px;
 
@@ -228,7 +229,6 @@
 
     #chat-in{
         grid-column: 1/-1;
-        position: fixed;
         bottom: 0px;
         width: 100%;
         height: 100px;
