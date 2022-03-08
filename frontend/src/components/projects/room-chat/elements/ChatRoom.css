@@ -151,6 +151,12 @@
     cursor: pointer;
 }
 
+#chat-in:focus{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
 #chat-in > button:hover{
     background: rgb(214, 214, 214);
 }
