@@ -284,9 +284,6 @@ const ChatRoom = (props: {myUser : string}) => {
 
     let isMobile = regExp.test(details);
 
- 
-
-
     const sendMsgEnter = (e : React.KeyboardEvent<HTMLTextAreaElement>) =>{
        
         if(!isMobile){
@@ -301,7 +298,24 @@ const ChatRoom = (props: {myUser : string}) => {
 
         }   
  
-}
+    }
+
+    const jumpLine = (e : React.KeyboardEvent<HTMLTextAreaElement>) =>{
+
+        e.preventDefault()
+
+        if(!isMobile){
+
+            if(e.key === 'Enter' && e.shiftKey){ 
+        
+                textarearef.current!.value += '\n'
+    
+            }
+
+        }
+
+    
+    }
 
 //------------------------------------privateMsg-------------------------------------------
 
@@ -477,7 +491,8 @@ const ChatRoom = (props: {myUser : string}) => {
                                                   rows={1}
                                                   value={myNewMsg.message}
                                                   ref={textarearef}
-                                                  onKeyPress={sendMsgEnter} 
+                                                  onKeyPress={sendMsgEnter}
+                                                  onKeyDown={jumpLine}
                                                   placeholder='Escriba su mensaje'
                                                   onChange={setMessage}></textarea>
                                         <button onClick={sendMsg}>Enviar</button>
