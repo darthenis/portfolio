@@ -294,27 +294,18 @@ const ChatRoom = (props: {myUser : string}) => {
 
                 numberChat===-1 ? sendMsgMainChat() : sendMsgPrivate()
                
+            } 
+            
+            if (e.key === 'Enter' === e.shiftKey){
+
+                e.preventDefault()
+
+                textarearef.current!.value += '\n'
+
             }
 
         }   
  
-    }
-
-    const jumpLine = (e : React.KeyboardEvent<HTMLTextAreaElement>) =>{
-
-        e.preventDefault()
-
-        if(!isMobile){
-
-            if(e.key === 'Enter' && e.shiftKey){ 
-        
-                textarearef.current!.value += '\n'
-    
-            }
-
-        }
-
-    
     }
 
 //------------------------------------privateMsg-------------------------------------------
@@ -492,7 +483,6 @@ const ChatRoom = (props: {myUser : string}) => {
                                                   value={myNewMsg.message}
                                                   ref={textarearef}
                                                   onKeyPress={sendMsgEnter}
-                                                  onKeyDown={jumpLine}
                                                   placeholder='Escriba su mensaje'
                                                   onChange={setMessage}></textarea>
                                         <button onClick={sendMsg}>Enviar</button>
