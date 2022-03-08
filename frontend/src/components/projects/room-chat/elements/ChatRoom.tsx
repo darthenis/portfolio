@@ -288,7 +288,7 @@ const ChatRoom = (props: {myUser : string}) => {
        
         if(!isMobile){
 
-            if(e.key==='Enter'){
+            if(e.key==='Enter' && !e.shiftKey){
 
                 e.preventDefault()
 
