@@ -3,11 +3,11 @@
 
 export default {
 
-    APIURL : 'https://webpersonal-darthenis.vercel.app/'
+    APIURL : 'https://webpersonal-darthenis.vercel.app'
 
 
 }
 
-// http://localhost:4000/
+// http://localhost:4000
 
-// https://webpersonal-darthenis.vercel.app/
+// https://webpersonal-darthenis.vercel.app
