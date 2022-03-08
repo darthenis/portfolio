@@ -451,12 +451,10 @@ footer > div > img {
     }
 
 
-    #title > i{
+    #title > div > i{
         position: relative;
         display: inline-block;
         font-size: 20px;
-        left: 10%;
-        top: 20%; 
     }
 
    #title{
@@ -474,12 +472,6 @@ footer > div > img {
        align-self: flex-start;
        z-index: 9999;
        border-radius: 0px;
-   }
-
-   #title > i {
-
-    background-color: white;
-
    }
 
 
