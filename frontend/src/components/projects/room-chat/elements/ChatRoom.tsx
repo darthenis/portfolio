@@ -22,8 +22,6 @@ const ChatRoom = (props: {myUser : string}) => {
 
     const [numberChat, setNumberChat] = useState<number>(-1)
 
-    const [chatActive, setChatActive] = useState(false)
-
     const [titleChat, setTitleChat] = useState('Sala Principal')
 
 
@@ -157,10 +155,6 @@ const ChatRoom = (props: {myUser : string}) => {
 
             addNewUsers(res)
 
-            console.log(res)
-
-
-
         })
 
         return () => {socket.off()};
@@ -283,16 +277,30 @@ const ChatRoom = (props: {myUser : string}) => {
       
     }
 
-    const sendMsgEnter = (e : React.KeyboardEvent<HTMLTextAreaElement>) =>{
 
-        if(e.key==='Enter'){
+    let details = navigator.userAgent;
+
+    let regExp = /android|iphone|kindle|ipad/i;
+
+    let isMobile = regExp.test(details);
+
+ 
+
+
+    const sendMsgEnter = (e : React.KeyboardEvent<HTMLTextAreaElement>) =>{
+       
+        if(!isMobile){
+
+            if(e.key==='Enter'){
 
                 e.preventDefault()
 
                 numberChat===-1 ? sendMsgMainChat() : sendMsgPrivate()
                
-        }
+            }
 
+        }   
+ 
 }
 
 //------------------------------------privateMsg-------------------------------------------
