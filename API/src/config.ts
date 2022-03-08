@@ -6,7 +6,7 @@ export default {
      MONGO_USER :  process.env.MONGO_USER || 'admin',
      MONGO_PASS :  process.env.MONGO_PASS || 'lorencia676',
      PORT       :  process.env.PORT || 4000,
-     WEBURL     :  'https://webpersonal-darthenis.vercel.app'
+     WEBURL     :  'http://localhost:3000'
 }
 
 
