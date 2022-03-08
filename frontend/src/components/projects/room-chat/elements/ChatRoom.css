@@ -226,6 +226,9 @@
 
     #chat-in{
         grid-column: 1/-1;
+        position: fixed;
+        bottom: 0px;
+        width: 100%;
     }
 
 }
