@@ -199,9 +199,8 @@
     }
 
     #main-chat-title {
-
+        grid-column: 1/-1;
         width: 100%;
-        height: 100px;
         position: -webkit-sticky;
         top: 0px;
 
