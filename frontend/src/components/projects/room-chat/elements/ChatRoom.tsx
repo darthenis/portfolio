@@ -279,7 +279,7 @@ const ChatRoom = (props: {myUser : string}) => {
 
     const sendMsg = () =>{
 
-        !chatActive ? sendMsgMainChat() : sendMsgPrivate()
+        chatActive ? sendMsgMainChat() : sendMsgPrivate()
       
     }
 
