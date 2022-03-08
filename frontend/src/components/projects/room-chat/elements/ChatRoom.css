@@ -131,6 +131,7 @@
 #chat-in{
     display: flex;
     align-items: center;
+    min-width: 100px;
     background: rgb(221, 220, 220);
     margin-left: 1px;
     border-bottom: solid 3px rgb(50, 88, 105);
