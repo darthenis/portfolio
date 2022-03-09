@@ -1,5 +1,5 @@
-import react, {Dispatch, SetStateAction, useEffect, useRef, useState} from 'react'
-import { messagesUser, Users } from './interfaces'
+import react, {Dispatch, SetStateAction, useEffect, useMemo, useRef, useState} from 'react'
+import { messagesMainChat, Users } from './interfaces'
 
 
 
@@ -12,11 +12,12 @@ const PrivateChat = (props: { users : Users[],
 
     const endmessage = useRef<HTMLDivElement>(null);
 
+
     useEffect(()=>{
 
-            endmessage.current!==null && endmessage.current.scrollIntoView(); 
+                endmessage.current!==null && endmessage.current.scrollIntoView(); 
 
-    }, [JSON.stringify(props.users[props.numberChat].privateChat)] )
+    }, [props.users] )
 
 
     const classChat = (user : string) => {
@@ -39,7 +40,7 @@ const PrivateChat = (props: { users : Users[],
 
                         {props.users[props.numberChat].privateChat.map((chat : any)=>{
 
-                                        if(chat.user==='') return <div>Bienvenide al chat privado.</div>
+                                        if(chat.user==='') return <div className='systemMessage'>Bienvenide al chat privado.</div>
 
                                         return <div id={Math.random().toString()} className={classChat(chat.user)}>
 

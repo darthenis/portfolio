@@ -4,8 +4,6 @@ import react, {useEffect, useRef} from 'react'
 const MainChat = (props: {mainChat : any, myUser : string}) =>{
 
 
-
-
     const scrollref = useRef<HTMLDivElement>(null);
 
 
@@ -22,9 +20,6 @@ const MainChat = (props: {mainChat : any, myUser : string}) =>{
             else if (user !== props.myUser) {return 'users-chat'}
             return 'myuser-chat'
             
-
-
-
     }
 
     return (

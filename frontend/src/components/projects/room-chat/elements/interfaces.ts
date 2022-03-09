@@ -1,7 +1,13 @@
 
 
+export interface MyUserMessages {
 
-export interface messagesUser {
+        user : string,
+        message : string,
+
+}
+
+export interface messagesMainChat {
 
             user : string,
             message : string
@@ -15,5 +21,14 @@ export interface Users{
             newMsg : boolean,
             state : boolean
             
+
+}
+
+
+export interface ChatState {
+
+    users : Users[],
+    messages : messagesMainChat[],
+    chatActive : number
 
 }

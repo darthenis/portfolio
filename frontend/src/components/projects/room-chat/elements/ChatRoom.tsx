@@ -1,21 +1,22 @@
 import React, { useState, useRef, useEffect } from 'react'
 import socket from '../../motos/sockets'
-import { messagesUser, Users } from './interfaces'
+import { messagesMainChat, MyUserMessages, Users } from './interfaces'
 import './ChatRoom.css'
-import {useImmer} from 'use-immer'
+
 import MainChat from './mainchat'
 import PrivateChat from './privatechat'
 import {List, ListUsers} from './ChatRoom-styled'
+import { message } from '../../../interfaces-types'
 
 let usersload = false;
 
 const ChatRoom = (props: {myUser : string}) => {
 
-    const [users, setUsers] = useImmer<Users[]>([])
+    const [users, setUsers] = useState<Users[]>([])
 
-    const [chat, setChat] = useState<messagesUser[]>([])
+    const [chat, setChat] = useState<messagesMainChat[]>([])
 
-    const [myNewMsg, setMyNewMsg] = useState<messagesUser>({
+    const [myNewMsg, setMyNewMsg] = useState<MyUserMessages>({
                                                                 user : props.myUser,
                                                                 message : ''
                                                             })
@@ -89,8 +90,24 @@ const ChatRoom = (props: {myUser : string}) => {
         setUsers([...newState])
     }
 
+    const deleteUser = (username : string) => {
 
-    const newPrivateMsg = (data : messagesUser, userPrivate?:string) =>{
+        const newState : Users [] = users.filter( user => user.user!==username)
+
+        const newChat : messagesMainChat [] = chat.filter(msg => msg.user!==username)
+
+        const index = users.findIndex(user => user.user===username)
+
+        if(index === numberChat) setNumberChat(-1)
+
+        setChat([...newChat])
+
+        setUsers([...newState])
+
+    }
+
+
+    const newPrivateMsg = (data : messagesMainChat, userPrivate?:string) =>{
 
 
             const newMessage = {
@@ -172,9 +189,7 @@ const ChatRoom = (props: {myUser : string}) => {
 
          if(!checkUser){
 
-                    let array=[newuser]
-
-                    addNewUsers(array)
+                    addNewUsers([newuser])
                     
                     setChat(chat => [...chat, systemMessage(newuser)])
             
@@ -195,7 +210,7 @@ const ChatRoom = (props: {myUser : string}) => {
 
     useEffect(()=>{
 
-        socket.on('newmsg', (res : messagesUser) => {
+        socket.on('newmsg', (res : messagesMainChat) => {
 
             setChat(chat => [...chat, res])
 
@@ -209,7 +224,7 @@ const ChatRoom = (props: {myUser : string}) => {
 
         socket.on('disconnectuser', (user) =>{
 
-            updateStateUser(user)
+            deleteUser(user)
 
             systemLeaveMessage(user)
 
