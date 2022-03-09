@@ -143,7 +143,7 @@ body{
 }
 
 #menu > button{
-    font-size: 1em;
+    font-size: calc(2em - .5vw);
     font-family: Exarros;
     cursor: pointer;
     cursor: hand;
