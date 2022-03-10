@@ -3,7 +3,7 @@
 
 export default {
 
-    APIURL : 'http://localhost:4000'
+    APIURL : 'https://personalwebapi.herokuapp.com'
 
 
 }
