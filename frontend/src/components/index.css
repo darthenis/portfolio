@@ -44,7 +44,6 @@ body{
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
-    margin-top: 1%;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: 150px 7fr 1fr;
