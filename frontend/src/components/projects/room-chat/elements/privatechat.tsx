@@ -1,12 +1,11 @@
 import react, {Dispatch, SetStateAction, useEffect, useMemo, useRef, useState} from 'react'
-import { messagesMainChat, Users } from './interfaces'
+import { ChatState, messagesMainChat, Users } from './interfaces'
 
 
 
 
-const PrivateChat = (props: { users : Users[], 
-                              setUsers : Dispatch<SetStateAction<Users[]>>
-                              numberChat : number
+const PrivateChat = (props: { chatState : ChatState, 
+                              setChatState : Dispatch<SetStateAction<ChatState>>
                               myUser : string}) => {
                                 
 
@@ -17,7 +16,7 @@ const PrivateChat = (props: { users : Users[],
 
                 endmessage.current!==null && endmessage.current.scrollIntoView(); 
 
-    }, [props.users] )
+    }, [props.chatState.users] )
 
 
     const classChat = (user : string) => {
@@ -28,8 +27,6 @@ const PrivateChat = (props: { users : Users[],
 
         }
 
-        console.log(props.users)
-
 
             return (
 
@@ -38,7 +35,7 @@ const PrivateChat = (props: { users : Users[],
 
                         
 
-                        {props.users[props.numberChat].privateChat.map((chat : any)=>{
+                        {props.chatState.users[props.chatState.chatActive].privateChat.map((chat : any)=>{
 
                                         if(chat.user==='') return <div className='systemMessage'>Bienvenide al chat privado.</div>
 

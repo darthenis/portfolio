@@ -10,26 +10,29 @@ module.exports = () => {
 
                     socket.on('userchat', (user) => {
 
-                        console.log('userchat', user)
-
                         const newuser:user={nombre: user.nombre, id : socket.id}
 
                         const result = adduser(newuser)
 
                         if (result==='correct') {
-
-                                const actualUsers = chatroomusers.map(users => users.nombre)
-                                let i = actualUsers.indexOf(user.nombre)
-                                actualUsers.splice(i, 1)
                                 
                                 socket.join('chatRoom'); 
                                 socket.emit('done', 'completed')
-                                socket.emit('users', actualUsers)
                                 socket.to('chatRoom').emit('newUser', user.nombre)
 
                             }else{ 
                                 socket.emit('done', 'error')
                                 }
+
+                    })
+
+                    socket.on('getUsers', (user) => {
+
+                        const actualUsers = chatroomusers.map(users => users.nombre)
+                                let i = actualUsers.indexOf(user.nombre)
+                                actualUsers.splice(i, 1)
+
+                        socket.emit('users', actualUsers)
 
                     })
 

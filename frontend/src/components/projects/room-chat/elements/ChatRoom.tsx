@@ -1,30 +1,24 @@
 import React, { useState, useRef, useEffect } from 'react'
 import socket from '../../motos/sockets'
-import { messagesMainChat, MyUserMessages, Users } from './interfaces'
+import { ChatState, messagesMainChat, MyUserMessages, Users } from './interfaces'
 import './ChatRoom.css'
 
 import MainChat from './mainchat'
 import PrivateChat from './privatechat'
 import {List, ListUsers} from './ChatRoom-styled'
-import { message } from '../../../interfaces-types'
 
 let usersload = false;
 
 const ChatRoom = (props: {myUser : string}) => {
 
-    const [users, setUsers] = useState<Users[]>([])
-
-    const [chat, setChat] = useState<messagesMainChat[]>([])
+    const [chatState, setChatState] = useState<ChatState>({ users : [], messages : [], chatActive : -1 });
 
     const [myNewMsg, setMyNewMsg] = useState<MyUserMessages>({
                                                                 user : props.myUser,
                                                                 message : ''
                                                             })
 
-    const [numberChat, setNumberChat] = useState<number>(-1)
-
     const [titleChat, setTitleChat] = useState('Sala Principal')
-
 
     const systemMessage = (username : string) => {
 
@@ -39,47 +33,35 @@ const ChatRoom = (props: {myUser : string}) => {
 
     const systemLeaveMessage = (username : string) => {
 
-        let newMsg = {
+        return {
             user : 'Chat Room',
             message: username + ' ha abandonado el chat'
         }
-
-        const newObject : Users [] = users.map(user => {
-
-            if(user.user===username) return {...user, messages : newMsg}
-
-            return user;
-        })
-
-        setUsers([...newObject])
-
-        setChat(chat.concat(newMsg))
 
     }
 
 
     const addNewUsers = (listusers : string[]) => {
 
-        listusers.map(newUser => {   
+       let newUsers : Users[] = listusers.map(nUser => {   
 
-            let User : Users= {
+            return {
 
-                user : newUser,
-                privateChat : [{user : '', message: ''}],
-                newMsg : false,
-                state : true
-            }
-
-            setUsers(users => users.concat(User))
-
+                    user : nUser,
+                    privateChat : [{user : '', message: ''}],
+                    newMsg : false,
+                    state : true
+                }
+                
         })
 
+        setChatState({...chatState, users : [...chatState.users.concat(newUsers)]})
 
     }
 
     const updateStateUser = (username : string) => {
 
-        const newState : Users [] = users.map( user =>{
+        const newState : Users [] = chatState.users.map( user =>{
 
                             if (user.user===username)  return {...user, state : user.state!}
 
@@ -87,22 +69,20 @@ const ChatRoom = (props: {myUser : string}) => {
 
                         })
 
-        setUsers([...newState])
+        setChatState({...chatState, users : [...newState]})
     }
 
     const deleteUser = (username : string) => {
 
-        const newState : Users [] = users.filter( user => user.user!==username)
+        const newState : Users [] = chatState.users.filter( user => user.user!==username)
 
-        const newChat : messagesMainChat [] = chat.filter(msg => msg.user!==username)
+        const newChat : messagesMainChat [] = chatState.messages.filter(msg => msg.user!==username)
 
-        const index = users.findIndex(user => user.user===username)
+        const index = chatState.users.findIndex(user => user.user===username)
 
-        if(index === numberChat) setNumberChat(-1)
-
-        setChat([...newChat])
-
-        setUsers([...newState])
+        setChatState({...chatState, users : [...newState], 
+                                    messages : [...newChat.concat(systemLeaveMessage(username))], 
+                                    chatActive : index === chatState.chatActive ? -1 : chatState.chatActive})
 
     }
 
@@ -123,7 +103,7 @@ const ChatRoom = (props: {myUser : string}) => {
 
             if(userPrivate) {
                 
-                index = users.findIndex(e => e.user===userPrivate)
+                index = chatState.users.findIndex(e => e.user===userPrivate)
 
                 actualUser = userPrivate
 
@@ -131,7 +111,7 @@ const ChatRoom = (props: {myUser : string}) => {
             
             }  else  { 
                 
-                index = users.findIndex(e => e.user===data.user)
+                index = chatState.users.findIndex(e => e.user===data.user)
             
                 actualUser = data.user
             
@@ -140,7 +120,7 @@ const ChatRoom = (props: {myUser : string}) => {
             }
 
 
-            const newObject : Users [] = users.map(item => {
+            const newObject : Users [] = chatState.users.map(item => {
 
                         if(item.user===actualUser){
 
@@ -157,9 +137,7 @@ const ChatRoom = (props: {myUser : string}) => {
 
             })
 
-            setUsers([...newObject])
-
-            
+            setChatState({...chatState, users : [...newObject]})
 
     }
                 
@@ -170,6 +148,8 @@ const ChatRoom = (props: {myUser : string}) => {
 
         socket.on('users', (res : string[])=>{
 
+            console.log('new user: ', res)
+
             addNewUsers(res)
 
         })
@@ -177,7 +157,15 @@ const ChatRoom = (props: {myUser : string}) => {
         return () => {socket.off()};
 
 
-    }, )
+    },)
+
+    useEffect(()=>{
+
+
+        socket.emit('getUsers', props.myUser)
+
+
+    },[])
 
 
 
@@ -185,21 +173,17 @@ const ChatRoom = (props: {myUser : string}) => {
 
         socket.on('newUser', (newuser : string) =>{
 
-         const checkUser = users.find(user => user.user===newuser)
+         const checkUser = chatState.users.find(user => user.user===newuser)
 
          if(!checkUser){
 
                     addNewUsers([newuser])
-                    
-                    setChat(chat => [...chat, systemMessage(newuser)])
             
                 } else { 
 
                   updateStateUser(newuser)
 
                 }
-
-         
 
         } )
 
@@ -212,7 +196,7 @@ const ChatRoom = (props: {myUser : string}) => {
 
         socket.on('newmsg', (res : messagesMainChat) => {
 
-            setChat(chat => [...chat, res])
+            setChatState({...chatState, messages : [...chatState.messages, res]})
 
           })
 
@@ -225,8 +209,6 @@ const ChatRoom = (props: {myUser : string}) => {
         socket.on('disconnectuser', (user) =>{
 
             deleteUser(user)
-
-            systemLeaveMessage(user)
 
         })
 
@@ -265,7 +247,7 @@ const ChatRoom = (props: {myUser : string}) => {
         if (myNewMsg.message!==''){
                 socket.emit('sendmsg', myNewMsg)
 
-                setChat(chat => [...chat, myNewMsg])
+                setChatState({...chatState, messages : [...chatState.messages, myNewMsg]})
 
                 setMyNewMsg({...myNewMsg, message : ''})
         }
@@ -288,7 +270,7 @@ const ChatRoom = (props: {myUser : string}) => {
 
     const sendMsg = () =>{
 
-        numberChat ===-1 ? sendMsgMainChat() : sendMsgPrivate()
+        chatState.chatActive === -1 ? sendMsgMainChat() : sendMsgPrivate()
       
     }
 
@@ -307,7 +289,7 @@ const ChatRoom = (props: {myUser : string}) => {
 
                 e.preventDefault()
 
-                numberChat===-1 ? sendMsgMainChat() : sendMsgPrivate()
+                chatState.chatActive === -1 ? sendMsgMainChat() : sendMsgPrivate()
                
             } 
             
@@ -327,9 +309,9 @@ const ChatRoom = (props: {myUser : string}) => {
 
     const privateRoom = (username : string) => {
 
-            const index = users.findIndex(item => item.user===username)
+            const index = chatState.users.findIndex(item => item.user===username)
 
-            setNumberChat(index)
+            setChatState({...chatState, chatActive : index})
 
             setActive({...active, call : false, push : true})
 
@@ -338,9 +320,9 @@ const ChatRoom = (props: {myUser : string}) => {
 
     const sendMsgPrivate = () =>{
 
-        socket.emit('privatemsg', myNewMsg, users[numberChat].user)
+        socket.emit('privatemsg', myNewMsg, chatState.users[chatState.chatActive].user)
 
-        newPrivateMsg(myNewMsg, users[numberChat].user)
+        newPrivateMsg(myNewMsg, chatState.users[chatState.chatActive].user)
 
         setMyNewMsg({...myNewMsg, message : ''})
 
@@ -348,9 +330,9 @@ const ChatRoom = (props: {myUser : string}) => {
 
     useEffect(()=>{
 
-        if(numberChat!==-1){
+        if(chatState.chatActive !== -1){
 
-            setTitleChat(users[numberChat].user)
+            setTitleChat(chatState.users[chatState.chatActive].user)
 
         } else {
 
@@ -363,7 +345,7 @@ const ChatRoom = (props: {myUser : string}) => {
 
     const mainChat = () => {
 
-        setNumberChat(-1)
+        setChatState({...chatState, chatActive : -1})
 
         setActive({...active, call : false, push : true})
 
@@ -371,21 +353,21 @@ const ChatRoom = (props: {myUser : string}) => {
 
     const checkNewMsg = (username : string) => {
 
-            const index = users.findIndex(item => item.user===username)
+            const index = chatState.users.findIndex(item => item.user===username)
 
-            if(index===numberChat) return false
+            if(index===chatState.chatActive) return false
 
-            return users[index].newMsg
+            return chatState.users[index].newMsg
 
     }
 
     useEffect(()=>{   //verifica en que chat se encuentra para desactivar avisos
 
-        if(numberChat!==-1) {
+        if(chatState.chatActive !== -1) {
             
-                    const name = users[numberChat].user
+                    const name = chatState.users[chatState.chatActive].user
             
-                    const newArray = users.map(item => {
+                    const newArray = chatState.users.map(item => {
 
                                 if(item.user === name) {
 
@@ -396,22 +378,22 @@ const ChatRoom = (props: {myUser : string}) => {
 
                     })
 
-                    setUsers([...newArray])
+                    setChatState({...chatState, users : [...newArray]})
         }
 
-    }, [numberChat])
+    }, [chatState.chatActive])
 
     const checkChatActive = (chat : string) => {
 
         if (chat==='Sala Principal') {
 
-            if(numberChat===-1) return true
+            if(chatState.chatActive===-1) return true
 
         } else {
 
-                const index = users.findIndex(user => user.user === chat)
+                const index = chatState.users.findIndex(user => user.user === chat)
 
-                if (index===numberChat) return true 
+                if (index===chatState.chatActive) return true 
 
                 return false
 
@@ -462,7 +444,7 @@ const ChatRoom = (props: {myUser : string}) => {
                                                 chatActive={checkChatActive('Sala Principal')} 
                                                 onClick={mainChat}>Sala Principal</List>
 
-                                        {users.map((item) => {
+                                        {chatState.users.map((item) => {
         
 
                                             return <List chatActive={checkChatActive(item.user)} 
@@ -482,9 +464,9 @@ const ChatRoom = (props: {myUser : string}) => {
                                     </ListUsers>
 
 
-                                       {numberChat===-1 && <MainChat myUser={props.myUser} mainChat={chat}></MainChat>}
+                                       {chatState.chatActive === -1 && <MainChat myUser={props.myUser} mainChat={chatState.messages}></MainChat>}
 
-                                       {numberChat>=0 && <PrivateChat myUser={props.myUser} users={users} setUsers={setUsers} numberChat={numberChat}></PrivateChat>}
+                                       {chatState.chatActive >= 0 && <PrivateChat myUser={props.myUser} chatState={chatState} setChatState={setChatState}></PrivateChat>}
 
 
                                     
@@ -502,37 +484,11 @@ const ChatRoom = (props: {myUser : string}) => {
                                                   onChange={setMessage}></textarea>
                                         <button onClick={sendMsg}>Enviar</button>
 
-                                    </div>
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
+                                    </div>            
                             
                               </div>
 
-
-
-
-
-
-
-
-
                 )
-
-
-
-
-
-
 
 }
 
