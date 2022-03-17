@@ -36,9 +36,9 @@ for ( let i=0;i<=24;i++ ){
   const loadmotos = async () =>{
     const res = await getMotos()
 
-    console.log('motos: ', res)
+    const orderMotos = res.data.sort((a : motos, b : motos) => (a.id > b.id ? 1 : a.id < b.id ? -1 : 0));
 
-    setmotos(res.data);
+    setmotos(orderMotos);
   }
 
   useEffect(()=>{
@@ -194,7 +194,7 @@ for ( let i=0;i<=24;i++ ){
                 </div>
 
                 <>
-                {motos.map((motos) => {
+                { motos.map((motos) => {
 
                             return <MotosDiv 
                                     loadactive={loading} 
