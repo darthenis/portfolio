@@ -41,6 +41,7 @@ const slideOff = keyframes`
 export const Nav = styled.nav<activeEffect>`
         @media only screen and (max-width: 840px){
                 position: fixed;
+                background-color: rgb(10, 17, 31); 
                 width: 100%;
                 z-index:-1;
                 top:-1000px;
@@ -70,28 +71,35 @@ export const Nav = styled.nav<activeEffect>`
 
 export const ButtonNav = styled.button<menuActive>`
 
-    background-color: rgb(0, 13, 24);
     color: aqua;
-    text-shadow: black 0.1em 0.1em 0.2em;
     position: relative;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-    margin: 1rem;
     height: fit-content;
-    font-size: calc(.3rem + .7vh);
+    font-size: 15px;
+    font-family: 'Lucida Sans';
     letter-spacing: 2px;
     border: none;
-    border-bottom: solid 2px ${props => props.active ? 'aqua' : 'rgb(0, 13, 24)'};
+    padding: 10px 10px 0px 10px; ;
     outline: none;
     transition-duration: .5s;
     cursor: pointer;
     cursor: hand;
 
+    &:after{
+
+        display:block;
+        content: '';
+        margin-top: 10px;
+        border-bottom: solid 3px #06deff;  
+        transform: scaleX(${props => props.active ? '1' : '0'});  
+        transition: transform 350ms ease-in-out;
+
+    }    
 
 
-    &:hover {
-        border-bottom: solid 2px aqua;
+    &:hover:after{
+        transform: scaleX(1); 
     }
+
 
 `
 

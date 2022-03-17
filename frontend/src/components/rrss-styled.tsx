@@ -30,10 +30,11 @@ export const Contact = styled.div<sendEmail>`
 export const Form = styled.form<sendEmail>`
 
             display: ${props => props.emailSend ? 'none' : 'grid' };
-            grid-gap: .5rem;
+            grid-gap: 1rem;
             grid-template-columns: 50% 50%;
-            grid-template-rows: 5rem 5rem 1rem 5rem 30rem;
+            grid-template-rows: 3rem 3rem 1rem 3rem 20rem;
             width: 80%;
+            max-width: 500px;
             text-align: center;
             margin: 0 auto;
             margin-top: 2%;

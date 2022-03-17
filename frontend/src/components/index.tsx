@@ -64,9 +64,9 @@ import Iconreact from './media/icon-react.png'
                         
                                 <header id="title">
 
-                                        <div id="logo" onClick= {()=> selectMenu('main')}>Emiliano<br/>A. Acevedo</div>
+                                        <div id="logo" onClick= {()=> selectMenu('main')}>Emiliano Acevedo</div>
 
-                                        <div><i className="fas fa-bars" onClick={activeMenu}/></div>
+                                        <div id='iconResponsive'><i className="fas fa-bars" onClick={activeMenu}/></div>
 
                                 </header>
 
@@ -75,9 +75,9 @@ import Iconreact from './media/icon-react.png'
                                         disactive={active.push}
                                         id="menu">
                                         
-                                        <ButtonNav active={compActive.project} className="button" onClick= {()=> selectMenu('project')}>Proyectos</ButtonNav>
-                                        <ButtonNav active={compActive.about} className="button" onClick= {()=> selectMenu('about')}>Sobre Mi</ButtonNav>
-                                        <ButtonNav active={compActive.rrss} className="button" onClick= {()=> selectMenu('rrss')}>Contacto</ButtonNav>
+                                        <ButtonNav active={compActive.project} className="button" onClick= {()=> selectMenu('project')}>PROYECTOS</ButtonNav>
+                                        <ButtonNav active={compActive.about} className="button" onClick= {()=> selectMenu('about')}>SOBRE MI</ButtonNav>
+                                        <ButtonNav active={compActive.rrss} className="button" onClick= {()=> selectMenu('rrss')}>CONTACTO</ButtonNav>
 
                                 </Nav> 
                                     
@@ -89,8 +89,13 @@ import Iconreact from './media/icon-react.png'
                                   
                                 <footer>
 
-                                        <div>Diseñado y programado por: <br/> Emiliano A. Acevedo </div>
-                                        <div>Powered by React<br/><img src={Iconreact} alt=""/></div>
+                                        <p>Emiliano A. Acevedo &copy; {new Date().getFullYear()} Powered by React</p>
+                                        <div id='redes'>
+                                                <i className="fab fa-instagram"></i>
+                                                <i className="fab fa-twitter-square"></i>
+                                                <i className="fab fa-facebook-square"></i>
+                                                <i className="fab fa-github-square"></i>
+                                        </div>
                                         
                                 </footer>
 

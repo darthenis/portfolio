@@ -126,7 +126,7 @@ const [inputState, setInputState] = useState({
 
         <div id='header-rrss'>
                 
-                      {messageSend===null && 'Si desea contactarse conmigo para consultarme sobre mis servicios web no dude encomunicarse a través de este formulario.'}
+                      <h2> {messageSend===null && 'Contácteme'} </h2>
         
                             </div>
 
