@@ -1,0 +1,30 @@
+---
+import LinkButton from "./LinkButton.astro"
+
+
+const pages = [ 
+    {label : "Inicio", path: "/"},
+    {label : "Proyectos", path: "#proyectos"},
+    {label : "Experiencia", path: "#experiencia"},
+    {label : "Habilidades", path: "#habilidades" },
+    {label : "Blog", path: "/blog"}, 
+]
+
+---
+
+<header class="flex py-4 px-2 justify-between items-center w-full">
+    <h1>Emiliano Acevedo</h1>
+    <nav>
+        <ul class="flex gap-4">
+            {
+                pages.map(p => (
+                    <li>
+                        <LinkButton href={p.path}>
+                            {p.label}
+                        </LinkButton>                   
+                    </li>
+                ))
+            }
+        </ul>
+    </nav>
+</header>
