@@ -1,7 +1,6 @@
 ---
 import LinkButton from "./LinkButton.astro"
 
-
 const pages = [ 
     {label : "Inicio", path: "/"},
     {label : "Proyectos", path: "#proyectos"},
@@ -12,13 +11,19 @@ const pages = [
 
 ---
 
-<header class="flex py-4 px-2 justify-between items-center w-full">
-    <h1>Emiliano Acevedo</h1>
+<header class="flex flex-col sm:flex-row py-4 px-2 justify-between items-center w-full">
+    <div class="w-full flex justify-center sm:justify-start relative">
+        <h1>Emiliano Acevedo</h1>
+        <span class="absolute top-0 right-3 sm:hidden font-bold" id="buttonNavBar">
+            <img src="/svg/hambur.svg"/>
+        </span>    
+    </div>
+    
     <nav>
-        <ul class="flex gap-4">
+        <ul id="navBar" class="sm:flex flex-col sm:flex-row gap-4 hidden transition-opacity" >
             {
                 pages.map(p => (
-                    <li>
+                    <li class="flex justify-center">
                         <LinkButton href={p.path}>
                             {p.label}
                         </LinkButton>                   
@@ -28,3 +33,24 @@ const pages = [
         </ul>
     </nav>
 </header>
+
+
+<script>
+    const button = document.getElementById('buttonNavBar');
+    const navBar = document.getElementById("navBar")
+    
+    button!.addEventListener('click', () => {
+        switchModeNavBar();
+    
+    })
+
+    const changeStateNavBarButton = () => {
+
+    }
+
+    const switchModeNavBar = () =>{
+        const hiddenExist = navBar?.classList.contains("hidden");
+        hiddenExist ? navBar?.classList.remove("hidden") :navBar?.classList.add("hidden")
+    }
+
+</script>
