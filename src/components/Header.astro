@@ -14,13 +14,13 @@ const pages = [
 <header class="flex flex-col sm:flex-row py-4 px-2 justify-between items-center w-full">
     <div class="w-full flex justify-center sm:justify-start relative">
         <h1>Emiliano Acevedo</h1>
-        <span class="absolute top-0 right-3 sm:hidden font-bold" id="buttonNavBar">
+        <span class="absolute top-0 right-3 sm:hidden font-bold transition-all" id="buttonNavBar">
             <img src="/svg/hambur.svg"/>
         </span>    
     </div>
     
     <nav>
-        <ul id="navBar" class="sm:flex flex-col sm:flex-row gap-4 hidden transition-opacity" >
+        <ul id="navBar" class="sm:flex flex-col sm:flex-row gap-4 hidden transition delay-400" >
             {
                 pages.map(p => (
                     <li class="flex justify-center">
@@ -41,16 +41,19 @@ const pages = [
     
     button!.addEventListener('click', () => {
         switchModeNavBar();
-    
+        changeStateNavBarButton();
     })
 
     const changeStateNavBarButton = () => {
-
+        const rotateExist = button.classList.contains("rotate-90");
+        rotateExist ? button.classList.remove("rotate-90") 
+                    : button.classList.add("rotate-90")
     }
 
     const switchModeNavBar = () =>{
         const hiddenExist = navBar?.classList.contains("hidden");
-        hiddenExist ? navBar?.classList.remove("hidden") :navBar?.classList.add("hidden")
+        hiddenExist ? navBar?.classList.remove("hidden") 
+                    : navBar?.classList.add("hidden")
     }
 
 </script>
